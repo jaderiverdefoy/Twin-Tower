@@ -33,3 +33,4 @@ Marketing website for **Twin Towers by Defoy**, Pahalgam, Jammu & Kashmir — a 
 
 ## Progress log
 - 10 Nov 2026: Read all md guides. Created context.md + todo.md. Decided to base the Next.js build on the Defoy project template.
+ 
