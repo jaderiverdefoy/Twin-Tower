@@ -55,6 +55,28 @@ adapted to Twin's branding, room data and URLs (`/blog`, `/stay`).
 - [x] Pruned the `experiences` content/type and the now-unused `slugify` helper.
 - [x] Confirmed sitemap / redirects contain no deleted routes.
 
+## N. Simple copy + formatted booking email
+- [x] Thank-you page copy reduced to short lines; removed "not a portal",
+      "within the hour", the 3-step list and long WhatsApp paragraph. Same
+      phrasing simplified on /contact and ClosingCTA.
+- [x] Rebuilt the Apps Script email template: branded walnut header, two-column
+      striped details table, notes block, footer; simplified plain-text fallback
+      and guest acknowledgement. Requires a new script version on deploy.
+
+## M. Forms — no guest dropdown, validation everywhere
+- [x] Contact form: removed the "Guests" select; fields renumbered, sensible
+      default of 2 guests sent to the team.
+- [x] Client-side validation for all three forms: inline field errors +
+      `aria-invalid` + banner. Contact (name, email-or-phone with format and
+      8–15-digit phone check, dates, room), popup (name, phone, dates), review
+      (rating 1–5, name, 10+ character note). Empty/invalid submits make zero
+      API calls.
+- [x] Server-side phone validation added to /api/booking so the rules hold
+      without JS.
+
+- [x] Validation messages shortened to plain copy (no character/digit
+      hints, no "highlighted fields" banner — inline field errors only).
+
 ## L. Booking form fallback (email script was private)
 - [x] Root cause found: GOOGLE_APPS_SCRIPT_BOOKING_URL pointed at a deployment
       with restricted access — Google answered 401 with a sign-in page, so the

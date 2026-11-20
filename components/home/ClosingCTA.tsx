@@ -68,7 +68,7 @@ export default function ClosingCTA() {
                 {site.email}
               </a>
               <p className="mt-5 max-w-[26ch] text-[0.8rem] leading-[1.7] text-stone">
-                A real person replies — usually within the hour.
+                We&apos;ll reply soon.
               </p>
             </div>
           </div>

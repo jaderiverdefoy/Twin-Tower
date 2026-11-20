@@ -157,6 +157,14 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const phoneDigits = phone.replace(/\D/g, "");
+  if (phone && (phoneDigits.length < 8 || phoneDigits.length > 15)) {
+    return Response.json(
+      { ok: false, error: "That phone number does not look right." },
+      { status: 422 },
+    );
+  }
+
   if ((checkin && !isDate(checkin)) || (checkout && !isDate(checkout))) {
     return Response.json(
       { ok: false, error: "Please pick valid dates." },
@@ -230,10 +238,12 @@ export async function POST(request: NextRequest) {
   };
 
   let savedToSanity = false;
+  let enquiryId: string | null = null;
   const writeClient = getSanityWriteClient();
   if (writeClient) {
     try {
-      await writeClient.create(enquiry);
+      const saved = await writeClient.create(enquiry);
+      enquiryId = saved._id;
       savedToSanity = true;
     } catch (error) {
       console.error("[booking] Could not save the enquiry in Sanity.", error);
@@ -277,15 +287,22 @@ export async function POST(request: NextRequest) {
       });
 
       const raw = await response.text().catch(() => "");
-      let payload: { ok?: boolean; error?: string } | null = null;
+      let payload: { ok?: boolean; error?: string; logged?: boolean } | null = null;
       try {
-        payload = raw ? (JSON.parse(raw) as { ok?: boolean; error?: string }) : null;
+        payload = raw
+          ? (JSON.parse(raw) as { ok?: boolean; error?: string; logged?: boolean })
+          : null;
       } catch {
         payload = null;
       }
 
       if (response.ok && payload?.ok === true) {
         emailed = true;
+        if (payload.logged === false) {
+          console.error(
+            "[booking] Apps Script sent the email but did NOT log the row to the sheet — check Apps Script Executions and the script owner's access to the spreadsheet.",
+          );
+        }
       } else {
         const looksPrivate =
           response.status === 401 ||
@@ -316,6 +333,14 @@ export async function POST(request: NextRequest) {
       },
       { status: 503, headers: { "Cache-Control": "no-store" } },
     );
+  }
+
+  if (emailed && enquiryId && writeClient) {
+    try {
+      await writeClient.patch(enquiryId).set({ emailed: true }).commit();
+    } catch (error) {
+      console.error("[booking] Could not mark the enquiry as emailed in Sanity.", error);
+    }
   }
 
   if (!emailed) {

@@ -55,6 +55,7 @@ export default function BookingPopup() {
   const [company, setCompany] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     setMounted(true);
@@ -136,23 +137,35 @@ export default function BookingPopup() {
 
   const waHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(waMessage)}`;
 
+  const validate = () => {
+    const next: Record<string, string> = {};
+    if (name.trim().length < 2) {
+      next.name = "Please add your name.";
+    }
+    const digits = phone.replace(/\D/g, "");
+    if (!digits) {
+      next.phone = "Please add a phone number we can reach you on.";
+    } else if (digits.length < 8 || digits.length > 15) {
+      next.phone = "Please add a valid phone number.";
+    }
+    if (checkin && !/^\d{4}-\d{2}-\d{2}$/.test(checkin)) {
+      next.checkin = "Please pick a valid date.";
+    }
+    if (checkout && !/^\d{4}-\d{2}-\d{2}$/.test(checkout)) {
+      next.checkout = "Please pick a valid date.";
+    }
+    if (checkin && checkout && checkout <= checkin) {
+      next.checkout = "Check-out cannot be before check-in.";
+    }
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (sending) return;
     setError(null);
-
-    if (name.trim().length < 2) {
-      setError("Please add your name.");
-      return;
-    }
-    if (phone.replace(/\D/g, "").length < 8) {
-      setError("Please add a phone number we can reach you on.");
-      return;
-    }
-    if (checkin && checkout && checkout < checkin) {
-      setError("Check-out cannot be before check-in.");
-      return;
-    }
+    if (!validate()) return;
 
     setSending(true);
     try {
@@ -365,6 +378,7 @@ export default function BookingPopup() {
                   </>
                 }
                 htmlFor="popup-name"
+                error={errors.name}
               >
                 <input
                   ref={nameRef}
@@ -374,6 +388,9 @@ export default function BookingPopup() {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Full name"
                   autoComplete="name"
+                  maxLength={80}
+                  minLength={2}
+                  aria-invalid={Boolean(errors.name)}
                   required
                   className="w-full bg-transparent py-2 text-[0.95rem] outline-none placeholder:text-ink/65"
                 />
@@ -385,6 +402,7 @@ export default function BookingPopup() {
                   </>
                 }
                 htmlFor="popup-phone"
+                error={errors.phone}
               >
                 <input
                   id="popup-phone"
@@ -394,6 +412,8 @@ export default function BookingPopup() {
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+91 …"
                   autoComplete="tel"
+                  maxLength={40}
+                  aria-invalid={Boolean(errors.phone)}
                   required
                   className="w-full bg-transparent py-2 text-[0.95rem] outline-none placeholder:text-ink/65"
                 />
@@ -401,23 +421,26 @@ export default function BookingPopup() {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Field label="05 — Check-in" htmlFor="popup-checkin">
+              <Field label="05 — Check-in" htmlFor="popup-checkin" error={errors.checkin}>
                 <input
                   id="popup-checkin"
                   name="checkin"
                   type="date"
                   value={checkin}
                   onChange={(e) => setCheckin(e.target.value)}
+                  aria-invalid={Boolean(errors.checkin)}
                   className="w-full bg-transparent py-2 text-[0.95rem] outline-none"
                 />
               </Field>
-              <Field label="06 — Check-out" htmlFor="popup-checkout">
+              <Field label="06 — Check-out" htmlFor="popup-checkout" error={errors.checkout}>
                 <input
                   id="popup-checkout"
                   name="checkout"
                   type="date"
                   value={checkout}
                   onChange={(e) => setCheckout(e.target.value)}
+                  min={checkin || undefined}
+                  aria-invalid={Boolean(errors.checkout)}
                   className="w-full bg-transparent py-2 text-[0.95rem] outline-none"
                 />
               </Field>
@@ -450,6 +473,7 @@ export default function BookingPopup() {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={1}
+                maxLength={1500}
                 placeholder="Anniversary, pickup, children's ages…"
                 className="w-full resize-none bg-transparent py-2 text-[0.95rem] outline-none placeholder:text-ink/65"
               />
@@ -583,19 +607,24 @@ function Field({
   label,
   htmlFor,
   children,
-  className,
+  error,
 }: {
   label: React.ReactNode;
   htmlFor: string;
   children: React.ReactNode;
-  className?: string;
+  error?: string;
 }) {
   return (
-    <div className={`group border-b border-line pb-1 focus-within:border-clay ${className ?? ""}`}>
+    <div className={`group border-b pb-1 ${error ? "border-clay" : "border-line focus-within:border-clay"}`}>
       <label htmlFor={htmlFor} className="eyebrow block text-ink/65">
         {label}
       </label>
       {children}
+      {error ? (
+        <span role="alert" className="block text-[0.7rem] text-clay">
+          {error}
+        </span>
+      ) : null}
     </div>
   );
 }

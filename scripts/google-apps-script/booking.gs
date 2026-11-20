@@ -55,8 +55,8 @@
  * headers matching what that form actually collects. Tabs and header rows are
  * created automatically on the first booking — or run setupBookingSheet()
  * once. Set LOG_TO_SHEET to false to stop logging. A sheet failure never
- * blocks a booking — the team email has already been sent at that point, so
- * the request is never lost.
+ * blocks a booking — the row is written before the email is sent, so the
+ * request is never lost.
  *
  * NOTES
  * -----
@@ -88,7 +88,7 @@ var LOG_TO_SHEET = true;
  * Spreadsheet to log into. Leave empty when the script is bound to the
  * spreadsheet (Extensions → Apps Script); it then uses that spreadsheet.
  */
-var SHEET_ID = "";
+var SHEET_ID = "1wcoEAL6KEWO0BulPLlwRkhsZ5DdFLFtFfCx-mpbAgOc";
 
 /** Tab for the /contact form (email included, CMS room + rate). */
 var TAB_CONTACT = "Bookings";
@@ -172,8 +172,9 @@ function doPost(e) {
 
     var subject = "Booking request — " + name + " · " + room;
     var plainBody = [
-      "New booking request from " + source,
+      "New booking request",
       "",
+      "Form:      " + (isPopup ? "Reserve popup" : "Contact form"),
       "Received:  " + receivedLabel,
       "Name:      " + name,
       "Email:     " + (email || "—"),
@@ -185,12 +186,13 @@ function doPost(e) {
       "Check-in:  " + (checkin || "—"),
       "Check-out: " + (checkout || "—"),
       "Guests:    " + (guests || "—"),
+      "Page:      " + (source || "—"),
       "",
       "Notes:",
       notes || "—",
       "",
-      "Reply directly to this email to answer the guest.",
-    ].join("\n");
+      "Reply to this email to answer the guest.",
+    ].filter(Boolean).join("\n");
 
     var options = {
       to: NOTIFY_EMAIL,
@@ -199,6 +201,13 @@ function doPost(e) {
       htmlBody: emailHtml_(receivedLabel, name, email, phone, room, rate, mealPlan, checkin, checkout, guests, notes, source, adults, children, isPopup),
     };
     if (email) options.replyTo = email;
+
+    // Log to the sheet FIRST: a MailApp failure (quota, invalid recipient,
+    // authorisation) must never cost us the booking row.
+    var sheetRow = isPopup
+      ? [receivedLabel, sheetText_(name), sheetText_(phone), sheetText_(room), sheetText_(mealPlan), adults, children, sheetText_(checkin), sheetText_(checkout), sheetText_(guests), sheetText_(source), sheetText_(notes)]
+      : [receivedLabel, sheetText_(name), sheetText_(email), sheetText_(phone), sheetText_(room), sheetText_(rate), sheetText_(checkin), sheetText_(checkout), sheetText_(guests), sheetText_(source), sheetText_(notes)];
+    var logged = logToSheet_(sheetRow, isPopup);
 
     MailApp.sendEmail(options);
 
@@ -210,15 +219,14 @@ function doPost(e) {
           body: [
             "Hello " + name + ",",
             "",
-            "Thank you — your request for the " + room + " has reached the Twin Towers by Defoy team.",
+            "We've received your request for the " + room + ". We'll be in touch soon.",
             checkin ? "Check-in:  " + checkin : "",
             checkout ? "Check-out: " + checkout : "",
             guests ? "Guests:    " + guests : "",
             "",
-            "A person from the resort will reply with availability and the final rate, usually within the hour on working days. If you would like to speak now, call or message +91 95418 98817.",
+            "Questions? Call or WhatsApp +91 95418 98817.",
             "",
             "Twin Towers by Defoy",
-            "Pahalgam, Jammu & Kashmir",
             "twintowers@defoy.in",
           ]
             .filter(Boolean)
@@ -230,12 +238,9 @@ function doPost(e) {
       }
     }
 
-    var sheetRow = isPopup
-      ? [receivedLabel, name, phone, room, mealPlan, adults, children, checkin, checkout, guests, source, notes]
-      : [receivedLabel, name, email, phone, room, rate, checkin, checkout, guests, source, notes];
-    logToSheet_(sheetRow, isPopup);
-
-    return json_({ ok: true });
+    // `logged` is false when the sheet could not be opened/written; the email
+    // still goes out so the booking is never lost. Check the Executions log.
+    return json_({ ok: true, logged: logged, emailed: true });
   } catch (error) {
     console.error(error);
     return json_({ ok: false, error: "The resort inbox could not be reached." });
@@ -270,15 +275,25 @@ function setupBookingSheet() {
   return "Contact form logs to '" + TAB_CONTACT + "', Reserve popup logs to '" + TAB_POPUP + "': " + spreadsheet.getUrl();
 }
 
+/**
+ * Forces plain text in Sheets. Values beginning with =, +, - or @ are treated
+ * as formulas by Google Sheets — a phone like "+91 …" would show #ERROR!.
+ * A leading apostrophe keeps them as literal text (it is not displayed).
+ */
+function sheetText_(value) {
+  var v = String(value == null ? "" : value);
+  return /^[=+\-@]/.test(v) ? "'" + v : v;
+}
+
 /** Appends a clearly-marked sample row so you can confirm the log works. */
 function testSheetLog() {
   var stamp = "TEST — " + Utilities.formatDate(new Date(), "Asia/Kolkata", "d MMM yyyy, HH:mm 'IST'");
   var contact = logToSheet_(
-    [stamp, "Test Guest", "test@example.com", "+91 90000 00000", "Test Room", "₹1,000 / night", "2026-01-01", "2026-01-02", "2", "manual test", "Created by testSheetLog(). Delete this row."],
+    [stamp, "Test Guest", "test@example.com", "'+91 90000 00000", "Test Room", "₹1,000 / night", "2026-01-01", "2026-01-02", "2", "manual test", "Created by testSheetLog(). Delete this row."],
     false
   );
   var popup = logToSheet_(
-    [stamp, "Test Guest", "+91 90000 00000", "Test Room", "MAP", "2", "1", "2026-01-01", "2026-01-02", "2 adults · 1 child", "manual test", "Created by testSheetLog(). Delete this row."],
+    [stamp, "Test Guest", "'+91 90000 00000", "Test Room", "MAP", "2", "1", "2026-01-01", "2026-01-02", "2 adults · 1 child", "manual test", "Created by testSheetLog(). Delete this row."],
     true
   );
   return "Contact form test row: " + (contact ? "added to '" + TAB_CONTACT + "'." : "FAILED — check the execution log")
@@ -321,47 +336,44 @@ function json_(payload) {
 
 function emailHtml_(receivedLabel, name, email, phone, room, rate, mealPlan, checkin, checkout, guests, notes, source, adults, children, isPopup) {
   var rows = [
-    ["Form", isPopup ? "Reserve popup (homepage)" : "Contact form (/contact)"],
+    ["Form", isPopup ? "Reserve popup" : "Contact form"],
     ["Received", receivedLabel],
     ["Name", name],
     ["Email", email || "—"],
     ["Phone", phone || "—"],
     ["Room", rate ? room + " · " + rate + " / night" : room],
-    ...(mealPlan ? [["Meal plan", mealPlan]] : []),
-    ...(adults ? [["Adults", adults]] : []),
-    ...(children ? [["Children", children]] : []),
-    ["Check-in", checkin || "—"],
-    ["Check-out", checkout || "—"],
-    ["Guests", guests || "—"],
-    ["Page", source || "—"],
   ];
+  if (mealPlan) rows.push(["Meal plan", mealPlan]);
+  if (adults) rows.push(["Adults", adults]);
+  if (children) rows.push(["Children", children]);
+  rows.push(["Check-in", checkin || "—"]);
+  rows.push(["Check-out", checkout || "—"]);
+  rows.push(["Guests", guests || "—"]);
+  rows.push(["Page", source || "—"]);
 
-  var table = rows
-    .map(function (row) {
-      return (
-        '<tr><td style="padding:6px 14px 6px 0;color:#6b6459;font:12px/1.5 Arial,sans-serif;vertical-align:top">' +
-        escape_(row[0]) +
-        '</td><td style="padding:6px 0;color:#1f1d1a;font:14px/1.5 Arial,sans-serif">' +
-        escape_(row[1]) +
-        "</td></tr>"
-      );
-    })
-    .join("");
+  var table = rows.map(function (row, i) {
+    var bg = i % 2 === 0 ? "#f7f4ef" : "#ffffff";
+    return '<tr style="background:' + bg + '">' +
+      '<td style="padding:10px 14px;width:130px;color:#746a66;font:600 10px/1.4 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;vertical-align:top">' + escape_(row[0]) + '</td>' +
+      '<td style="padding:10px 14px;color:#211c1c;font:14px/1.5 Arial,sans-serif">' + escape_(row[1]) + '</td>' +
+      '</tr>';
+  }).join("");
 
-  return (
-    '<div style="max-width:620px;font-family:Arial,Helvetica,sans-serif">' +
-    '<p style="font:11px/1.6 Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#8a6a4f;margin:0 0 6px">Twin Towers by Defoy</p>' +
-    '<h1 style="font:600 26px/1.2 Georgia,serif;color:#1f1d1a;margin:0 0 18px">New booking request</h1>' +
-    '<table style="border-collapse:collapse;margin:0 0 20px">' +
-    table +
-    "</table>" +
-    '<p style="font:12px/1.6 Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#6b6459;margin:0 0 6px">Notes</p>' +
-    '<p style="font:15px/1.7 Arial,sans-serif;color:#1f1d1a;white-space:pre-wrap;margin:0 0 22px">' +
-    escape_(notes || "—") +
-    "</p>" +
-    '<p style="font:13px/1.6 Arial,sans-serif;color:#6b6459;margin:0">Reply to this email to answer the guest directly.</p>' +
-    "</div>"
-  );
+  return '<div style="margin:0;padding:24px 12px;background:#f5efe6">' +
+    '<div style="max-width:620px;margin:0 auto;background:#ffffff">' +
+      '<div style="background:#432911;padding:22px 26px">' +
+        '<p style="margin:0;color:#f5efe6;font:600 11px/1.4 Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase">Twin Towers by Defoy</p>' +
+        '<h1 style="margin:8px 0 0;color:#ffffff;font:600 24px/1.2 Arial,sans-serif">New booking request</h1>' +
+      '</div>' +
+      '<div style="padding:26px">' +
+        '<p style="margin:0 0 18px;color:#746a66;font:14px/1.6 Arial,sans-serif">A guest has sent a booking request. Reply to this email to answer them.</p>' +
+        '<table style="width:100%;border-collapse:collapse;border:1px solid #ded5cc">' + table + '</table>' +
+        '<p style="margin:24px 0 8px;color:#746a66;font:600 10px/1.4 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase">Notes</p>' +
+        '<div style="padding:14px 16px;background:#f7f4ef;border-left:3px solid #432911;color:#211c1c;font:14px/1.7 Arial,sans-serif;white-space:pre-wrap">' + escape_(notes || "—") + '</div>' +
+      '</div>' +
+      '<div style="padding:16px 26px;background:#f5efe6;color:#746a66;font:11px/1.6 Arial,sans-serif">Twin Towers by Defoy · Pahalgam · twintowers@defoy.in</div>' +
+    '</div>' +
+    '</div>';
 }
 
 function logToSheet_(row, isPopup) {

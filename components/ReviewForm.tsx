@@ -5,6 +5,14 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const allowed = [1, 2, 3, 4, 5];
 
+function FieldError({ message }: { message: string }) {
+  return (
+    <span role="alert" className="mt-1 block text-[0.72rem] text-clay">
+      {message}
+    </span>
+  );
+}
+
 type Props = {
   /** "qr" marks submissions that came from the printed QR code. */
   source?: "website" | "qr";
@@ -18,6 +26,7 @@ export default function ReviewForm({ source = "website" }: Props) {
   const [company, setCompany] = useState("");
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
 
   const reset = () => {
@@ -27,6 +36,22 @@ export default function ReviewForm({ source = "website" }: Props) {
     setBody("");
     setCompany("");
     setError(null);
+    setErrors({});
+  };
+
+  const validate = () => {
+    const next: Record<string, string> = {};
+    if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+      next.rating = "Please choose a rating.";
+    }
+    if (name.trim().length < 2) {
+      next.name = "Please add your name.";
+    }
+    if (body.trim().length < 10) {
+      next.body = "Please write a note about your stay.";
+    }
+    setErrors(next);
+    return Object.keys(next).length === 0;
   };
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -34,6 +59,7 @@ export default function ReviewForm({ source = "website" }: Props) {
     if (sending) return;
 
     setError(null);
+    if (!validate()) return;
     setSending(true);
 
     try {
@@ -132,10 +158,11 @@ export default function ReviewForm({ source = "website" }: Props) {
                   {rating} / 5
                 </span>
               </div>
+              {errors.rating ? <FieldError message={errors.rating} /> : null}
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2">
-              <label className="block border-b border-line pb-1 focus-within:border-clay">
+              <label className={`block border-b pb-1 ${errors.name ? "border-clay" : "border-line focus-within:border-clay"}`}>
                 <span className="eyebrow text-ink/65">Your name</span>
                 <input
                   required
@@ -143,9 +170,11 @@ export default function ReviewForm({ source = "website" }: Props) {
                   onChange={(e) => setName(e.target.value)}
                   autoComplete="name"
                   maxLength={80}
+                  aria-invalid={Boolean(errors.name)}
                   className="w-full bg-transparent py-3 outline-none placeholder:text-ink/65"
                   placeholder="First name and initial"
                 />
+                {errors.name ? <FieldError message={errors.name} /> : null}
               </label>
               <label className="block border-b border-line pb-1 focus-within:border-clay">
                 <span className="eyebrow text-ink/65">City (optional)</span>
@@ -160,7 +189,7 @@ export default function ReviewForm({ source = "website" }: Props) {
               </label>
             </div>
 
-            <label className="block border-b border-line pb-1 focus-within:border-clay">
+            <label className={`block border-b pb-1 ${errors.body ? "border-clay" : "border-line focus-within:border-clay"}`}>
               <span className="eyebrow text-ink/65">Your note</span>
               <textarea
                 required
@@ -169,9 +198,11 @@ export default function ReviewForm({ source = "website" }: Props) {
                 onChange={(e) => setBody(e.target.value)}
                 maxLength={1500}
                 minLength={10}
+                aria-invalid={Boolean(errors.body)}
                 className="w-full resize-none bg-transparent py-3 outline-none placeholder:text-ink/65"
                 placeholder="What stayed with you?"
               />
+              {errors.body ? <FieldError message={errors.body} /> : null}
             </label>
 
             {/* Honeypot: invisible to people, tempting to bots. */}

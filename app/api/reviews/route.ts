@@ -64,7 +64,7 @@ function validate(input: Submission): { data: CleanSubmission } | { error: strin
   }
 
   if (body.length < 10) {
-    return { error: "Please write at least a sentence about your stay." };
+    return { error: "Please write a note about your stay." };
   }
 
   return {

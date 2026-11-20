@@ -6,8 +6,7 @@ import { rooms, site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Request received",
-  description:
-    "Your booking request has reached the Twin Towers by Defoy team. We reply from twintowers@defoy.in, usually within the hour on working days.",
+  description: "We've received your booking request.",
   alternates: { canonical: "/thank-you" },
   robots: { index: false, follow: false },
 };
@@ -21,10 +20,10 @@ export default function ThankYouPage() {
           <>
             Thank you.
             <br />
-            The valley is <em className="text-clay">already waiting.</em>
+            We&apos;ll be <em className="text-clay">in touch.</em>
           </>
         }
-        intro="Your request has reached the hotel team. A person — not a portal — will reply with availability and the final rate, usually within the hour on working days."
+        intro="We&apos;ve received your request. We&apos;ll reply soon."
         aside={
           <div className="flex items-end justify-between border-t border-line pt-5">
             <p className="font-mono text-[9px] uppercase leading-[1.9] tracking-[0.16em] text-ink/65">
@@ -43,14 +42,10 @@ export default function ThankYouPage() {
         <div className="grid gap-10 border-t border-line pt-8 md:grid-cols-12 md:gap-14">
           <div className="md:col-span-7">
             <h2 className="font-display text-[clamp(1.6rem,2.6vw,2.4rem)] leading-[1.1]">
-              Continue on WhatsApp while you wait.
+              Continue on WhatsApp.
             </h2>
             <p className="body-copy mt-5 max-w-[58ch]">
-              Messages move faster than email in the valley. The button below
-              opens a pre-filled WhatsApp note with the room you picked — send
-              it and the team can confirm dates straight away. If you would
-              rather talk, the direct line is answered by the people who run
-              the property.
+              Send the pre-filled note below and we can confirm your dates.
             </p>
             <ThankYouActions rooms={rooms} />
           </div>
@@ -58,12 +53,10 @@ export default function ThankYouPage() {
           <aside className="md:col-span-4 md:col-start-9">
             <div className="space-y-6 border-t border-line pt-5">
               <div>
-                <p className="eyebrow text-ink/65">What happens next</p>
-                <ol className="mt-4 space-y-3 text-[0.92rem] leading-relaxed text-ink/70">
-                  <li>1 · We check availability for your dates.</li>
-                  <li>2 · You get the final rate and a 50% advance link.</li>
-                  <li>3 · The advance confirms the stay.</li>
-                </ol>
+                <p className="eyebrow text-ink/65">Next</p>
+                <p className="mt-4 text-[0.92rem] leading-relaxed text-ink/70">
+                  We&apos;ll confirm your dates and rate by email or WhatsApp.
+                </p>
               </div>
               <div className="border-t border-line pt-5">
                 <p className="eyebrow text-ink/65">While you are here</p>

@@ -11,9 +11,8 @@ import { formatPrice } from "@/lib/utils";
  * stay pages link with ?room= (kept working); fragments are never sent to the
  * server, so no duplicate, crawlable URLs are created either way.
  *
- * Submitting posts to /api/booking, which forwards the request to a Google
- * Apps Script web app. That script emails the hotel team and (optionally) logs
- * the row to the Bookings sheet; the browser then lands on /thank-you.
+ * Submitting posts to /api/booking, which stores the enquiry in Sanity and
+ * forwards it to a Google Apps Script web app; the browser lands on /thank-you.
  */
 export default function BookingForm({
   rooms: roomOptions = rooms,
@@ -30,31 +29,29 @@ export default function BookingForm({
     : fallbackRoom;
 
   const [room, setRoom] = useState(validInitial);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [checkin, setCheckin] = useState("");
+  const [checkout, setCheckout] = useState("");
+  const [notes, setNotes] = useState("");
+  const [company, setCompany] = useState("");
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const apply = () => {
-      const fromHash =
-        window.location.hash.match(/room=([^&]+)/)?.[1] ?? null;
-      const fromLegacyQuery =
+      const fromHash = window.location.hash.match(/room=([^&]+)/)?.[1] ?? null;
+      const fromQuery =
         new URLSearchParams(window.location.search).get("room") ?? null;
-      const slug = decodeURIComponent(fromHash ?? fromLegacyQuery ?? "");
+      const slug = decodeURIComponent(fromHash ?? fromQuery ?? "");
       if (slug && roomOptions.some((r) => r.slug === slug)) setRoom(slug);
     };
     apply();
     window.addEventListener("hashchange", apply);
     return () => window.removeEventListener("hashchange", apply);
   }, [roomOptions]);
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [checkin, setCheckin] = useState("");
-  const [checkout, setCheckout] = useState("");
-  const [guests, setGuests] = useState("2");
-  const [notes, setNotes] = useState("");
-  const [company, setCompany] = useState("");
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const selected = roomOptions.find((r) => r.slug === room) ?? roomOptions[0];
 
@@ -67,45 +64,54 @@ export default function BookingForm({
       name ? `Name: ${name}` : null,
       checkin ? `Check-in: ${checkin}` : null,
       checkout ? `Check-out: ${checkout}` : null,
-      `Guests: ${guests}`,
       notes ? `Notes: ${notes}` : null,
       ``,
       `Please confirm availability and the next steps.`,
     ].filter(Boolean);
     return lines.join("\n");
-  }, [selected, name, checkin, checkout, guests, notes]);
+  }, [selected, name, checkin, checkout, notes]);
 
   const href = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
+
+  const validate = () => {
+    const next: Record<string, string> = {};
+
+    if (name.trim().length < 2) {
+      next.name = "Please add your name.";
+    }
+    if (!email.trim() && !phone.trim()) {
+      next.email = "Please add an email address or a phone number.";
+      next.phone = "Please add an email address or a phone number.";
+    } else {
+      if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
+        next.email = "That email address does not look right.";
+      }
+      const digits = phone.replace(/\D/g, "");
+      if (phone.trim() && (digits.length < 8 || digits.length > 15)) {
+        next.phone = "Please add a valid phone number.";
+      }
+    }
+
+    if (checkin && !/^\d{4}-\d{2}-\d{2}$/.test(checkin)) {
+      next.checkin = "Please pick a valid date.";
+    }
+    if (checkout && !/^\d{4}-\d{2}-\d{2}$/.test(checkout)) {
+      next.checkout = "Please pick a valid date.";
+    }
+    if (checkin && checkout && checkout <= checkin) {
+      next.checkout = "Check-out cannot be before check-in.";
+    }
+    if (!selected) next.room = "Please choose a room.";
+
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (sending) return;
     setError(null);
-
-    if (name.trim().length < 2) {
-      setError("Please add your name.");
-      return;
-    }
-    if (!email.trim() && !phone.trim()) {
-      setError("Please add an email address or a phone number so we can reply.");
-      return;
-    }
-    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
-      setError("That email address does not look right.");
-      return;
-    }
-    if (phone.trim() && phone.replace(/\D/g, "").length < 8) {
-      setError("That phone number does not look right.");
-      return;
-    }
-    if (checkin && checkout && checkout < checkin) {
-      setError("Check-out cannot be before check-in.");
-      return;
-    }
-    if (!selected) {
-      setError("Please choose a room.");
-      return;
-    }
+    if (!validate()) return;
 
     setSending(true);
     try {
@@ -119,7 +125,6 @@ export default function BookingForm({
           room: selected.slug,
           checkin,
           checkout,
-          guests,
           notes,
           company,
         }),
@@ -132,8 +137,7 @@ export default function BookingForm({
 
       if (!response.ok || !payload.ok) {
         throw new Error(
-          payload.error ||
-            "We could not send the request. Please try WhatsApp or call us.",
+          payload.error || "We could not send the request. Please try WhatsApp or call us.",
         );
       }
 
@@ -145,7 +149,7 @@ export default function BookingForm({
             roomSlug: selected.slug,
             checkin,
             checkout,
-            guests,
+            guests: "2",
           }),
         );
       } catch {
@@ -227,35 +231,24 @@ export default function BookingForm({
             </label>
           ))}
         </div>
+        {errors.room ? <FieldError message={errors.room} /> : null}
       </fieldset>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field label="02 — Your name" htmlFor="name">
+        <Field label="02 — Your name" htmlFor="name" error={errors.name}>
           <input
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Full name"
             autoComplete="name"
+            maxLength={80}
+            aria-invalid={Boolean(errors.name)}
             required
             className="w-full bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/65"
           />
         </Field>
-        <Field label="03 — Guests" htmlFor="guests">
-          <select
-            id="guests"
-            value={guests}
-            onChange={(e) => setGuests(e.target.value)}
-            className="w-full appearance-none bg-transparent py-3 text-[1rem] outline-none"
-          >
-            {["1", "2", "3", "4", "5", "6+"].map((g) => (
-              <option key={g} value={g}>
-                {g} {g === "1" ? "guest" : "guests"}
-              </option>
-            ))}
-          </select>
-        </Field>
-        <Field label="04 — Email" htmlFor="email">
+        <Field label="03 — Email" htmlFor="email" error={errors.email}>
           <input
             id="email"
             type="email"
@@ -263,10 +256,12 @@ export default function BookingForm({
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
             autoComplete="email"
+            maxLength={160}
+            aria-invalid={Boolean(errors.email)}
             className="w-full bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/65"
           />
         </Field>
-        <Field label="05 — Phone or WhatsApp" htmlFor="phone">
+        <Field label="04 — Phone or WhatsApp" htmlFor="phone" error={errors.phone}>
           <input
             id="phone"
             type="tel"
@@ -274,35 +269,41 @@ export default function BookingForm({
             onChange={(e) => setPhone(e.target.value)}
             placeholder="+91 …"
             autoComplete="tel"
+            maxLength={40}
+            aria-invalid={Boolean(errors.phone)}
             className="w-full bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/65"
           />
         </Field>
-        <Field label="06 — Check-in (optional)" htmlFor="checkin">
+        <Field label="05 — Check-in (optional)" htmlFor="checkin" error={errors.checkin}>
           <input
             id="checkin"
             type="date"
             value={checkin}
             onChange={(e) => setCheckin(e.target.value)}
+            aria-invalid={Boolean(errors.checkin)}
             className="w-full bg-transparent py-3 text-[1rem] outline-none"
           />
         </Field>
-        <Field label="07 — Check-out (optional)" htmlFor="checkout">
+        <Field label="06 — Check-out (optional)" htmlFor="checkout" error={errors.checkout}>
           <input
             id="checkout"
             type="date"
             value={checkout}
+            min={checkin || undefined}
             onChange={(e) => setCheckout(e.target.value)}
+            aria-invalid={Boolean(errors.checkout)}
             className="w-full bg-transparent py-3 text-[1rem] outline-none"
           />
         </Field>
       </div>
 
-      <Field label="08 — Anything we should know" htmlFor="notes">
+      <Field label="07 — Anything we should know" htmlFor="notes">
         <textarea
           id="notes"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           rows={3}
+          maxLength={1500}
           placeholder="Anniversary, children's ages, a pickup from Srinagar…"
           className="w-full resize-none bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/65"
         />
@@ -363,21 +364,32 @@ export default function BookingForm({
   );
 }
 
+function FieldError({ message }: { message: string }) {
+  return (
+    <span role="alert" className="block text-[0.72rem] text-clay">
+      {message}
+    </span>
+  );
+}
+
 function Field({
   label,
   htmlFor,
   children,
+  error,
 }: {
   label: string;
   htmlFor: string;
   children: React.ReactNode;
+  error?: string;
 }) {
   return (
-    <div className="group border-b border-line pb-1 focus-within:border-clay">
+    <div className={`group border-b pb-1 ${error ? "border-clay" : "border-line focus-within:border-clay"}`}>
       <label htmlFor={htmlFor} className="eyebrow block text-ink/65">
         {label}
       </label>
       {children}
+      {error ? <FieldError message={error} /> : null}
     </div>
   );
 }
