@@ -1,0 +1,22 @@
+import { site } from "@/lib/content";
+
+export function cn(...classes: (string | false | null | undefined)[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export const clamp = (min: number, max: number, v: number) =>
+  Math.min(max, Math.max(min, v));
+
+export const wrap = (min: number, max: number, v: number) => {
+  const range = max - min;
+  return ((((v - min) % range) + range) % range) + min;
+};
+
+export const formatPrice = (n: number) =>
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(n);
+
+export const mapsHref = `https://www.google.com/maps/dir/?api=1&destination=${site.coords.replace(/\s/g, "")}`;
