@@ -55,6 +55,18 @@ adapted to Twin's branding, room data and URLs (`/blog`, `/stay`).
 - [x] Pruned the `experiences` content/type and the now-unused `slugify` helper.
 - [x] Confirmed sitemap / redirects contain no deleted routes.
 
+## L. Booking form fallback (email script was private)
+- [x] Root cause found: GOOGLE_APPS_SCRIPT_BOOKING_URL pointed at a deployment
+      with restricted access — Google answered 401 with a sign-in page, so the
+      API returned 502 and the form never submitted.
+- [x] Added `bookingEnquiry` Sanity type + Studio fields; /api/booking now
+      stores every enquiry in Sanity FIRST (best-effort), then tries the email
+      webhook — form succeeds and reaches /thank-you even with email broken.
+- [x] Verified: contact form and popup both return 201, create a Studio
+      document, and /contact?room= preselects correctly; test rows cleaned up.
+- [ ] Google-side (user): redeploy Apps Script with access "Anyone"; until
+      then the team replies from Sanity Studio (emailed: false).
+
 ## K. Portrait crops + direct image serving
 - [x] Mobile gallery frames: std/tall → 2/3 portrait (width unchanged); grounds
       reel and house strip → 3/4.

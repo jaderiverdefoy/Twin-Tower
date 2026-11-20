@@ -1,15 +1,18 @@
 import type { NextRequest } from "next/server";
 import { rooms, site } from "@/lib/content";
 import { formatPrice } from "@/lib/utils";
+import { getSanityWriteClient } from "@/sanity/lib/client";
 
 export const runtime = "nodejs";
 
 /**
- * Booking enquiries are forwarded to a Google Apps Script web app, which sends
- * the email and returns `{ "ok": true }`. The web-app URL stays on the server
- * (`GOOGLE_APPS_SCRIPT_BOOKING_URL`) so it can be swapped or revoked without a
- * redeploy, and the shared secret (`BOOKING_WEBHOOK_SECRET`) lets the script
- * reject anything that did not come from this site.
+ * Booking enquiries are stored in Sanity first (so they are never lost), then
+ * forwarded to a Google Apps Script web app which emails the team. The
+ * web-app URL stays on the server (`GOOGLE_APPS_SCRIPT_BOOKING_URL`) so it can
+ * be swapped or revoked without a redeploy, and the shared secret
+ * (`BOOKING_WEBHOOK_SECRET`) lets the script reject anything that did not come
+ * from this site. If the script is unavailable, the form still succeeds and
+ * the team can action the booking in Sanity Studio.
  *
  * Setup: see `scripts/google-apps-script/booking.gs` for the script and
  * `.env.example` for the two environment variables.
@@ -197,89 +200,132 @@ export async function POST(request: NextRequest) {
     guests = text(input.guests, 40) || "2";
   }
 
+  const submittedAt = new Date().toISOString();
+  const form = isPopup ? "popup" : "contact";
+
+  /*
+   * Always store the enquiry in Sanity FIRST. The email webhook can be
+   * unavailable (that deployment is often accidentally private — Google
+   * answers with a 401 login page), but the request must never be lost: the
+   * team can see every enquiry in Studio and reply from there.
+   */
+  const enquiry = {
+    _type: "bookingEnquiry",
+    name,
+    email,
+    phone,
+    room: roomName,
+    rate: nightlyRate,
+    mealPlan: mealPlan || undefined,
+    adults: isPopup ? adults : undefined,
+    children: isPopup ? children : undefined,
+    guests,
+    checkin,
+    checkout,
+    notes,
+    source: form,
+    submittedAt,
+    emailed: false,
+    handled: false,
+  };
+
+  let savedToSanity = false;
+  const writeClient = getSanityWriteClient();
+  if (writeClient) {
+    try {
+      await writeClient.create(enquiry);
+      savedToSanity = true;
+    } catch (error) {
+      console.error("[booking] Could not save the enquiry in Sanity.", error);
+    }
+  }
+
+  let emailed = false;
+  let webhookProblem = "not configured";
+
   const webhook = process.env.GOOGLE_APPS_SCRIPT_BOOKING_URL;
   if (!webhook) {
     console.error(
-      "[booking] GOOGLE_APPS_SCRIPT_BOOKING_URL is not set. Follow scripts/google-apps-script/booking.gs and add the deployment URL to the environment.",
+      "[booking] GOOGLE_APPS_SCRIPT_BOOKING_URL is not set — enquiries are saved in Sanity only. See scripts/google-apps-script/booking.gs.",
     );
-    return Response.json(
-      {
-        ok: false,
-        error:
-          "Online booking is not connected yet. Please send the request on WhatsApp or call us — both buttons are right there.",
-      },
-      { status: 503 },
-    );
-  }
-
-  const submittedAt = new Date().toISOString();
-
-  try {
-    const response = await fetch(webhook, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      cache: "no-store",
-      signal: AbortSignal.timeout(12_000),
-      body: JSON.stringify({
-        secret: process.env.BOOKING_WEBHOOK_SECRET || "",
-        name,
-        email,
-        phone,
-        room: roomName,
-        roomSlug: roomSlugForPayload,
-        nightlyRate,
-        mealPlan: mealPlan || undefined,
-        adults: isPopup ? adults : undefined,
-        children: isPopup ? children : undefined,
-        form: isPopup ? "popup" : "contact",
-        checkin,
-        checkout,
-        guests,
-        notes,
-        submittedAt,
-        source: isPopup ? site.url + "/ (booking popup)" : site.url + "/contact",
-      }),
-    });
-
-    const raw = await response.text().catch(() => "");
-    let payload: { ok?: boolean; error?: string } | null = null;
+  } else {
     try {
-      payload = raw ? (JSON.parse(raw) as { ok?: boolean; error?: string }) : null;
-    } catch {
-      // A login page or an HTML error wrapper is not a success: the script
-      // must answer with `{"ok":true}`.
-      payload = null;
-    }
-
-    if (!response.ok || payload?.ok !== true) {
-      console.error("[booking] Apps Script did not acknowledge the request.", {
-        status: response.status,
-        body: raw.slice(0, 500),
+      const response = await fetch(webhook, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        signal: AbortSignal.timeout(12_000),
+        body: JSON.stringify({
+          secret: process.env.BOOKING_WEBHOOK_SECRET || "",
+          name,
+          email,
+          phone,
+          room: roomName,
+          roomSlug: roomSlugForPayload,
+          nightlyRate,
+          mealPlan: mealPlan || undefined,
+          adults: isPopup ? adults : undefined,
+          children: isPopup ? children : undefined,
+          form,
+          checkin,
+          checkout,
+          guests,
+          notes,
+          submittedAt,
+          source: isPopup ? site.url + "/ (booking popup)" : site.url + "/contact",
+        }),
       });
-      return Response.json(
-        {
-          ok: false,
-          error:
-            payload?.error ||
-            "We could not confirm the request just now. Please try again, or use WhatsApp.",
-        },
-        { status: 502, headers: { "Cache-Control": "no-store" } },
-      );
-    }
 
-    return Response.json(
-      { ok: true },
-      { status: 201, headers: { "Cache-Control": "no-store" } },
-    );
-  } catch (error) {
-    console.error("[booking] Could not reach the Apps Script web app.", error);
+      const raw = await response.text().catch(() => "");
+      let payload: { ok?: boolean; error?: string } | null = null;
+      try {
+        payload = raw ? (JSON.parse(raw) as { ok?: boolean; error?: string }) : null;
+      } catch {
+        payload = null;
+      }
+
+      if (response.ok && payload?.ok === true) {
+        emailed = true;
+      } else {
+        const looksPrivate =
+          response.status === 401 ||
+          response.status === 403 ||
+          /<html|accounts\.google|sign in/i.test(raw);
+        webhookProblem = looksPrivate
+          ? "Apps Script deployment is private — redeploy it as a web app with 'Who has access: Anyone'."
+          : payload?.error || `Apps Script returned ${response.status}`;
+        console.error("[booking] Apps Script did not acknowledge the request.", {
+          status: response.status,
+          problem: webhookProblem,
+          body: raw.slice(0, 200),
+        });
+      }
+    } catch (error) {
+      webhookProblem = error instanceof Error ? error.message : "network error";
+      console.error("[booking] Could not reach the Apps Script web app.", error);
+    }
+  }
+
+  // Nothing stored and nothing emailed — the only case where we report failure.
+  if (!savedToSanity && !emailed) {
     return Response.json(
       {
         ok: false,
         error:
-          "We could not send the request just now. Please try again, or use WhatsApp.",
+          "We could not save your request just now. Please use WhatsApp or call us — both buttons are right there.",
       },
-      { status: 502, headers: { "Cache-Control": "no-store" } },
+      { status: 503, headers: { "Cache-Control": "no-store" } },
     );
   }
+
+  if (!emailed) {
+    console.error(
+      `[booking] NOTICE: the enquiry was saved in Sanity but no email was sent (${webhookProblem}). The team must reply from Studio.`,
+    );
+  }
+
+  return Response.json(
+    { ok: true, savedToSanity, emailed },
+    { status: 201, headers: { "Cache-Control": "no-store" } },
+  );
 }
