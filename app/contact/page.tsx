@@ -55,7 +55,9 @@ export default async function ContactPage({
       <section className="shell pb-24 md:pb-32">
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-7" data-reveal="zoom">
-            <BookingForm initialRoom={room} />
+            <div className="border border-line bg-paper-2/40 p-6 shadow-[0_18px_50px_-30px_rgba(42,26,14,0.35)] sm:p-8 md:p-10">
+              <BookingForm initialRoom={room} />
+            </div>
           </div>
 
           <aside className="md:col-span-4 md:col-start-9">

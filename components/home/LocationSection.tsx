@@ -17,7 +17,7 @@ const attractions = ["Aru Valley", "Betaab Valley", "Chandanwari"];
 
 const facts = [
   { k: "Airport", v: "Srinagar · 95 km" },
-  { k: "Drive", v: "2.5 – 3 hours" },
+  { k: "Drive", v: "1.5 to 2 hours" },
   { k: "Altitude", v: "2,200 m" },
   { k: "Address", v: site.address },
 ];
@@ -56,7 +56,7 @@ export default function LocationSection() {
             </h2>
 
             <p className="body-copy mt-8 max-w-md" data-reveal>
-              Srinagar Airport is 95 km away — about three hours by road.
+              Srinagar Airport is 95 km away — about 1.5 to 2 hours by road.
             </p>
 
             <dl className="mt-10 border-t border-line">
@@ -207,7 +207,7 @@ export default function LocationSection() {
                   DEHWATHU · PAHALGAM
                 </text>
                 <text x="72" y="492" fill="#211C1C" fillOpacity="0.45" fontSize="9" fontFamily="Inter, sans-serif" letterSpacing="1.5">
-                  95 KM · 2.5–3 HRS
+                  95 KM · 1.5–2 HRS
                 </text>
               </svg>
 

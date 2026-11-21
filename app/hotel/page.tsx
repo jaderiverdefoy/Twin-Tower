@@ -73,20 +73,15 @@ export default function HotelPage() {
 
             <div className="md:col-span-6 md:col-start-7">
               <p className="body-copy" data-reveal="fade">
-                Twin Towers began as two family wings sharing a single steep roof.
-                The stone drive, the glass canopy and the long balconies were added
-                slowly, one season at a time — which is why the house still feels
-                lived in rather than designed for a photograph.
+                Two family wings, one steep roof. Built slowly, and still lived in.
               </p>
               <p
                 className="mt-6 body-copy"
                 data-reveal="fade"
                 style={{ ["--reveal-delay" as string]: "120ms" }}
               >
-                Every room has a balcony and a king size bed. The 22
-                Premium Rooms share the lawn side; the 3 Attic Rooms sit closest
-                to the roof, under the eaves. No upgrade ladder — just
-                twenty-five rooms that all get the view.
+                Twenty-five rooms. 22 Premium and 3 Attic. Every one has a king bed
+                and a balcony.
               </p>
 
               <div
@@ -95,8 +90,7 @@ export default function HotelPage() {
                 style={{ ["--reveal-delay" as string]: "180ms" }}
               >
                 <p className="font-display text-[clamp(1.3rem,2vw,1.7rem)] font-medium leading-[1.35] tracking-[-0.02em]">
-                  “The mountain does not change for you. That is the point of
-                  coming here.”
+                  “The mountain does not change. That&apos;s the point.”
                 </p>
                 <p className="mt-4 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-stone">
                   The Defoy family

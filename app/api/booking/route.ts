@@ -32,6 +32,8 @@ type Submission = {
   guests?: unknown;
   notes?: unknown;
   company?: unknown;
+  form?: unknown;
+  travelDate?: unknown;
 };
 
 const ROOM_CATEGORIES = ["Premium Room with Balcony", "Attic Room"] as const;
@@ -106,31 +108,17 @@ export async function POST(request: NextRequest) {
   const mealPlan = text(input.mealPlan, 8).toUpperCase();
   const adults = Math.min(10, Math.max(1, Number.parseInt(text(input.adults, 3), 10) || 2));
   const children = Math.min(10, Math.max(0, Number.parseInt(text(input.children, 3), 10) || 0));
-  const isPopup = roomCategory.length > 0;
-  const checkin = text(input.checkin, 10);
+  const isPopup = text(input.form, 16) === "popup" || text(input.travelDate, 10).length > 0;
+  const checkin = text(input.checkin, 10) || text(input.travelDate, 10);
   const checkout = text(input.checkout, 10);
   const notes = text(input.notes, 1500);
 
-  // Popup: phone is mandatory; meal plan and room category restricted to known values.
-  if (isPopup) {
-    if (!ROOM_CATEGORIES.includes(roomCategory as (typeof ROOM_CATEGORIES)[number])) {
-      return Response.json(
-        { ok: false, error: "Please choose a valid room category." },
-        { status: 422 },
-      );
-    }
-    if (mealPlan && !MEAL_PLANS.includes(mealPlan as (typeof MEAL_PLANS)[number])) {
-      return Response.json(
-        { ok: false, error: "Please choose a valid meal plan." },
-        { status: 422 },
-      );
-    }
-    if (phone.replace(/\D/g, "").length < 8) {
-      return Response.json(
-        { ok: false, error: "Please add a phone number we can reach you on." },
-        { status: 422 },
-      );
-    }
+  // Popup: name, phone and (optionally) email are the only required fields.
+  if (isPopup && phone.replace(/\D/g, "").length < 8) {
+    return Response.json(
+      { ok: false, error: "Please add a phone number we can reach you on." },
+      { status: 422 },
+    );
   }
 
   if (name.length < 2) {
@@ -187,13 +175,10 @@ export async function POST(request: NextRequest) {
   let guests: string;
 
   if (isPopup) {
-    roomName = roomCategory;
+    roomName = roomCategory || "General enquiry";
     roomSlugForPayload = "";
     nightlyRate = "";
-    guests =
-      children > 0
-        ? `${adults} adults · ${children} ${children === 1 ? "child" : "children"}`
-        : `${adults} adult${adults === 1 ? "" : "s"}`;
+    guests = "2";
   } else {
     const room = rooms.find((item) => item.slug === roomSlug);
     if (!room) {

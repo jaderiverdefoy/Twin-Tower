@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -89,14 +90,20 @@ export default function SiteNav() {
         <div className="shell flex h-[68px] items-center justify-between gap-6 md:h-[80px]">
           <Link
             href="/"
-            className="group flex items-baseline gap-2.5"
+            aria-label="Twin Towers by Defoy — home"
+            className="group flex items-center"
           >
-            <span className="font-display text-[1.35rem] font-bold leading-none tracking-[-0.04em] md:text-[1.55rem]">
-              Twin<span className={overHero ? "text-paper/60" : "text-clay"}>.</span>Towers
-            </span>
-            <span className={cn("eyebrow hidden pb-[2px] text-[9px] lg:block", overHero ? "text-paper/80" : "text-ink/65")}>
-              by Defoy
-            </span>
+            <Image
+              src="/images/logo-defoy.png"
+              alt="Defoy"
+              width={480}
+              height={430}
+              priority
+              className={cn(
+                "h-10 w-auto transition-[filter] duration-500 md:h-12",
+                overHero && "drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)]",
+              )}
+            />
           </Link>
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
@@ -124,16 +131,18 @@ export default function SiteNav() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <Link
-              href="/contact"
-              className={cn(
-                "site-nav-cta btn hidden !py-3 !px-5 sm:inline-flex",
-                overHero ? "!border-paper/70 !text-paper" : "btn-clay",
-              )}
-            >
-              Reserve directly
-              <Arrow />
-            </Link>
+            {pathname !== "/contact" && (
+              <Link
+                href="/contact"
+                className={cn(
+                  "site-nav-cta btn hidden !py-3 !px-5 sm:inline-flex",
+                  overHero ? "!border-paper/70 !text-paper" : "btn-clay",
+                )}
+              >
+                Reserve directly
+                <Arrow />
+              </Link>
+            )}
 
             <button
               type="button"
@@ -161,9 +170,13 @@ export default function SiteNav() {
             transition={{ duration: 0.75, ease: EASE }}
           >
             <div className="shell flex h-[68px] items-center justify-between md:h-[80px]">
-              <span className="font-display text-[1.35rem] font-bold leading-none tracking-[-0.04em]">
-                Twin<span className="text-paper/60">.</span>Towers
-              </span>
+              <Image
+                src="/images/logo-defoy.png"
+                alt="Defoy"
+                width={480}
+                height={430}
+                className="h-10 w-auto md:h-12"
+              />
               <button
                 type="button"
                 onClick={() => setOpen(false)}

@@ -49,8 +49,7 @@
  * The website has two booking forms with different fields:
  *   • /contact ("Bookings" tab) — name, email, phone, CMS room + rate,
  *     check-in / check-out, guest count.
- *   • homepage "Reserve" popup ("Popup" tab) — phone-only, no email, plus
- *     meal plan (EP / CP / MAP) and adults / children steppers.
+ *   • homepage "Reserve" popup ("Popup" tab) — name, phone, email, travel date.
  * Each accepted request is logged to the tab for the form it came from, with
  * headers matching what that form actually collects. Tabs and header rows are
  * created automatically on the first booking — or run setupBookingSheet()
@@ -93,7 +92,7 @@ var SHEET_ID = "1wcoEAL6KEWO0BulPLlwRkhsZ5DdFLFtFfCx-mpbAgOc";
 /** Tab for the /contact form (email included, CMS room + rate). */
 var TAB_CONTACT = "Bookings";
 
-/** Tab for the homepage "Reserve" popup (phone-only, meal plan, steppers). */
+/** Tab for the homepage "Reserve" popup (name, phone, email, travel date). */
 var TAB_POPUP = "Popup";
 
 /** Header rows — one per tab. Must match the row order built in doPost(). */
@@ -115,15 +114,9 @@ var HEADERS_POPUP = [
   "Received",
   "Name",
   "Phone",
-  "Room",
-  "Meal plan",
-  "Adults",
-  "Children",
-  "Check-in",
-  "Check-out",
-  "Guests",
+  "Email",
+  "Travel date",
   "Page",
-  "Notes",
 ];
 
 // ---------------------------------------------------------------------------
@@ -190,8 +183,6 @@ function doPost(e) {
       "",
       "Notes:",
       notes || "—",
-      "",
-      "Reply to this email to answer the guest.",
     ].filter(Boolean).join("\n");
 
     var options = {
@@ -205,7 +196,7 @@ function doPost(e) {
     // Log to the sheet FIRST: a MailApp failure (quota, invalid recipient,
     // authorisation) must never cost us the booking row.
     var sheetRow = isPopup
-      ? [receivedLabel, sheetText_(name), sheetText_(phone), sheetText_(room), sheetText_(mealPlan), adults, children, sheetText_(checkin), sheetText_(checkout), sheetText_(guests), sheetText_(source), sheetText_(notes)]
+      ? [receivedLabel, sheetText_(name), sheetText_(phone), sheetText_(email), sheetText_(checkin), sheetText_(source)]
       : [receivedLabel, sheetText_(name), sheetText_(email), sheetText_(phone), sheetText_(room), sheetText_(rate), sheetText_(checkin), sheetText_(checkout), sheetText_(guests), sheetText_(source), sheetText_(notes)];
     var logged = logToSheet_(sheetRow, isPopup);
 
@@ -293,7 +284,7 @@ function testSheetLog() {
     false
   );
   var popup = logToSheet_(
-    [stamp, "Test Guest", "'+91 90000 00000", "Test Room", "MAP", "2", "1", "2026-01-01", "2026-01-02", "2 adults · 1 child", "manual test", "Created by testSheetLog(). Delete this row."],
+    [stamp, "Test Guest", "'+91 90000 00000", "test@example.com", "2026-12-10", "manual test"],
     true
   );
   return "Contact form test row: " + (contact ? "added to '" + TAB_CONTACT + "'." : "FAILED — check the execution log")
@@ -366,7 +357,6 @@ function emailHtml_(receivedLabel, name, email, phone, room, rate, mealPlan, che
         '<h1 style="margin:8px 0 0;color:#ffffff;font:600 24px/1.2 Arial,sans-serif">New booking request</h1>' +
       '</div>' +
       '<div style="padding:26px">' +
-        '<p style="margin:0 0 18px;color:#746a66;font:14px/1.6 Arial,sans-serif">A guest has sent a booking request. Reply to this email to answer them.</p>' +
         '<table style="width:100%;border-collapse:collapse;border:1px solid #ded5cc">' + table + '</table>' +
         '<p style="margin:24px 0 8px;color:#746a66;font:600 10px/1.4 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase">Notes</p>' +
         '<div style="padding:14px 16px;background:#f7f4ef;border-left:3px solid #432911;color:#211c1c;font:14px/1.7 Arial,sans-serif;white-space:pre-wrap">' + escape_(notes || "—") + '</div>' +

@@ -7,13 +7,13 @@ import { JsonLd, breadcrumb } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Location & Directions",
-  description: `Twin Towers by Defoy is in Pahalgam, Jammu & Kashmir, at ${site.coords} and 2,130 metres. Srinagar Airport is 96 km away, roughly 2.5 to 3 hours by road.`,
+  description: `Twin Towers by Defoy is in Pahalgam, Jammu & Kashmir, at ${site.coords} and 2,130 metres. Srinagar Airport is 96 km away, roughly 1.5 to 2 hours by road.`,
   alternates: { canonical: "/twin-towers/location" },
 };
 
 const nearby = [
   { name: "Aru Valley", note: "Meadows and a quiet road" },
-  { name: "Betaab Valley", note: "The valley bend" },
+  { name: "Betaab Valley", note: "The river bend" },
   { name: "Chandanwari", note: "The road toward Amarnath" },
 ];
 
@@ -78,11 +78,9 @@ export default function LocationPage() {
               Getting here is part of the <em className="text-clay">slowing.</em>
             </h2>
             <p className="body-copy mt-6" data-reveal style={{ ["--reveal-delay" as string]: "80ms" }}>
-              Fly into Srinagar, then drive south through the valley valley. The
-              road climbs gradually, the air changes, and by the time you turn off
-              toward the property, the city feels much further than three hours
-              away. We can arrange a pickup with the resort team — just ask before
-              you book.
+              Fly into Srinagar, then drive south through the valley. The road
+              climbs gradually and the air changes. We can arrange a pickup with
+              the resort team — just ask before you book.
             </p>
 
             <div
@@ -92,7 +90,7 @@ export default function LocationPage() {
             >
               {[
                 ["Airport", "Srinagar · 96 km"],
-                ["Drive", "2.5 – 3 hours"],
+                ["Drive", "1.5 to 2 hours"],
                 ["Elevation", "2,130 m"],
                 ["Address", "Pahalgam, J&K 192125"],
               ].map(([k, v]) => (

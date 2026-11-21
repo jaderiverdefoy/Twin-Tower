@@ -75,7 +75,7 @@ export default function BuildingExplorer() {
               <span className="eyebrow text-crimson">01 — The building</span>
             </div>
             <SplitText
-              text="Five floors, one roof."
+              text="Five floors. One roof."
               as="h2"
               id="building-heading"
               className="mt-6 text-[clamp(2.1rem,3.9vw,3.9rem)] font-bold leading-[0.96] tracking-[-0.04em]"
