@@ -11,6 +11,8 @@ interface Props {
   id?: string;
   /** Words lift as whole units (default) or characters cascade. */
   split?: "words" | "chars";
+  /** Safety timer that reveals the copy if the observer never fires. */
+  forceDelay?: number;
 }
 
 /**
@@ -29,6 +31,7 @@ export default function SplitText({
   delay = 0,
   id,
   split = "words",
+  forceDelay = 1600,
 }: Props) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
@@ -41,9 +44,9 @@ export default function SplitText({
   const Tag = as;
 
   useEffect(() => {
-    const t = window.setTimeout(() => setForce(true), 1600);
+    const t = window.setTimeout(() => setForce(true), forceDelay);
     return () => window.clearTimeout(t);
-  }, []);
+  }, [forceDelay]);
 
   if (reduce) {
     const Plain = as;

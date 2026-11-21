@@ -219,7 +219,7 @@ export const faqs = [
   },
   {
     q: "How many rooms does Twin Towers by Defoy have?",
-    a: "25 rooms in total — 22 Premium Rooms with Balcony and 3 Attic Rooms on the fourth floor, closest to the roof. Every room has a king bed and a private balcony.",
+    a: "25 rooms in total — 22 Premium Rooms with Balcony and 3 Attic Rooms on the fourth floor, closest to the roof. Every room has a king bed.",
   },
   {
     q: "What are the room rates?",

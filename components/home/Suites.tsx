@@ -80,14 +80,14 @@ export default function Suites() {
               <span className="eyebrow text-crimson">03 — Stay</span>
             </div>
             <SplitText
-              text="Every room with a balcony."
+              text="Two kinds of room."
               as="h2"
               id="suites-heading"
               className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.98] tracking-[-0.04em]"
             />
           </div>
           <p className="body-copy md:col-span-4 md:col-start-9" data-reveal="fade">
-            Twenty-two premium rooms and three attics — a king bed and a balcony each.
+            Twenty-two premium rooms and three attics — each with a king bed and space to unpack.
           </p>
         </div>
 

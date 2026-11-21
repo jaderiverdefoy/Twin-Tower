@@ -1,16 +1,57 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import SplitText from "@/components/ui/SplitText";
 import { site } from "@/lib/content";
 
 const facts = [
-  { k: "Rooms", v: "25, all with a balcony" },
+  { k: "Rooms", v: "25 rooms in two wings" },
   { k: "Towers", v: "Two, under one roof" },
   { k: "From", v: "₹5,000 / night" },
   { k: "Altitude", v: "2,200 m" },
 ];
 
-export default function Statement() {
+/** Counts up once when the figure scrolls into view; static for reduced motion. */
+function CountUp({ to }: { to: number }) {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (reduce) {
+      setValue(to);
+      return;
+    }
+    if (!inView) return;
+    const controls = animate(0, to, {
+      duration: 1.5,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => setValue(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [inView, reduce, to]);
+
   return (
-    <section className="relative overflow-hidden bg-paper pt-16 md:pt-24" aria-labelledby="statement-heading">
+    <span ref={ref} aria-label={`${to}`}>
+      {reduce ? to : value}
+    </span>
+  );
+}
+
+export default function Statement() {
+  const reduce = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInView(sectionRef, { once: true, amount: 0.15 });
+  const show = inView || reduce;
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-paper pt-16 md:pt-24"
+      aria-labelledby="statement-heading"
+    >
       <div className="shell">
         <div
           className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4"
@@ -29,9 +70,15 @@ export default function Statement() {
                 className="index-figure block select-none text-[clamp(3rem,6vw,5.2rem)] leading-none"
                 aria-hidden="true"
               >
-                25
+                <CountUp to={25} />
               </span>
-              <span className="h-px flex-1 bg-line" aria-hidden="true" />
+              <motion.span
+                aria-hidden="true"
+                className="h-px flex-1 origin-left bg-crimson"
+                initial={{ scaleX: reduce ? 1 : 0 }}
+                animate={{ scaleX: show ? 1 : 0 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              />
               <span className="eyebrow text-stone">Rooms</span>
             </div>
 
@@ -40,14 +87,25 @@ export default function Statement() {
               as="h2"
               id="statement-heading"
               split="chars"
+              forceDelay={12000}
               className="relative mt-5 text-[clamp(2.2rem,4vw,4rem)] font-bold leading-[0.95] tracking-[-0.045em]"
             />
+
             <p
               className="relative mt-3 max-w-[24ch] font-display text-[clamp(1.8rem,3.8vw,3.4rem)] font-semibold leading-[1.02] tracking-[-0.04em] text-crimson"
               data-reveal
               style={{ ["--reveal-delay" as string]: "120ms" }}
             >
-              Every one with a balcony.
+              <span className="group relative inline-block">
+                A quieter kind of escape.
+                <motion.span
+                  aria-hidden="true"
+                  className="absolute -bottom-1 left-0 h-[2px] w-full origin-left bg-crimson/70"
+                  initial={{ scaleX: reduce ? 1 : 0 }}
+                  animate={{ scaleX: show ? 1 : 0 }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.55 }}
+                />
+              </span>
             </p>
           </div>
 
@@ -60,11 +118,16 @@ export default function Statement() {
               {facts.map((f, i) => (
                 <div
                   key={f.k}
+                  className="group cursor-default"
                   data-reveal="zoom"
                   style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}
                 >
-                  <dt className="eyebrow text-stone">{f.k}</dt>
-                  <dd className="mt-2 text-[0.92rem] font-medium leading-snug">{f.v}</dd>
+                  <dt className="eyebrow text-stone transition-colors duration-300 group-hover:text-crimson">
+                    {f.k}
+                  </dt>
+                  <dd className="mt-2 border-b border-transparent pb-1 text-[0.92rem] font-medium leading-snug transition-[border-color,transform] duration-300 group-hover:-translate-y-0.5 group-hover:border-crimson/50">
+                    {f.v}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -73,7 +136,13 @@ export default function Statement() {
               className="mt-8 flex items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-stone"
               data-reveal="fade"
             >
-              <span className="block h-px w-8 bg-crimson" />
+              <motion.span
+                aria-hidden="true"
+                className="block h-px w-8 origin-left bg-crimson"
+                initial={{ scaleX: reduce ? 1 : 0 }}
+                animate={{ scaleX: show ? 1 : 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
+              />
               {site.coordsDisplay}
             </p>
           </div>

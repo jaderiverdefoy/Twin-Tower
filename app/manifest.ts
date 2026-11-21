@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Twin Towers by Defoy — Pahalgam, Kashmir",
     short_name: "Twin Towers",
     description:
-      "Twenty-five rooms on the road to Pahalgam. Two towers under one roof, a balcony in every room, and the valley outside.",
+      "Twenty-five rooms on the road to Pahalgam. Two towers under one roof, and the valley outside.",
     start_url: "/",
     display: "standalone",
     orientation: "portrait",

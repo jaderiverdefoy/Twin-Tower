@@ -16,6 +16,17 @@
 - [x] Navbar at scroll top now has a translucent tinted background with blur
       (`bg-forest/55 backdrop-blur-md`, light text), like Jade River, instead
       of only a soft gradient.
+- [x] "02 — The house" on mobile appears quickly: swapped the 1.05s clip-path
+      mask + 1.25s image zoom for a 0.32s fade, first two images eager, no
+      `reveal-media` scale.
+- [x] Statement section after the hero now animates on scroll: "25" counts up,
+      rules and underline draw in, fact rows react to hover. `SplitText` got a
+      `forceDelay` prop so this headline waits for the scroll instead of
+      firing while the hero is still on screen.
+- [x] Removed all blanket "every room has a balcony" claims site-wide
+      (Statement, Estate, Suites, hotel page, FAQ, manifest, dining/breakfast
+      copy). Kept the "Premium Room with Balcony" room type name, its room-specific
+      descriptions and the balcony gallery, per user's choice.
 - [x] `npx tsc --noEmit` clean, `npm run build` passes (32 pages), no browser
       console errors.
 

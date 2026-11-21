@@ -5,7 +5,7 @@ import SplitText from "@/components/ui/SplitText";
 import { useAutoRotate } from "@/lib/useAutoRotate";
 
 const features = [
-  { title: "Breakfast", body: "A warm breakfast included with every stay, served in the dining room or on your balcony." },
+  { title: "Breakfast", body: "A warm breakfast included with every stay, served in the dining room." },
   { title: "Wi-Fi", body: "Reliable connectivity in every room and across the property." },
   { title: "Parking", body: "Complimentary on-site parking for guests arriving by road." },
   { title: "Room service", body: "Meals and kahwa brought to your room, any hour you ask." },

@@ -53,7 +53,7 @@ const CARDS = [
     src: shots[1].src,
     alt: shots[1].alt,
     label: "From the balcony",
-    caption: "Balcony in every room",
+    caption: "The lawn from above",
     left: "52%",
     top: "2%",
     width: "48%",
@@ -214,7 +214,7 @@ export default function Estate() {
 
             <p className="mt-8 max-w-md text-[clamp(0.97rem,1.05vw,1.08rem)] leading-[1.72] text-ivory/75" data-reveal="fade">
               White render, red brick, black steel, a steep grey roof. Twenty-five
-              rooms, each with a balcony. The lawn is the living room.
+              rooms in two wings. The lawn is the living room.
             </p>
 
             <dl className="mt-10 border-t border-line-light">
@@ -223,7 +223,7 @@ export default function Estate() {
                   key={f.k}
                   className="grid grid-cols-[6rem_1fr] items-baseline gap-4 border-b border-line-light py-3.5"
                   data-reveal="fade"
-                  style={{ ["--reveal-delay" as string]: `${i * 70}ms` }}
+                  style={{ ["--reveal-delay" as string]: `${i * 45}ms` }}
                 >
                   <dt className="eyebrow text-sand">{f.k}</dt>
                   <dd className="text-[0.94rem] font-medium text-ivory">{f.v}</dd>
@@ -278,7 +278,12 @@ export default function Estate() {
         {CARDS.map((c, i) => (
           <figure
             key={c.src}
-            data-reveal="mask"
+            data-reveal="fade"
+            style={{
+              ["--reveal-duration" as string]: "0.32s",
+              ["--reveal-distance" as string]: "0.5rem",
+              ["--reveal-delay" as string]: `${i * 35}ms`,
+            }}
             className="relative w-[82vw] shrink-0 snap-center overflow-hidden rounded-2xl border border-ivory/15 bg-deep shadow-[0_24px_60px_-24px_rgba(10,7,4,0.7)]"
           >
             <div className="relative aspect-[3/4]">
@@ -288,8 +293,8 @@ export default function Estate() {
                 fill
                 sizes="82vw"
                 quality={75}
-                loading="lazy"
-                className="reveal-media object-cover"
+                loading={i < 2 ? "eager" : "lazy"}
+                className="object-cover"
               />
               <span
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-deep/90 via-deep/25 to-transparent"

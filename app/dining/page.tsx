@@ -89,7 +89,7 @@ export default function DiningPage() {
                 style={{ ["--reveal-delay" as string]: "120ms" }}
               >
                 Breakfast is included with every room and can be served in the
-                dining room or on your balcony.
+                dining room.
               </p>
               <div className="mt-9 flex flex-wrap gap-4" data-reveal="fade">
                 <Link href="/contact" className="btn">

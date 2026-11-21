@@ -21,7 +21,6 @@ const amenities = [
   "Room service",
   "Central heating",
   "Doctor on call",
-  "Balcony in every room",
   "King size bed",
   "Extra bed available",
   "Hot water",
@@ -80,8 +79,7 @@ export default function HotelPage() {
                 data-reveal="fade"
                 style={{ ["--reveal-delay" as string]: "120ms" }}
               >
-                Twenty-five rooms. 22 Premium and 3 Attic. Every one has a king bed
-                and a balcony.
+                Twenty-five rooms. 22 Premium and 3 Attic. Every one has a king bed.
               </p>
 
               <div
