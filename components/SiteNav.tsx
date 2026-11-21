@@ -76,10 +76,10 @@ export default function SiteNav() {
     <>
       <motion.header
         className={cn(
-          "site-header fixed inset-x-0 top-0 z-[105] isolate border-b transition-[background-color,border-color,color,backdrop-filter] duration-500",
+          "site-header fixed inset-x-0 top-0 z-[105] border-b transition-[background-color,border-color,color,backdrop-filter] duration-500",
           atTop
             ? overHero
-              ? "border-transparent text-paper before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:-z-10 before:h-[160%] before:bg-gradient-to-b before:from-[#1d1208]/85 before:via-[#1d1208]/40 before:to-transparent [text-shadow:0_1px_2px_rgba(0,0,0,0.45),0_2px_18px_rgba(0,0,0,0.55)]"
+              ? "border-transparent bg-forest/55 text-paper backdrop-blur-md [text-shadow:0_1px_12px_rgba(0,0,0,0.55)]"
               : "border-transparent bg-transparent text-ink"
             : "border-line bg-paper/95 text-ink backdrop-blur-md",
         )}

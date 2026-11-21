@@ -10,9 +10,12 @@
 - [x] Favicon is now the Defoy logo, matching Jade: `app/icon.png`,
       `app/favicon.ico`, `app/apple-icon.png`, PWA icons in `public/icons/`
       and a branded `app/manifest.ts`; removed the old crimson `app/icon.svg`.
-- [x] "01 — The building" replaced: still full-bleed exterior photograph,
-      arrival copy and three waypoints (approach / lawn / house) instead of
-      the auto-rotating floor slideshow with mismatched room photos.
+- [x] "01 — The building" replaced: short section (~600px) with three
+      clickable/hoverable/swipeable views of the property (house / lawn /
+      facade) using real property photos; the fake floor labels are gone.
+- [x] Navbar at scroll top now has a translucent tinted background with blur
+      (`bg-forest/55 backdrop-blur-md`, light text), like Jade River, instead
+      of only a soft gradient.
 - [x] `npx tsc --noEmit` clean, `npm run build` passes (32 pages), no browser
       console errors.
 
