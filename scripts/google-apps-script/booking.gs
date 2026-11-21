@@ -268,11 +268,15 @@ function setupBookingSheet() {
 
 /**
  * Forces plain text in Sheets. Values beginning with =, +, - or @ are treated
- * as formulas by Google Sheets — a phone like "+91 …" would show #ERROR!.
- * A leading apostrophe keeps them as literal text (it is not displayed).
+ * as formulas by Google Sheets — a phone like "+91 …" would otherwise show
+ * "Error: Formula parse error". A leading apostrophe keeps them as literal
+ * text (it is not displayed). Line breaks are removed so a pasted number can
+ * never spill into a second cell.
  */
 function sheetText_(value) {
-  var v = String(value == null ? "" : value);
+  var v = String(value == null ? "" : value)
+    .replace(/[\r\n\t]+/g, " ")
+    .trim();
   return /^[=+\-@]/.test(v) ? "'" + v : v;
 }
 
@@ -427,5 +431,64 @@ function getLogSheet_(spreadsheet, tab, headers) {
     sheet.setFrozenRows(1);
   }
 
+  // Belt and braces: the phone column is always plain text, so even a value
+  // that slipped through without sheetText_() cannot become a formula.
+  var phoneCol = tab === TAB_POPUP ? 3 : 4;
+  sheet
+    .getRange(1, phoneCol, Math.max(sheet.getMaxRows(), 1), 1)
+    .setNumberFormat("@");
+
   return sheet;
+}
+
+/**
+ * ONE-TIME CLEANUP — run this once from the Apps Script editor (Run →
+ * repairSheetPhones) after deploying the new version. Rows logged before
+ * sheetText_() existed can still show "Formula parse error" in the phone
+ * column; formatting the column alone does not repair those old cells.
+ *
+ * The column is forced to plain text and every phone value is rewritten with
+ * a leading apostrophe. An old error cell has lost its original number, so it
+ * is marked "see email" — recover those values from the notification email.
+ */
+function repairSheetPhones() {
+  var spreadsheet = getLogSpreadsheet_();
+  if (!spreadsheet) {
+    return "No spreadsheet found — set SHEET_ID or bind the script to the sheet.";
+  }
+  return [
+    repairPhoneColumn_(spreadsheet, TAB_POPUP, 3),
+    repairPhoneColumn_(spreadsheet, TAB_CONTACT, 4),
+  ].join("  ");
+}
+
+function repairPhoneColumn_(spreadsheet, tab, phoneCol) {
+  var sheet = spreadsheet.getSheetByName(tab);
+  if (!sheet || sheet.getLastRow() < 2) return tab + ": no rows to repair.";
+
+  var range = sheet.getRange(2, phoneCol, sheet.getLastRow() - 1, 1);
+  range.setNumberFormat("@");
+  var values = range.getValues();
+  var fixed = 0;
+  var unreadable = 0;
+
+  for (var i = 0; i < values.length; i++) {
+    var cell = range.getCell(i + 1, 1);
+    var raw = values[i][0];
+    var v = typeof raw === "number" || typeof raw === "string" ? String(raw).trim() : "";
+
+    if (!v || /^#/.test(v) || /error/i.test(v)) {
+      // The original number cannot be recovered from a parse-error cell.
+      cell.setValue("see email");
+      unreadable++;
+    } else {
+      cell.setValue("'" + v.replace(/^'+/, ""));
+      fixed++;
+    }
+  }
+
+  return (
+    tab + ": " + fixed + " phone cells rewritten as text, " +
+    unreadable + " unreadable cells marked 'see email'."
+  );
 }

@@ -1,5 +1,21 @@
 # Twin Towers — refinement round (21 Nov 2026)
 
+## Follow-up round (21 Nov 2026)
+- [x] Google Sheet phone "Formula parse error" hardened in `booking.gs`:
+      `sheetText_()` now strips line breaks, the phone column is forced to
+      plain text (`@`), and a one-time `repairSheetPhones()` helper repairs
+      old error cells. USER ACTION: paste the new `booking.gs` into Apps
+      Script → Deploy → Manage deployments → New version, then run
+      `repairSheetPhones()` once from the editor.
+- [x] Favicon is now the Defoy logo, matching Jade: `app/icon.png`,
+      `app/favicon.ico`, `app/apple-icon.png`, PWA icons in `public/icons/`
+      and a branded `app/manifest.ts`; removed the old crimson `app/icon.svg`.
+- [x] "01 — The building" replaced: still full-bleed exterior photograph,
+      arrival copy and three waypoints (approach / lawn / house) instead of
+      the auto-rotating floor slideshow with mismatched room photos.
+- [x] `npx tsc --noEmit` clean, `npm run build` passes (32 pages), no browser
+      console errors.
+
 ## This round
 - [x] Hotel page story shortened; quote tightened.
 - [x] "01 — The building" heading fixed to "Five floors. One roof."
