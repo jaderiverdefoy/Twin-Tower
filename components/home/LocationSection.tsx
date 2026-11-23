@@ -52,7 +52,7 @@ export default function LocationSection() {
               className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.96] tracking-[-0.04em]"
               data-reveal
             >
-              The road ends. <em>The valley opens.</em>
+              The road ends. <em className="mark-sage">The mountains begin.</em>
             </h2>
 
             <p className="body-copy mt-8 max-w-md" data-reveal>

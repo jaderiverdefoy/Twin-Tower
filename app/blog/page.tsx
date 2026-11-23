@@ -32,7 +32,7 @@ export default async function BlogPage() {
         eyebrow="Blog · Notes"
         title={
           <>
-            Notes from the <em className="text-clay">slow side.</em>
+            Notes from <em className="mark-sage">the valley.</em>
           </>
         }
         intro="Field notes, small observations, and the occasional practical guide. Written from the property, between cups of tea."

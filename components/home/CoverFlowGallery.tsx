@@ -260,7 +260,7 @@ function GalleryHeader() {
           className="mt-5 max-w-[18ch] text-[clamp(2.1rem,3.9vw,3.9rem)] font-bold leading-[0.96] tracking-[-0.04em]"
           data-reveal="zoom"
         >
-          A walk through <em>the house.</em>
+          A walk through <em className="mark-sage">the house.</em>
         </h2>
       </div>
       <div className="flex items-end gap-6">

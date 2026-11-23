@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import SplitText from "@/components/ui/SplitText";
@@ -32,6 +33,15 @@ const views = [
   },
 ];
 
+const COLS = 8;
+const ROWS = 6;
+const TILES = COLS * ROWS;
+
+/** Deterministic pseudo-random reveal order, so SSR and client agree. */
+function tileDelay(i: number) {
+  return (((i * 73) % 101) / 101) * 0.38;
+}
+
 export default function BuildingExplorer() {
   const reduce = useReducedMotion();
   const { index: active, select, advance, hoverProps, swipeProps } = useAutoRotate(
@@ -39,6 +49,29 @@ export default function BuildingExplorer() {
     5200,
     reduce,
   );
+
+  const [base, setBase] = useState(0);
+  const [incoming, setIncoming] = useState<number | null>(null);
+  const lastActive = useRef(0);
+
+  useEffect(() => {
+    if (active === lastActive.current) return;
+    lastActive.current = active;
+
+    if (reduce) {
+      setBase(active);
+      setIncoming(null);
+      return;
+    }
+
+    // Reveal the new photo tile by tile over the old one, then swap the base.
+    setIncoming(active);
+    const timer = window.setTimeout(() => {
+      setBase(active);
+      setIncoming(null);
+    }, 720);
+    return () => window.clearTimeout(timer);
+  }, [active, reduce]);
 
   return (
     <section
@@ -111,28 +144,45 @@ export default function BuildingExplorer() {
               {...hoverProps(advance)}
               {...swipeProps}
             >
-              {views.map((v, i) => (
-                <motion.div
-                  key={v.label}
-                  className="absolute inset-0"
-                  initial={false}
-                  animate={{
-                    opacity: i === active ? 1 : 0,
-                    scale: i === active ? 1 : 1.05,
+              <Image
+                key={base}
+                src={views[base].image}
+                alt={views[base].alt}
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                loading={base === 0 ? "eager" : "lazy"}
+                className="reveal-media object-cover"
+              />
+
+              {incoming !== null ? (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 grid"
+                  style={{
+                    gridTemplateColumns: `repeat(${COLS}, 1fr)`,
+                    gridTemplateRows: `repeat(${ROWS}, 1fr)`,
                   }}
-                  transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                  aria-hidden={i !== active}
                 >
-                  <Image
-                    src={v.image}
-                    alt={v.alt}
-                    fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    loading={i === 0 ? "eager" : "lazy"}
-                    className="reveal-media object-cover"
-                  />
-                </motion.div>
-              ))}
+                  {Array.from({ length: TILES }, (_, i) => {
+                    const col = i % COLS;
+                    const row = Math.floor(i / COLS);
+                    return (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.14, delay: tileDelay(i), ease: "linear" }}
+                        style={{
+                          backgroundImage: `url("${views[incoming].image}")`,
+                          backgroundSize: `${COLS * 100}% ${ROWS * 100}%`,
+                          backgroundPosition: `${(col / (COLS - 1)) * 100}% ${(row / (ROWS - 1)) * 100}%`,
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              ) : null}
+
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-deep/85 via-deep/15 to-transparent"

@@ -25,7 +25,7 @@ export default function GalleryPage() {
         eyebrow="Gallery · The property"
         title={
           <>
-            A frame every <em className="text-clay">few steps.</em>
+            See the <em className="mark-sage">property.</em>
           </>
         }
         intro="Wooden facades, a stream in front, pine forest behind. The light changes every hour and never repeats itself."

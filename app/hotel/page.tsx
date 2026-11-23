@@ -47,7 +47,7 @@ export default function HotelPage() {
         eyebrow="The hotel · Story and numbers"
         title={
           <>
-            Two towers, one roof, <em>twenty-five rooms.</em>
+            Two towers. One roof. <em>twenty-five rooms.</em>
           </>
         }
         intro="A family-run property on the road to Pahalgam — built for slow mornings, long views and the kind of hospitality that remembers your name."

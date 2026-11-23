@@ -34,7 +34,7 @@ export default function DiningPage() {
         eyebrow="Dining · The house kitchen"
         title={
           <>
-            A small dining room that feels like a <em>house.</em>
+            A small dining room that feels like <em>home.</em>
           </>
         }
         intro="Ask the team what is fresh from the valley. The kitchen cooks for the house, not for a crowd — and it shows."

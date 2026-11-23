@@ -80,7 +80,8 @@ export default function Suites() {
               <span className="eyebrow text-crimson">03 — Stay</span>
             </div>
             <SplitText
-              text="Two kinds of room."
+              text="Two ways to stay."
+              highlight="stay."
               as="h2"
               id="suites-heading"
               className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.98] tracking-[-0.04em]"

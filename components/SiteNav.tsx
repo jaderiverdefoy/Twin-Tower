@@ -131,18 +131,28 @@ export default function SiteNav() {
           </nav>
 
           <div className="flex items-center gap-4">
-            {pathname !== "/contact" && (
-              <Link
-                href="/contact"
-                className={cn(
-                  "site-nav-cta btn hidden !py-3 !px-5 sm:inline-flex",
-                  overHero ? "!border-paper/70 !text-paper" : "btn-clay",
-                )}
-              >
-                Reserve directly
-                <Arrow />
-              </Link>
-            )}
+            {/*
+              Keep the CTA's slot in the navbar on /contact. Removing the
+              element entirely empties the right flex item, so `justify-between`
+              redistributes the space and shoves the nav links ~100px right.
+              Invisible on desktop only — below lg it is not rendered at all so
+              the hamburger still sits flush right.
+            */}
+            <Link
+              href="/contact"
+              aria-hidden={pathname === "/contact" || undefined}
+              tabIndex={pathname === "/contact" ? -1 : undefined}
+              className={cn(
+                "site-nav-cta btn !py-3 !px-5",
+                pathname === "/contact"
+                  ? "hidden lg:invisible lg:pointer-events-none lg:inline-flex"
+                  : "hidden sm:inline-flex",
+                overHero ? "!border-paper/70 !text-paper" : "btn-clay",
+              )}
+            >
+              Reserve directly
+              <Arrow />
+            </Link>
 
             <button
               type="button"

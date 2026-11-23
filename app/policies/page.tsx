@@ -26,7 +26,7 @@ export default function PoliciesPage() {
           <>
             The fine print,
             <br />
-            without the <em className="text-clay">fog.</em>
+            in <em className="mark-sage">plain words.</em>
           </>
         }
         intro="Cancellation, payment, check-in and identification. Short, specific, and the same for everyone. If anything is unclear, call the resort before you book."

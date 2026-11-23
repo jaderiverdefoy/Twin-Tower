@@ -49,7 +49,7 @@ export default async function ReviewsPage() {
         }
         title={
           <>
-            Notes left by <em className="text-clay">guests.</em>
+            Notes from <em className="mark-sage">our guests.</em>
           </>
         }
         intro=""

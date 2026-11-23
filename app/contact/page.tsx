@@ -33,7 +33,7 @@ export default async function ContactPage({
           <>
             Tell us when.
             <br />
-            We’ll keep the <em className="text-clay">valley ready.</em>
+            We’ll be <em className="mark-sage">in touch.</em>
           </>
         }
         intro="Choose a room and send the request. We'll reply soon."

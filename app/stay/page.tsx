@@ -27,7 +27,7 @@ export default function StayPage() {
           <>
             Twenty-five rooms.
             <br />
-            Three under <em className="text-clay">the roof.</em>
+            Three are <em className="mark-sage">attics.</em>
           </>
         }
         intro="22 premium rooms and 3 attics — king beds, balconies and the lawn outside."

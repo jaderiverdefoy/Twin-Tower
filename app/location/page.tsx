@@ -30,8 +30,7 @@ export default function LocationPage() {
         eyebrow="Location · Pahalgam"
         title={
           <>
-            At the end of the{" "}
-            <em className="text-clay">valley road.</em>
+            At the end of <em className="mark-sage">the road.</em>
           </>
         }
         intro="Pahalgam sits at 2,130 metres in the valley. The last stretch of road follows the valley, and then it is just the mountains."

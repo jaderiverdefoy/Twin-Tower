@@ -97,7 +97,7 @@ export default function Statement() {
               style={{ ["--reveal-delay" as string]: "120ms" }}
             >
               <span className="group relative inline-block">
-                A quieter kind of escape.
+                <em className="mark-sage">A quieter kind of escape.</em>
                 <motion.span
                   aria-hidden="true"
                   className="absolute -bottom-1 left-0 h-[2px] w-full origin-left bg-crimson/70"

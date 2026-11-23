@@ -13,6 +13,8 @@ interface Props {
   split?: "words" | "chars";
   /** Safety timer that reveals the copy if the observer never fires. */
   forceDelay?: number;
+  /** A whole word from `text` to wrap in the sage keyword highlight. */
+  highlight?: string;
 }
 
 /**
@@ -32,6 +34,7 @@ export default function SplitText({
   id,
   split = "words",
   forceDelay = 1600,
+  highlight,
 }: Props) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
@@ -50,9 +53,19 @@ export default function SplitText({
 
   if (reduce) {
     const Plain = as;
+    const at = highlight ? text.toLowerCase().indexOf(highlight.toLowerCase()) : -1;
+    if (at < 0) {
+      return (
+        <Plain className={className} id={id}>
+          {text}
+        </Plain>
+      );
+    }
     return (
       <Plain className={className} id={id}>
-        {text}
+        {text.slice(0, at)}
+        <em className="mark-sage">{text.slice(at, at + (highlight?.length ?? 0))}</em>
+        {text.slice(at + (highlight?.length ?? 0))}
       </Plain>
     );
   }
@@ -67,11 +80,16 @@ export default function SplitText({
         id={id}
         aria-label={text}
       >
-        {text.split(" ").map((word, i) => (
-          <Unit key={i} index={i} delay={delay} stagger={0.055} show={show} gap>
-            {word}
-          </Unit>
-        ))}
+        {text.split(" ").map((word, i) => {
+          const unit = (
+            <Unit key={i} index={i} delay={delay} stagger={0.055} show={show} gap>
+              {word}
+            </Unit>
+          );
+          return highlight && word.toLowerCase() === highlight.toLowerCase()
+            ? <em key={`hl-${i}`} className="mark-sage">{unit}</em>
+            : unit;
+        })}
       </Tag>
     );
   }
@@ -134,7 +152,7 @@ function Unit({
       aria-hidden="true"
       className="inline-block overflow-hidden align-bottom"
       style={{
-        marginRight: gap ? "0.24em" : undefined,
+        marginRight: gap ? "0.3em" : undefined,
         paddingBottom: "0.12em",
         marginBottom: "-0.12em",
         perspective: 900,

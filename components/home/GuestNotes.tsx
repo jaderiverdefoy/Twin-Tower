@@ -41,7 +41,7 @@ export default function GuestNotes({
               className="mt-5 text-[clamp(2.2rem,3.4vw,3.4rem)] font-bold leading-[0.96] tracking-[-0.04em]"
               data-reveal
             >
-              What guests <em className="text-clay">say.</em>
+              What our guests say.
             </h2>
           </div>
           <p

@@ -23,6 +23,27 @@
       rules and underline draw in, fact rows react to hover. `SplitText` got a
       `forceDelay` prop so this headline waits for the scroll instead of
       firing while the hero is still on screen.
+- [x] Ported Jade's `mark-sage` keyword highlight: same CSS (skewed sage
+      rectangle `#c8d5a5`, charcoal 800 text + 0.012em stroke) and applied to
+      curated headline keywords on plain backgrounds only — removed from the
+      hotel and dining headers, which sit over photos. Highlights now on 9
+      page H1s and 5 homepage lines (statement, guest notes, gallery, location,
+      journal). Rewrote the highlighted sentences in plain English.
+      Statement highlights the whole phrase "A quieter kind of escape.";
+      highlight text stroke thickened to 0.022em for extra weight.
+- [x] Highlight colour kept as muted sage (#c8d5a5) — user preferred green;
+      homepage highlights now skip consecutive sections
+      (statement, 06 gallery, 08 location, 10 journal — guest notes skipped).
+- [x] "03 — Stay" headline is now "Two ways to stay." with sage highlight on
+      "stay." Added an optional `highlight` word prop to `SplitText`
+      (reduced-motion aware) and widened word gap to 0.3em.
+- [x] "01 — The building" image switch now uses a pixel dissolve: 8x6 tile
+      overlay reveals the new photo in a staggered order, then becomes the base.
+      Reduced motion falls back to an instant swap.
+- [x] Navbar on /contact no longer shifts the primary links: the hidden
+      "Reserve directly" CTA keeps its 202px slot on desktop (invisible +
+      pointer-events-none), and is fully hidden below lg so the hamburger stays
+      flush right. Verified link x-positions identical to the homepage.
 - [x] Removed all blanket "every room has a balcony" claims site-wide
       (Statement, Estate, Suites, hotel page, FAQ, manifest, dining/breakfast
       copy). Kept the "Premium Room with Balcony" room type name, its room-specific
