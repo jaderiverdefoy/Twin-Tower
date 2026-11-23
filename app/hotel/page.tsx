@@ -54,8 +54,7 @@ export default function HotelPage() {
         intro="A family-run property on the road to Pahalgam — built for slow mornings, long views and the kind of hospitality that remembers your name."
       />
 
-      <section className="relative isolate overflow-hidden bg-paper py-16 md:py-24" aria-labelledby="story-heading">
-        <SectionCurve tone="deep" variant={0} />
+      <section className="relative overflow-hidden bg-paper py-16 md:py-24" aria-labelledby="story-heading">
         <div className="shell">
           <div className="grid gap-10 md:grid-cols-12 md:gap-12">
             <div className="md:col-span-5">

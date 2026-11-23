@@ -41,8 +41,7 @@ export default function DiningPage() {
         intro="Ask the team what is fresh from the valley. The kitchen cooks for the house, not for a crowd — and it shows."
       />
 
-      <section className="relative isolate bg-paper py-16 md:py-24" aria-labelledby="dining-details">
-        <SectionCurve tone="deep" variant={0} />
+      <section className="relative bg-paper py-16 md:py-24" aria-labelledby="dining-details">
         <div className="shell">
           <div className="grid gap-10 md:grid-cols-12 md:gap-12">
             <div className="md:col-span-5">
