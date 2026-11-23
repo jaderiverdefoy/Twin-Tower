@@ -9,6 +9,7 @@ import {
   useTransform,
 } from "framer-motion";
 import SplitText from "@/components/ui/SplitText";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { useAutoRotate } from "@/lib/useAutoRotate";
 import { photo } from "@/lib/photos";
 
@@ -73,10 +74,11 @@ export default function BalconyView() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-paper py-20 md:py-32"
+      className="relative isolate overflow-hidden surface-warm py-20 md:py-32"
       aria-labelledby="balcony-heading"
       {...hoverProps()}
     >
+      <SectionCurve tone="paper-2" variant={0} />
       <div className="shell">
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5">

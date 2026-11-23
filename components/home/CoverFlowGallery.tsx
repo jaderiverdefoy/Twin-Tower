@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { gallery } from "@/lib/content";
+import SectionCurve from "@/components/ui/SectionCurve";
 
 /**
  * 3D curved cover-flow.
@@ -52,7 +53,8 @@ export default function CoverFlowGallery() {
 
   if (reduce) {
     return (
-      <section className="relative bg-paper-2 py-20 md:py-28" aria-labelledby="gallery-heading">
+      <section className="relative isolate surface-warm-2 py-20 md:py-28" aria-labelledby="gallery-heading">
+        <SectionCurve tone="paper" variant={2} />
         <div className="shell">
           <GalleryHeader />
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -74,9 +76,10 @@ export default function CoverFlowGallery() {
 
   return (
     <section
-      className="relative overflow-hidden bg-paper-2 py-20 md:py-28"
+      className="relative isolate overflow-hidden surface-warm-2 py-20 md:py-28"
       aria-labelledby="gallery-heading"
     >
+      <SectionCurve tone="paper" variant={2} />
       <div className="shell">
         <GalleryHeader />
       </div>
@@ -195,10 +198,10 @@ export default function CoverFlowGallery() {
                     )}
                   </div>
                   <figcaption
-                    className={`mt-4 px-1 text-center transition-all duration-500 ${
+                    className={`mx-auto mt-4 w-fit max-w-full rounded-xl bg-paper-2 px-4 py-2.5 text-center shadow-[0_10px_30px_-18px_rgba(42,26,14,0.45)] transition-all duration-500 ${
                       isActive
                         ? "text-ink opacity-100"
-                        : "pointer-events-none text-ink/70 opacity-0"
+                        : "pointer-events-none text-ink/80 opacity-0"
                     }`}
                     aria-hidden={!isActive}
                   >

@@ -1,5 +1,68 @@
 # Twin Towers — refinement round (21 Nov 2026)
 
+## Palette + curves + PageSpeed round (23 Nov 2026)
+Source: `errors.md` (PageSpeed mobile report, 77 perf / 97 a11y).
+
+### A. Palette — warm sandstone / muted taupe
+- [x] A1. `--color-paper: #e9e1d5`, `--color-paper-2: #f0ebe3`; walnut sections
+      (`Estate`, `SiteFooter`, building collage) untouched.
+- [x] A2. `.surface-warm` / `.surface-warm-2` radial washes applied to all
+      major light homepage sections; neutral, tonal only, no new hues.
+- [x] A3. Closing CTA moved off plain ivory onto the warm surface;
+      `themeColor` in `app/layout.tsx` updated to `#e9e1d5`.
+- [x] A4. `stone` darkened `#746a66 → #675d57`, `mist → #d2c6b7`,
+      `sand → #ded2c2`, `blush → #ecdfd8` so secondary text keeps ≥4.5:1.
+
+### B. Organic curved section transitions
+- [x] B1. `components/ui/SectionCurve.tsx`: one broad asymmetric SVG path,
+      three cycled silhouettes, filled with the outgoing tone, `z-index:-1`,
+      `pointer-events:none`, no animation.
+- [x] B2. Curves at every homepage tone change: hero→statement,
+      paper→walnut (Estate), walnut→paper (Suites), paper↔paper-2 bands,
+      CTA→footer. Same-tone paper/paper boundaries intentionally skipped.
+- [x] B3. Parent sections `isolate`; content stays above the curve. Verified at
+      390 px, 768 px and desktop — nothing clipped, no overlap, no overflow.
+
+### C. PageSpeed — images & LCP
+- [x] C1. Removed `unoptimized: true`; AVIF/WebP srcsets now emitted. Verified
+      `sharp` in the build copy and AVIF negotiation (poster @640w = 17.7 KiB).
+- [x] C2. Nav logo 113 KiB PNG → 11 KiB WebP, rendered at 96×86, `priority`
+      + `fetchPriority="high"`; preload present in the initial HTML.
+- [x] C3. Poster 238 KiB → 153 KiB WebP (then served as AVIF: 27 KiB @828w).
+- [x] C4. 1080p 7.96 MB → 4.1 MB, 720p 4.71 MB → 2.7 MB (24 fps, CRF 32/33,
+      `faststart`); poster-first, video loads on idle, no preload of both files.
+- [x] C5. Audited every `next/image`: added missing `sizes`, trimmed Estate
+      cards `34vw → 22vw`, gallery/suites/blog hints matched to real rendered
+      widths. No source image is now requested at more than ~2× its slot.
+
+### D. PageSpeed — accessibility / JS / CSS
+- [x] D1. All 4 contrast failures fixed: building labels `ink/75`, gallery
+      caption on a solid `paper-2` plate, footer small print `ivory/65`,
+      GuestNotes `ink/70`; Lighthouse accessibility re-run = 100.
+- [x] D2. Modern `browserslist` targets added → legacy polyfill chunk gone.
+- [x] D3. Booking popup split into `BookingPopupLoader` (dynamic, idle-loaded,
+      event-driven so Reserve still opens it instantly) — form/router/validation
+      code no longer ships in the initial payload. Event constant moved to
+      `lib/events.ts` so sections don't import the popup module.
+- [x] D4. `SiteChrome` scroll listener → 1px IntersectionObserver sentinel;
+      no per-frame `scrollY` read / forced reflow.
+- [x] D5. Render-blocking CSS is framework-level (two Next App Router stylesheets,
+      ~16.8 KiB total). Tested `experimental.optimizeCss` + `critters`: it only
+      re-inlined an existing 170-byte rule and left both sheets blocking, so it
+      was reverted rather than add a dependency with no gain. Fonts are already
+      self-hosted/preloaded by `next/font`; no other preconnect candidates.
+
+### E. Verification
+- [x] E1. `tsc --noEmit` clean; `next build` clean — 32 pages generated.
+- [x] E2. Computed styles: body `rgb(233,225,213)`, alternating `surface-warm*`
+      gradients, 38 px mobile / 70 px desktop curve heights with correct fills.
+      CDP screenshots at 390 px and 768 px: no overflow, 0 broken images, 0
+      console errors. Lighthouse a11y / best-practices / SEO = 100/100/100.
+- [x] E3. Asset savings: logo 113→11 KB; poster 238→153 KB (AVIF 27 KB @828w);
+      video 7.96→4.1 MB and 4.71→2.7 MB; responsive images remove ~525 KiB of
+      oversized photo downloads (PageSpeed estimate).
+- [x] E4. TODO updated; all changes left uncommitted and unpushed for review.
+
 ## Follow-up round (21 Nov 2026)
 - [x] Google Sheet phone "Formula parse error" hardened in `booking.gs`:
       `sheetText_()` now strips line breaks, the phone column is forced to

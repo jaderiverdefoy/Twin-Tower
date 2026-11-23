@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import SplitText from "@/components/ui/SplitText";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { useAutoRotate } from "@/lib/useAutoRotate";
 
 const features = [
@@ -25,9 +26,10 @@ export default function StayFeatures() {
 
   return (
     <section
-      className="relative overflow-x-clip bg-paper-2 py-20 md:py-32"
+      className="relative isolate overflow-x-clip surface-warm-2 py-20 md:py-32"
       aria-labelledby="features-heading"
     >
+      <SectionCurve tone="paper" variant={0} />
       <div className="shell">
         <div className="grid gap-10 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5 md:sticky md:top-28 md:self-start">

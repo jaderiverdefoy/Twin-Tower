@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { site } from "@/lib/content";
 import HeroVideo from "@/components/home/HeroVideo";
-import { OPEN_BOOKING_EVENT } from "@/components/BookingPopup";
+import { OPEN_BOOKING_EVENT } from "@/lib/events";
 
 /**
  * Hero — a single full-viewport stage with the site navigation over it.

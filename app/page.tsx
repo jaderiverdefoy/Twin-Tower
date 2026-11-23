@@ -12,7 +12,7 @@ import GuestNotes from "@/components/home/GuestNotes";
 import BlogTeaser from "@/components/home/BlogTeaser";
 import HomeFaq from "@/components/home/HomeFaq";
 import ClosingCTA from "@/components/home/ClosingCTA";
-import BookingPopup from "@/components/BookingPopup";
+import BookingPopupLoader from "@/components/BookingPopupLoader";
 import { getDisplayReviews } from "@/lib/googleReviews";
 
 export default async function HomePage() {
@@ -33,7 +33,7 @@ export default async function HomePage() {
       <BlogTeaser />
       <HomeFaq />
       <ClosingCTA />
-      <BookingPopup />
+      <BookingPopupLoader />
     </>
   );
 }

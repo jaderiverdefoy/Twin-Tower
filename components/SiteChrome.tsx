@@ -24,10 +24,26 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     if (isHome) return;
-    const onScroll = () => setPastFold(window.scrollY > 140);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    // A 1px sentinel at the fold replaces a scroll handler that read
+    // `window.scrollY` on every frame. IntersectionObserver keeps that work
+    // off the main thread and avoids forced reflows.
+    const sentinel = document.createElement("div");
+    sentinel.setAttribute("aria-hidden", "true");
+    sentinel.style.cssText =
+      "position:absolute;top:140px;left:0;width:1px;height:1px;pointer-events:none;opacity:0;";
+    document.body.appendChild(sentinel);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setPastFold(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(sentinel);
+
+    return () => {
+      observer.disconnect();
+      sentinel.remove();
+    };
   }, [isHome, pathname]);
 
   if (isStudio) {

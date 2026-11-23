@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { site } from "@/lib/content";
 
 const explore = [
@@ -18,7 +19,8 @@ const practical = [
 
 export default function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden border-t border-line-light bg-walnut text-ivory">
+    <footer className="relative isolate overflow-hidden bg-walnut text-ivory">
+      <SectionCurve tone="paper" variant={2} />
       <div className="shell pt-20 pb-8 md:pt-28">
         <div className="grid gap-12 md:grid-cols-2 md:gap-x-10 lg:grid-cols-12 lg:gap-14">
           <div className="md:col-span-2 lg:col-span-5" data-reveal>
@@ -95,7 +97,7 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col gap-4 border-t border-line-light pt-6 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-ivory/50 sm:flex-row sm:items-center sm:justify-between" data-reveal="fade">
+        <div className="mt-20 flex flex-col gap-4 border-t border-line-light pt-6 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-ivory/65 sm:flex-row sm:items-center sm:justify-between" data-reveal="fade">
           <p>© {new Date().getFullYear()} Defoy Hotels &amp; Resorts. All rights reserved.</p>
           <div className="flex flex-wrap gap-x-8 gap-y-2">
             <Link href="/policies" className="inline-flex min-h-[44px] items-center hover:text-ivory">

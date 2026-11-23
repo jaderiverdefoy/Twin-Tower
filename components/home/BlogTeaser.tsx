@@ -1,13 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import TiltCard from "@/components/ui/TiltCard";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { getLatestPosts } from "@/lib/posts";
 
 export default async function BlogTeaser() {
   const posts = await getLatestPosts(3);
 
   return (
-    <section className="relative bg-paper py-20 md:py-28" aria-labelledby="blog-heading">
+    <section className="relative isolate surface-warm py-20 md:py-28" aria-labelledby="blog-heading">
+      <SectionCurve tone="paper-2" variant={2} />
       <div className="shell">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>

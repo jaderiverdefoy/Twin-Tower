@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 import SplitText from "@/components/ui/SplitText";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { photo } from "@/lib/photos";
 
 const timings = [
@@ -31,9 +32,10 @@ export default function Restaurant() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-paper py-20 md:py-32"
+      className="relative isolate overflow-hidden surface-warm py-20 md:py-32"
       aria-labelledby="restaurant-heading"
     >
+      <SectionCurve tone="paper-2" variant={1} />
       <div className="shell">
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-6" style={{ perspective: 1200 }}>

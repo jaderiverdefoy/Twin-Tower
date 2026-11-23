@@ -10,6 +10,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import SplitText from "@/components/ui/SplitText";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { site } from "@/lib/content";
 import { imagePool } from "@/lib/imagePool";
 
@@ -164,7 +165,7 @@ function FanCard({
             src={card.src}
             alt={card.alt}
             fill
-            sizes="(min-width: 768px) 34vw, 60vw"
+            sizes="(min-width: 768px) 22vw, 60vw"
             quality={75}
             loading="lazy"
             className="reveal-media object-cover"
@@ -194,9 +195,10 @@ export default function Estate() {
 
   return (
     <section
-      className="relative overflow-hidden bg-walnut py-20 text-ivory md:py-32"
+      className="relative isolate overflow-hidden bg-walnut py-20 text-ivory md:py-32"
       aria-labelledby="estate-heading"
     >
+      <SectionCurve tone="paper" variant={1} />
       <div className="shell">
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5">

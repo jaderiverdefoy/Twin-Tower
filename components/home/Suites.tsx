@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import { rooms, site } from "@/lib/content";
 import SplitText from "@/components/ui/SplitText";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { photo } from "@/lib/photos";
 
 const suiteImages: Record<string, string[]> = {
@@ -71,7 +72,8 @@ export default function Suites() {
   const tiltY = useTransform(scrollYProgress, [0, 0.5, 1], [5, 0, -5]);
 
   return (
-    <section className="relative bg-paper py-20 md:py-32" aria-labelledby="suites-heading">
+    <section className="relative isolate surface-warm py-20 md:py-32" aria-labelledby="suites-heading">
+      <SectionCurve tone="walnut" variant={2} />
       <div className="shell">
         <div className="grid gap-8 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">

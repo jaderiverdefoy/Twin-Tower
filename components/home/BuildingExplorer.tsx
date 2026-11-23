@@ -75,7 +75,7 @@ export default function BuildingExplorer() {
 
   return (
     <section
-      className="relative overflow-hidden bg-paper py-16 md:py-24"
+      className="relative overflow-hidden surface-warm py-16 md:py-24"
       aria-labelledby="building-heading"
       {...hoverProps()}
     >
@@ -121,7 +121,7 @@ export default function BuildingExplorer() {
                     </span>
                     <span
                       className={`text-[0.95rem] font-medium transition-colors ${
-                        isActive ? "text-ink" : "text-ink/60 group-hover:text-ink/85"
+                        isActive ? "text-ink" : "text-ink/75 group-hover:text-ink"
                       }`}
                     >
                       {v.label}

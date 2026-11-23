@@ -2,13 +2,15 @@ import Link from "next/link";
 import { site } from "@/lib/content";
 import Magnetic from "@/components/ui/Magnetic";
 import SplitText from "@/components/ui/SplitText";
+import SectionCurve from "@/components/ui/SectionCurve";
 
 export default function ClosingCTA() {
   return (
     <section
-      className="relative overflow-hidden bg-ivory text-ink"
+      className="relative isolate overflow-hidden surface-warm text-ink"
       aria-labelledby="cta-heading"
     >
+      <SectionCurve tone="paper-2" variant={1} />
       <div className="shell relative z-10 py-20 md:py-28">
         <div className="grid gap-12 md:grid-cols-12 md:items-end">
           <div className="relative md:col-span-7">

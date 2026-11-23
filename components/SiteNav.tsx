@@ -94,11 +94,12 @@ export default function SiteNav() {
             className="group flex items-center"
           >
             <Image
-              src="/images/logo-defoy.png"
+              src="/images/logo-defoy.webp"
               alt="Defoy"
-              width={480}
-              height={430}
+              width={96}
+              height={86}
               priority
+              fetchPriority="high"
               className={cn(
                 "h-10 w-auto transition-[filter] duration-500 md:h-12",
                 overHero && "drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)]",
@@ -181,10 +182,10 @@ export default function SiteNav() {
           >
             <div className="shell flex h-[68px] items-center justify-between md:h-[80px]">
               <Image
-                src="/images/logo-defoy.png"
+                src="/images/logo-defoy.webp"
                 alt="Defoy"
-                width={480}
-                height={430}
+                width={96}
+                height={86}
                 className="h-10 w-auto md:h-12"
               />
               <button

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import type { Review } from "@/lib/googleReviews";
 import ReviewText from "@/components/ReviewText";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { useAutoRotate } from "@/lib/useAutoRotate";
 
 export default function GuestNotes({
@@ -26,9 +27,10 @@ export default function GuestNotes({
 
   return (
     <section
-      className="relative overflow-hidden bg-paper-2 py-16 text-ink md:py-20"
+      className="relative isolate overflow-hidden surface-warm-2 py-16 text-ink md:py-20"
       aria-labelledby="reviews-heading"
     >
+      <SectionCurve tone="paper" variant={1} />
       <div className="shell">
         <div className="grid gap-10 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
@@ -45,7 +47,7 @@ export default function GuestNotes({
             </h2>
           </div>
           <p
-            className="max-w-sm text-[0.95rem] leading-[1.65] text-ink/60 md:col-span-4 md:col-start-9"
+            className="max-w-sm text-[0.95rem] leading-[1.65] text-ink/70 md:col-span-4 md:col-start-9"
             data-reveal="fade"
           >
             Notes from people who stayed.

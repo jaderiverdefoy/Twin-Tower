@@ -37,7 +37,7 @@ export default function LocationSection() {
 
   return (
     <section
-      className="relative overflow-x-clip bg-paper py-20 md:py-32"
+      className="relative overflow-x-clip surface-warm py-20 md:py-32"
       aria-labelledby="location-heading"
     >
       <div className="shell">

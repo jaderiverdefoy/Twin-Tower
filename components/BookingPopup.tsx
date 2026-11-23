@@ -4,13 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { site } from "@/lib/content";
+import { OPEN_BOOKING_EVENT } from "@/lib/events";
 
 /**
  * Home-page booking popup. Opens from the hero Reserve button or on its own
  * shortly after landing. Posts to /api/booking (which stores in Sanity and
  * forwards to the email script); the browser lands on /thank-you.
+ *
+ * Loaded through BookingPopupLoader so this form's code stays out of the
+ * initial JS payload.
  */
-export const OPEN_BOOKING_EVENT = "tt:open-booking";
+export { OPEN_BOOKING_EVENT } from "@/lib/events";
 const AUTO_OPEN_MS = 4500;
 
 type Errors = Record<string, string>;

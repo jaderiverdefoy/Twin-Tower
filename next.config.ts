@@ -4,12 +4,9 @@ const nextConfig: NextConfig = {
   // Hide the floating dev badge — it reads as a stray button on the homepage.
   devIndicators: false,
   images: {
-    // Serve the local photo library directly: every photo in /public is
-    // already an optimised ~90 KB WebP, so the runtime optimizer only added a
-    // cold hit after each deploy (its cache lives inside .next and is wiped on
-    // rebuild). Remote Sanity images are small, fast CDN assets too, so they
-    // pass straight through as well.
-    unoptimized: true,
+    // Responsive delivery: Next emits AVIF/WebP srcsets from each `sizes`
+    // hint, so phones no longer download 1250px photos for a 350px card.
+    // `minimumCacheTTL` keeps each generated width warm across requests.
     remotePatterns: [
       { protocol: "https", hostname: "cdn.sanity.io" },
     ],

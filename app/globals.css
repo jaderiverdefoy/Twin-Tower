@@ -12,14 +12,16 @@
   --color-ivory: #f5efe6; /* Warm Ivory — premium backgrounds */
   --color-deep: #2a1a0e; /* Espresso — dark bands, footers, overlays */
 
-  /* Extended */
-  --color-paper: #fbf8f3; /* Soft Paper Ivory — main background */
-  --color-paper-2: #f5efe6; /* Warm Ivory */
+  /* Sandstone triad — the only three tones used for light backgrounds */
+  --color-paper: #e9e1d5; /* Warm Sandstone — main background */
+  --color-sandstone: #dcd0c0; /* Muted Taupe — deepest tonal wash */
+  --color-linen: #f1eae0; /* Pale Linen — softest tonal lift */
+  --color-paper-2: #f1eae0; /* Light Taupe — alternating bands */
   --color-charcoal: #211c1c; /* Charcoal Ink — primary text */
-  --color-stone: #746a66; /* Warm Stone — secondary text */
-  --color-mist: #ded5cc; /* Kashmir Mist — borders */
-  --color-blush: #f3e3e3; /* Crimson Blush — badges, soft cards */
-  --color-sand: #e9ddd0; /* Embroidery Sand — secondary panels */
+  --color-stone: #625852; /* Warm Taupe — secondary text (4.5:1 on all tones) */
+  --color-mist: #d2c6b7; /* Kashmir Mist — borders */
+  --color-blush: #ecdfd8; /* Warm Blush — badges, soft cards */
+  --color-sand: #ded2c2; /* Embroidery Sand — secondary panels */
   --color-white: #ffffff;
 
   /* Legacy aliases kept so every existing utility keeps working.
@@ -62,7 +64,15 @@
   }
 
   body {
-    background: var(--color-paper);
+    /* A page-wide tonal drift: pale linen at the top settling into the
+       deepest taupe at the bottom. Sections layer their own washes on top. */
+    background-color: var(--color-paper);
+    background-image: linear-gradient(
+      170deg,
+      var(--color-linen) 0%,
+      var(--color-paper) 48%,
+      var(--color-sandstone) 100%
+    );
     color: var(--color-charcoal);
     font-family: var(--font-sans);
     font-feature-settings: "cv11" 1, "ss01" 1;
@@ -129,6 +139,56 @@
     max-width: 1680px;
     margin-inline: auto;
     padding-inline: clamp(1.15rem, 4.2vw, 5rem);
+  }
+
+  /*
+   * Light surfaces: warm sandstone with two very soft, off-centre washes.
+   * The wash is baked into the background so it never adds DOM weight or
+   * layout work. Walnut sections deliberately keep their flat brand field.
+   */
+  .surface-warm {
+    background-color: var(--color-paper);
+    background-image:
+      radial-gradient(
+        120% 90% at 8% -10%,
+        rgba(255, 255, 255, 0.42) 0%,
+        rgba(255, 255, 255, 0) 58%
+      ),
+      radial-gradient(
+        100% 80% at 100% 108%,
+        rgba(67, 41, 17, 0.06) 0%,
+        rgba(67, 41, 17, 0) 62%
+      );
+  }
+
+  .surface-warm-2 {
+    background-color: var(--color-paper-2);
+    background-image:
+      radial-gradient(
+        115% 85% at 92% -8%,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0) 56%
+      ),
+      radial-gradient(
+        110% 85% at 0% 110%,
+        rgba(67, 41, 17, 0.055) 0%,
+        rgba(67, 41, 17, 0) 60%
+      );
+  }
+
+  /*
+   * A single, asymmetric section boundary. The SVG is filled with the
+   * outgoing section's tone, so it bleeds a soft curve into the next band.
+   * It sits on a negative z-index inside an isolated section: above that
+   * section's own background, below its content.
+   */
+  .section-curve {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    z-index: -1;
+    height: clamp(2.35rem, 5.4vw, 5rem);
+    pointer-events: none;
   }
 
   /* Short labels: Inter 600, caps, generous tracking, tabular figures. */
