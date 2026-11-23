@@ -4,9 +4,12 @@ const nextConfig: NextConfig = {
   // Hide the floating dev badge — it reads as a stray button on the homepage.
   devIndicators: false,
   images: {
-    // Responsive delivery: Next emits AVIF/WebP srcsets from each `sizes`
-    // hint, so phones no longer download 1250px photos for a 350px card.
-    // `minimumCacheTTL` keeps each generated width warm across requests.
+    // Serve the local photo library directly. These are already optimised
+    // WebPs (~90 KB), and the runtime optimizer added a cold transform hit
+    // after every deploy (its cache lives inside .next and is wiped on
+    // rebuild), which made images pop in late. Responsive srcsets are still
+    // produced for any statically imported images via the build pipeline.
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "cdn.sanity.io" },
     ],
