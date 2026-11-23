@@ -94,7 +94,7 @@ export default function DiningPage() {
               </p>
               <div className="mt-9 flex flex-wrap gap-4" data-reveal="fade">
                 <Link href="/contact" className="btn">
-                  Reserve a table
+                  Reserve a room
                 </Link>
                 <a
                   href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hello Twin Towers by Defoy, I would like to ask about dining.")}`}
@@ -122,7 +122,7 @@ export default function DiningPage() {
                 style={{ ["--reveal-delay" as string]: `${i * 110}ms` }}
               >
                 <Image
-                  src={photo(name)}
+                  src={photo(name as Parameters<typeof photo>[0])}
                   alt={`The ${name} at Twin Towers by Defoy`}
                   fill
                   sizes="(min-width: 768px) 33vw, 100vw"
