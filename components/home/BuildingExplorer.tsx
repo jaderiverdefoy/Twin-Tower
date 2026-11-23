@@ -152,6 +152,7 @@ export default function BuildingExplorer() {
                 alt={views[base].alt}
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
+                quality={65}
                 loading={base === 0 ? "eager" : "lazy"}
                 className="reveal-media object-cover"
               />

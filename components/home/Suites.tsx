@@ -167,7 +167,7 @@ export default function Suites() {
                         width={1600}
                         height={900}
                         sizes="(min-width: 768px) 700px, 100vw"
-                        quality={75}
+                        quality={65}
                         loading="lazy"
                         className="absolute inset-0 h-full w-full object-cover"
                       />

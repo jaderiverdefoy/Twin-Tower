@@ -178,7 +178,7 @@ export default function CoverFlowGallery() {
                       alt={g.alt}
                       fill
                       sizes={compact ? "62vw" : "(min-width: 768px) 27vw, 62vw"}
-                      quality={75}
+                      quality={65}
                       loading="lazy"
                       className="object-cover"
                     />
@@ -230,7 +230,7 @@ export default function CoverFlowGallery() {
               }}
               aria-label={`Go to image ${i + 1}: ${g.alt}`}
               aria-current={i === active}
-              className="grid h-11 w-11 place-items-center rounded-full transition-colors hover:bg-ink/5"
+              className="grid h-12 w-12 place-items-center rounded-full transition-colors hover:bg-ink/5"
             >
               <span
                 aria-hidden="true"

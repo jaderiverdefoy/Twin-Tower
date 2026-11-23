@@ -73,7 +73,7 @@ export default function HeroVideo() {
         fill
         priority
         fetchPriority="high"
-        quality={82}
+        quality={75}
         sizes="100vw"
         className="object-cover"
       />

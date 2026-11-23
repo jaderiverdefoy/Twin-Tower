@@ -166,7 +166,7 @@ function FanCard({
             alt={card.alt}
             fill
             sizes="(min-width: 768px) 22vw, 60vw"
-            quality={75}
+            quality={65}
             loading="lazy"
             className="reveal-media object-cover"
           />
@@ -260,7 +260,7 @@ export default function Estate() {
                       alt={c.alt}
                       fill
                       sizes="30vw"
-                      quality={75}
+                      quality={65}
                       className="object-cover"
                     />
                   </figure>
@@ -294,7 +294,7 @@ export default function Estate() {
                 alt={c.alt}
                 fill
                 sizes="82vw"
-                quality={75}
+                quality={65}
                 loading={i < 2 ? "eager" : "lazy"}
                 className="object-cover"
               />
