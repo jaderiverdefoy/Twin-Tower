@@ -198,7 +198,7 @@ export default function Estate() {
       className="relative isolate overflow-hidden bg-walnut py-20 text-ivory md:py-32"
       aria-labelledby="estate-heading"
     >
-      <SectionCurve tone="paper" variant={1} />
+      <SectionCurve tone="paper-2" variant={1} />
       <div className="shell">
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5">

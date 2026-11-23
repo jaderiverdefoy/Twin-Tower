@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { site } from "@/lib/content";
 import { mapsHref } from "@/lib/utils";
 import { JsonLd, breadcrumb } from "@/lib/schema";
@@ -52,7 +53,8 @@ export default function LocationPage() {
         }
       />
 
-      <section className="shell pb-14">
+      <section className="relative isolate shell pb-14">
+        <SectionCurve tone="paper" variant={0} />
         <div className="relative overflow-hidden border border-line bg-paper-2" data-reveal="zoom">
           <iframe
             title="Map showing Twin Towers by Defoy in Pahalgam"

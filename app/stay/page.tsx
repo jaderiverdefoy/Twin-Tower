@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
+import SectionCurve from "@/components/ui/SectionCurve";
 import RoomShowcase from "@/components/rooms/RoomShowcase";
 import { JsonLd, breadcrumb } from "@/lib/schema";
 import { rooms, site } from "@/lib/content";
@@ -45,7 +46,8 @@ export default function StayPage() {
       />
       <RoomShowcase />
 
-      <section className="bg-forest py-16 text-paper md:py-20" data-reveal="zoom">
+      <section className="relative isolate overflow-hidden bg-forest py-16 text-paper md:py-20" data-reveal="zoom">
+        <SectionCurve tone="paper" variant={0} />
         <div className="shell grid gap-10 md:grid-cols-12 md:items-center">
           <p className="font-display text-[clamp(1.8rem,3.4vw,3.2rem)] leading-[1.05] md:col-span-7" data-reveal>
             Not sure which room? Tell us who is coming and we will{" "}
@@ -67,7 +69,8 @@ export default function StayPage() {
         </div>
       </section>
 
-      <section className="shell py-16">
+      <section className="relative isolate shell py-16">
+        <SectionCurve tone="deep" variant={1} />
         <div className="grid gap-8 md:grid-cols-3">
           {rooms.map((room, i) => (
             <div

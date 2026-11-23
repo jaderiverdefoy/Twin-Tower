@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { site } from "@/lib/content";
 import { JsonLd, breadcrumb } from "@/lib/schema";
 import { photo } from "@/lib/photos";
@@ -40,7 +41,8 @@ export default function DiningPage() {
         intro="Ask the team what is fresh from the valley. The kitchen cooks for the house, not for a crowd — and it shows."
       />
 
-      <section className="relative bg-paper py-16 md:py-24" aria-labelledby="dining-details">
+      <section className="relative isolate bg-paper py-16 md:py-24" aria-labelledby="dining-details">
+        <SectionCurve tone="deep" variant={0} />
         <div className="shell">
           <div className="grid gap-10 md:grid-cols-12 md:gap-12">
             <div className="md:col-span-5">
@@ -109,7 +111,8 @@ export default function DiningPage() {
         </div>
       </section>
 
-      <section className="bg-paper-2 py-14 md:py-20" aria-label="The dining room">
+      <section className="relative isolate bg-paper-2 py-14 md:py-20" aria-label="The dining room">
+        <SectionCurve tone="paper" variant={2} />
         <div className="shell">
           <div className="grid gap-4 sm:grid-cols-3">
             {["restaurant", "lounge", "reception"].map((name, i) => (

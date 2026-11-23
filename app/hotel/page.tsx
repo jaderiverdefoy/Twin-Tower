@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
+import SectionCurve from "@/components/ui/SectionCurve";
 import CountUp from "@/components/ui/CountUp";
 import { site } from "@/lib/content";
 import { JsonLd, breadcrumb } from "@/lib/schema";
@@ -53,7 +54,8 @@ export default function HotelPage() {
         intro="A family-run property on the road to Pahalgam — built for slow mornings, long views and the kind of hospitality that remembers your name."
       />
 
-      <section className="relative overflow-hidden bg-paper py-16 md:py-24" aria-labelledby="story-heading">
+      <section className="relative isolate overflow-hidden bg-paper py-16 md:py-24" aria-labelledby="story-heading">
+        <SectionCurve tone="deep" variant={0} />
         <div className="shell">
           <div className="grid gap-10 md:grid-cols-12 md:gap-12">
             <div className="md:col-span-5">
@@ -99,7 +101,8 @@ export default function HotelPage() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-paper-2 py-14 md:py-20" aria-label="The hotel in numbers">
+      <section className="relative isolate overflow-hidden bg-paper-2 py-14 md:py-20" aria-label="The hotel in numbers">
+        <SectionCurve tone="paper" variant={1} />
         <div className="shell">
           <div className="grid grid-cols-2 gap-y-10 md:grid-cols-4 md:gap-6">
             {numbers.map((f, i) => (
@@ -122,7 +125,8 @@ export default function HotelPage() {
         </div>
       </section>
 
-      <section className="bg-paper py-16 md:py-24" aria-labelledby="amenities-heading">
+      <section className="relative isolate bg-paper py-16 md:py-24" aria-labelledby="amenities-heading">
+        <SectionCurve tone="paper-2" variant={2} />
         <div className="shell">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>

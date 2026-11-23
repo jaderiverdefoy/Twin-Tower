@@ -12,13 +12,11 @@
   --color-ivory: #f5efe6; /* Warm Ivory — premium backgrounds */
   --color-deep: #2a1a0e; /* Espresso — dark bands, footers, overlays */
 
-  /* Sandstone triad — the only three tones used for light backgrounds */
+  /* Extended */
   --color-paper: #e9e1d5; /* Warm Sandstone — main background */
-  --color-sandstone: #dcd0c0; /* Muted Taupe — deepest tonal wash */
-  --color-linen: #f1eae0; /* Pale Linen — softest tonal lift */
-  --color-paper-2: #f1eae0; /* Light Taupe — alternating bands */
+  --color-paper-2: #f0ebe3; /* Light Taupe — alternating bands */
   --color-charcoal: #211c1c; /* Charcoal Ink — primary text */
-  --color-stone: #625852; /* Warm Taupe — secondary text (4.5:1 on all tones) */
+  --color-stone: #675d57; /* Warm Taupe — secondary text (passes 4.5:1) */
   --color-mist: #d2c6b7; /* Kashmir Mist — borders */
   --color-blush: #ecdfd8; /* Warm Blush — badges, soft cards */
   --color-sand: #ded2c2; /* Embroidery Sand — secondary panels */
@@ -64,15 +62,7 @@
   }
 
   body {
-    /* A page-wide tonal drift: pale linen at the top settling into the
-       deepest taupe at the bottom. Sections layer their own washes on top. */
-    background-color: var(--color-paper);
-    background-image: linear-gradient(
-      170deg,
-      var(--color-linen) 0%,
-      var(--color-paper) 48%,
-      var(--color-sandstone) 100%
-    );
+    background: var(--color-paper);
     color: var(--color-charcoal);
     font-family: var(--font-sans);
     font-feature-settings: "cv11" 1, "ss01" 1;
@@ -187,7 +177,7 @@
     inset-inline: 0;
     top: 0;
     z-index: -1;
-    height: clamp(2.35rem, 5.4vw, 5rem);
+    height: clamp(2.75rem, 6vw, 4.5rem);
     pointer-events: none;
   }
 

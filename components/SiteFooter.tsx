@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SectionCurve from "@/components/ui/SectionCurve";
 import { site } from "@/lib/content";
 
 const explore = [
@@ -19,8 +18,7 @@ const practical = [
 
 export default function SiteFooter() {
   return (
-    <footer className="relative isolate overflow-hidden bg-walnut text-ivory">
-      <SectionCurve tone="paper" variant={2} />
+    <footer className="relative overflow-hidden bg-walnut text-ivory">
       <div className="shell pt-20 pb-8 md:pt-28">
         <div className="grid gap-12 md:grid-cols-2 md:gap-x-10 lg:grid-cols-12 lg:gap-14">
           <div className="md:col-span-2 lg:col-span-5" data-reveal>

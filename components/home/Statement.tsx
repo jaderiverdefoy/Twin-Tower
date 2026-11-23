@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import SplitText from "@/components/ui/SplitText";
-import SectionCurve from "@/components/ui/SectionCurve";
 import { site } from "@/lib/content";
 
 const facts = [
@@ -53,7 +52,6 @@ export default function Statement() {
       className="relative isolate overflow-hidden surface-warm pt-16 md:pt-24"
       aria-labelledby="statement-heading"
     >
-      <SectionCurve tone="deep" variant={0} />
       <div className="shell">
         <div
           className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4"

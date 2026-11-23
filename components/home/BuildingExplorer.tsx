@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import SplitText from "@/components/ui/SplitText";
+import SectionCurve from "@/components/ui/SectionCurve";
 import { useAutoRotate } from "@/lib/useAutoRotate";
 import { photo } from "@/lib/photos";
 
@@ -75,10 +76,11 @@ export default function BuildingExplorer() {
 
   return (
     <section
-      className="relative overflow-hidden surface-warm py-16 md:py-24"
+      className="relative isolate overflow-hidden surface-warm-2 py-16 md:py-24"
       aria-labelledby="building-heading"
       {...hoverProps()}
     >
+      <SectionCurve tone="paper" variant={1} />
       <div className="shell">
         <div className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
           <div className="md:col-span-5">

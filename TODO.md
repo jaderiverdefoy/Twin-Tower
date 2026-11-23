@@ -63,6 +63,20 @@ Source: `errors.md` (PageSpeed mobile report, 77 perf / 97 a11y).
       oversized photo downloads (PageSpeed estimate).
 - [x] E4. TODO updated; all changes left uncommitted and unpushed for review.
 
+## Curves refinement (follow-up)
+Source: user feedback — remove curves from hero & footer, improve mobile, extend to more sections/pages.
+
+- [x] Removed curve from hero (Statement) and footer (SiteFooter); both sections reverted to non-isolated.
+- [x] BuildingExplorer ("the building") gained a curve (paper → paper-2 tonal band) and Estate's curve updated to match.
+- [x] Mobile curve height raised to `clamp(2.75rem, 6vw, 4.5rem)` (44 px on 390 px) for a clearer wave.
+- [x] Tested a scroll-driven left-to-right reveal (`animation-timeline: view()` + clip-path) on `.section-curve`.
+      Result: curves stayed clipped (invisible) in practice, so reverted to a static, always-visible curve. Kept the height/tonal improvements.
+- [x] Extended curves to other pages where a real tone change exists: stay (2),
+      dining (2), hotel (3), location (1). Same-tone pages (gallery, blog,
+      contact, faq, reviews, policies) intentionally left without curves.
+- [x] Re-verified: tsc + build clean (32 pages), 0 console errors, no overflow
+      at 390/768/desktop, Lighthouse a11y 100.
+
 ## Follow-up round (21 Nov 2026)
 - [x] Google Sheet phone "Formula parse error" hardened in `booking.gs`:
       `sheetText_()` now strips line breaks, the phone column is forced to
