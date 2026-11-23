@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 interface Props {
   text: string;
@@ -18,13 +17,13 @@ interface Props {
 }
 
 /**
- * Kinetic headline. Each unit sits inside an overflow-hidden mask and lifts
- * from below, tilted slightly in 3D, with a soft expo ease.
+ * Kinetic headline — pure CSS, no framer-motion.
  *
- * A single `useInView` observer on the heading itself drives every unit, so the
- * animation can never be missed because an inner, translated span reports zero
- * visible area. A short safety timer reveals the copy if the observer has not
- * fired by the time the page settles.
+ * Each unit sits inside an overflow-hidden mask and lifts from below with a
+ * soft expo ease. A single IntersectionObserver on the heading adds `.is-in`,
+ * and CSS staggers every unit via `--i`. This keeps ~100 motion nodes out of
+ * the hydration path, which is the single biggest main-thread cost on load.
+ * A short safety timer reveals the copy if the observer never fires.
  */
 export default function SplitText({
   text,
@@ -36,152 +35,88 @@ export default function SplitText({
   forceDelay = 1600,
   highlight,
 }: Props) {
-  const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, {
-    once: true,
-    amount: 0.12,
-    margin: "0px 0px -5% 0px",
-  });
-  const [force, setForce] = useState(false);
   const Tag = as;
 
   useEffect(() => {
-    const t = window.setTimeout(() => setForce(true), forceDelay);
-    return () => window.clearTimeout(t);
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.classList.add("is-in");
+      return;
+    }
+    let done = false;
+    const reveal = () => {
+      if (done) return;
+      done = true;
+      el.classList.add("is-in");
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          reveal();
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -5% 0px" },
+    );
+    io.observe(el);
+    const t = window.setTimeout(reveal, forceDelay);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(t);
+    };
   }, [forceDelay]);
 
-  if (reduce) {
-    const Plain = as;
-    const at = highlight ? text.toLowerCase().indexOf(highlight.toLowerCase()) : -1;
-    if (at < 0) {
-      return (
-        <Plain className={className} id={id}>
-          {text}
-        </Plain>
-      );
-    }
-    return (
-      <Plain className={className} id={id}>
-        {text.slice(0, at)}
-        <em className="mark-sage">{text.slice(at, at + (highlight?.length ?? 0))}</em>
-        {text.slice(at + (highlight?.length ?? 0))}
-      </Plain>
-    );
-  }
+  const stagger = split === "chars" ? 18 : 55;
+  let i = 0;
+  const units: React.ReactNode[] = [];
 
-  const show = inView || force;
+  const pushUnit = (content: React.ReactNode, key: string, gap: boolean, hl: boolean) => {
+    const idx = i++;
+    const node = (
+      <span
+        key={key}
+        aria-hidden="true"
+        className="split-unit"
+        style={{ ["--i" as string]: idx, ["--d" as string]: `${delay}ms`, ["--stagger" as string]: `${stagger}ms`, marginRight: gap ? "0.3em" : undefined }}
+      >
+        <span className="split-unit-inner">{content}</span>
+      </span>
+    );
+    units.push(hl ? <em key={`hl-${key}`} className="mark-sage">{node}</em> : node);
+  };
 
   if (split === "words") {
-    return (
-      <Tag
-        ref={ref as never}
-        className={className}
-        id={id}
-        aria-label={text}
-      >
-        {text.split(" ").map((word, i) => {
-          const unit = (
-            <Unit key={i} index={i} delay={delay} stagger={0.055} show={show} gap>
-              {word}
-            </Unit>
-          );
-          return highlight && word.toLowerCase() === highlight.toLowerCase()
-            ? <em key={`hl-${i}`} className="mark-sage">{unit}</em>
-            : unit;
-        })}
-      </Tag>
-    );
+    text.split(" ").forEach((word, wi) => {
+      pushUnit(word, `w${wi}`, true, Boolean(highlight && word.toLowerCase() === highlight.toLowerCase()));
+    });
+  } else {
+    text.split(" ").forEach((word, wi) => {
+      const chars = Array.from(word).map((char, ci) => {
+        const idx = i++;
+        return (
+          <span
+            key={ci}
+            aria-hidden="true"
+            className="split-unit"
+            style={{ ["--i" as string]: idx, ["--d" as string]: `${delay}ms`, ["--stagger" as string]: `${stagger}ms` }}
+          >
+            <span className="split-unit-inner">{char}</span>
+          </span>
+        );
+      });
+      units.push(
+        <span key={`w${wi}`} aria-hidden="true" className="inline-block whitespace-nowrap" style={{ marginRight: "0.24em" }}>
+          {chars}
+        </span>,
+      );
+    });
   }
 
-  let charIndex = 0;
-
   return (
-    <Tag
-      ref={ref as never}
-      className={className}
-      id={id}
-      aria-label={text}
-    >
-      {text.split(" ").map((word, wi) => (
-        <span
-          key={wi}
-          aria-hidden="true"
-          className="inline-block whitespace-nowrap"
-          style={{ marginRight: "0.24em" }}
-        >
-          {Array.from(word).map((char, ci) => {
-            const index = charIndex++;
-            return (
-              <Unit
-                key={ci}
-                index={index}
-                delay={delay}
-                stagger={0.018}
-                show={show}
-              >
-                {char}
-              </Unit>
-            );
-          })}
-        </span>
-      ))}
+    <Tag ref={ref as never} className={`split-text ${className ?? ""}`} id={id} aria-label={text}>
+      {units}
     </Tag>
-  );
-}
-
-function Unit({
-  children,
-  index,
-  delay,
-  stagger,
-  show,
-  gap = false,
-}: {
-  children: React.ReactNode;
-  index: number;
-  delay: number;
-  stagger: number;
-  show: boolean;
-  gap?: boolean;
-}) {
-  const at = delay + index * stagger;
-
-  return (
-    <motion.span
-      aria-hidden="true"
-      className="inline-block overflow-hidden align-bottom"
-      style={{
-        marginRight: gap ? "0.3em" : undefined,
-        paddingBottom: "0.12em",
-        marginBottom: "-0.12em",
-        perspective: 900,
-      }}
-      initial="hidden"
-      animate={show ? "show" : "hidden"}
-    >
-      <motion.span
-        className="inline-block will-change-transform"
-        style={{ transformStyle: "preserve-3d" }}
-        variants={{
-          hidden: { y: "118%", opacity: 0, rotateX: -42 },
-          show: {
-            y: "0%",
-            opacity: 1,
-            rotateX: 0,
-            transition: {
-              duration: 0.95,
-              ease: [0.16, 1, 0.3, 1],
-              delay: at,
-            },
-            transitionEnd: {
-              willChange: "auto",
-            },
-          },
-        }}
-      >
-        {children}
-      </motion.span>
-    </motion.span>
   );
 }

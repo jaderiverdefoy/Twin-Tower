@@ -9,8 +9,6 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
 import RevealObserver from "@/components/providers/RevealObserver";
-import SmoothScroll from "@/components/providers/SmoothScroll";
-import ScrollProgress from "@/components/ui/ScrollProgress";
 
 /**
  * Wraps every public page with the site chrome. The Sanity Studio is served
@@ -56,9 +54,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
 
   return (
     <>
-      <SmoothScroll />
       <RevealObserver />
-      <ScrollProgress />
 
       <SiteNav />
       <main id="main">{children}</main>

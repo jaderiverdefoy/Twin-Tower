@@ -173,7 +173,7 @@ export default function HotelPage() {
                 style={{ ["--reveal-delay" as string]: `${i * 110}ms` }}
               >
                 <Image
-                  src={photo(name)}
+                  src={photo(name as Parameters<typeof photo>[0])}
                   alt={`Twin Towers by Defoy — ${name}`}
                   fill
                   sizes="(min-width: 768px) 33vw, 100vw"

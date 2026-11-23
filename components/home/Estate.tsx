@@ -21,12 +21,12 @@ const facts = [
   { k: "Check-out", v: "12:00 noon" },
 ];
 
-const exterior = imagePool.find((i) => i.src.endsWith("exterior.webp")) ?? imagePool[0];
-const balcony = imagePool.find((i) => i.src.endsWith("balcony.webp")) ?? imagePool[6];
-const facade = imagePool.find((i) => i.src.endsWith("facade.webp")) ?? imagePool[1];
-const lawn = imagePool.find((i) => i.src.endsWith("lawn.webp")) ?? imagePool[3];
-const restaurant = imagePool.find((i) => i.src.endsWith("restaurant.webp")) ?? imagePool[7];
-const lounge = imagePool.find((i) => i.src.endsWith("lounge.webp")) ?? imagePool[4];
+const exterior = imagePool.find((i) => i.src.src.endsWith("exterior.webp")) ?? imagePool[0];
+const balcony = imagePool.find((i) => i.src.src.endsWith("balcony.webp")) ?? imagePool[6];
+const facade = imagePool.find((i) => i.src.src.endsWith("facade.webp")) ?? imagePool[1];
+const lawn = imagePool.find((i) => i.src.src.endsWith("lawn.webp")) ?? imagePool[3];
+const restaurant = imagePool.find((i) => i.src.src.endsWith("restaurant.webp")) ?? imagePool[7];
+const lounge = imagePool.find((i) => i.src.src.endsWith("lounge.webp")) ?? imagePool[4];
 
 const shots = [exterior, balcony, facade, lawn, restaurant, lounge];
 
@@ -252,7 +252,7 @@ export default function Estate() {
               <div className="grid h-full grid-cols-3 content-center gap-3">
                 {CARDS.map((c) => (
                   <figure
-                    key={c.src}
+                    key={c.src.src}
                     className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-ivory/15"
                   >
                     <Image
@@ -268,7 +268,7 @@ export default function Estate() {
               </div>
             ) : (
               CARDS.map((card) => (
-                <FanCard key={card.src} card={card} progress={scrollYProgress} />
+                <FanCard key={card.src.src} card={card} progress={scrollYProgress} />
               ))
             )}
           </div>
@@ -279,7 +279,7 @@ export default function Estate() {
       <div className="no-scrollbar -mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:hidden">
         {CARDS.map((c, i) => (
           <figure
-            key={c.src}
+            key={c.src.src}
             data-reveal="fade"
             style={{
               ["--reveal-duration" as string]: "0.32s",
@@ -295,7 +295,7 @@ export default function Estate() {
                 fill
                 sizes="82vw"
                 quality={65}
-                loading={i < 2 ? "eager" : "lazy"}
+                loading="lazy"
                 className="object-cover"
               />
               <span

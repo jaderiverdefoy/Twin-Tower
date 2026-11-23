@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import type { StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 
 export default function PageHeader({
@@ -17,7 +18,8 @@ export default function PageHeader({
   aside?: ReactNode;
   children?: ReactNode;
   /** Optional photograph used as the header background. */
-  image?: string;
+  image?: string | StaticImageData;
+
   /** Stretch the image header to the full viewport (Dining). */
   fullViewport?: boolean;
 }) {

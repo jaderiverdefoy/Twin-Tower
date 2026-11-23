@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 import SplitText from "@/components/ui/SplitText";
 import SectionCurve from "@/components/ui/SectionCurve";
@@ -19,15 +19,14 @@ export default function Restaurant() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 42%"] });
-  const eased = useSpring(scrollYProgress, { stiffness: 70, damping: 22 });
   const clipPath = useTransform(
-    eased,
+    scrollYProgress,
     [0, 1],
     ["circle(8% at 50% 50%)", "circle(140% at 50% 50%)"],
   );
-  const scale = useTransform(eased, [0, 1], [1.24, 1]);
-  const rotateY = useTransform(eased, [0, 1], [-9, 0]);
-  const radius = useTransform(eased, [0, 1], ["2rem", "1.5rem"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.24, 1]);
+  const rotateY = useTransform(scrollYProgress, [0, 1], [-9, 0]);
+  const radius = useTransform(scrollYProgress, [0, 1], ["2rem", "1.5rem"]);
 
   return (
     <section

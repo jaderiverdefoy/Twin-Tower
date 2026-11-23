@@ -430,6 +430,40 @@
      data-reveal="right"    slide from right
      data-reveal="mask"     clip-path curtain on .reveal-media
    Per-element delay: style={{ "--reveal-delay": "120ms" }} */
+/* Kinetic headline (SplitText) — pure CSS stagger, no framer-motion nodes. */
+.split-text .split-unit {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  perspective: 900px;
+}
+.split-text .split-unit-inner {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(118%) rotateX(-42deg);
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+.split-text.is-in .split-unit-inner {
+  animation: split-lift 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--d, 0ms) + var(--i, 0) * var(--stagger, 55ms));
+}
+@keyframes split-lift {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .split-text .split-unit-inner {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
 [data-reveal] {
   --reveal-delay: 0ms;
   --reveal-duration: 0.85s;

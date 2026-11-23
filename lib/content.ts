@@ -32,8 +32,9 @@ export const nav = [
 ];
 
 import { photo } from "@/lib/photos";
+import type { StaticImageData } from "next/image";
 
-const twin = (name: string) => photo(name);
+const twin = (name: Parameters<typeof photo>[0]) => photo(name);
 
 export const img = {
   hero: twin("exterior"),
@@ -62,8 +63,8 @@ export type Room = {
   price: number;
   description: string;
   long: string;
-  image: string;
-  gallery: string[];
+  image: StaticImageData;
+  gallery: StaticImageData[];
   amenities: string[];
   bestFor: string;
 };

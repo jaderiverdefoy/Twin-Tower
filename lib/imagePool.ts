@@ -1,6 +1,8 @@
 import { photo } from "@/lib/photos";
 
-export type PoolImage = { src: string; alt: string };
+import type { StaticImageData } from "next/image";
+
+export type PoolImage = { src: StaticImageData; alt: string };
 
 /**
  * Every photograph in the property library. Sections pull from this pool with a

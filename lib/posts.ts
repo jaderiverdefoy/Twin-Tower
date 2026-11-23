@@ -4,6 +4,7 @@ import { cache } from "react";
 import { img, posts as staticPosts } from "@/lib/content";
 import { getSanityClient } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
+import type { StaticImageData } from "next/image";
 import {
   allPostsQuery,
   allSlugsQuery,
@@ -34,10 +35,10 @@ export type BlogPost = {
   category: string;
   /** Normalised read time without the trailing "read", e.g. "4 min". */
   read: string;
-  image: string;
+  image: string | StaticImageData;
   imageAlt: string;
   /** Wide image at the top of the article — deliberately different from `image`. */
-  heroImage: string;
+  heroImage: string | StaticImageData;
   heroImageAlt: string;
   /** Legacy paragraph array for the static fallback posts. */
   body: string[] | null;
@@ -57,7 +58,7 @@ export type BlogPost = {
     slug: string;
     title: string;
     excerpt: string;
-    image: string;
+    image: string | StaticImageData;
   }[];
 };
 

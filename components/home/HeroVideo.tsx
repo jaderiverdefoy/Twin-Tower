@@ -14,7 +14,6 @@ import { useReducedMotion } from "framer-motion";
  */
 const POSTER = "/Video/hero-poster.webp";
 const DESKTOP_SRC = "/Video/hero-1080.mp4";
-const MOBILE_SRC = "/Video/hero-720.mp4";
 
 type NetworkInfo = { saveData?: boolean; effectiveType?: string };
 
@@ -33,7 +32,11 @@ export default function HeroVideo() {
     const connection = (navigator as Navigator & { connection?: NetworkInfo }).connection;
     if (connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType ?? "")) return;
 
-    const chosen = window.matchMedia("(max-width: 820px)").matches ? MOBILE_SRC : DESKTOP_SRC;
+    // Phones keep the photograph: a 2.7 MB autoplay film is the single biggest
+    // LCP cost on mobile, and the poster is already a full-bleed hero image.
+    if (window.matchMedia("(max-width: 820px)").matches) return;
+
+    const chosen = DESKTOP_SRC;
     const idle: (cb: () => void) => void =
       "requestIdleCallback" in window
         ? (cb) => window.requestIdleCallback(() => cb(), { timeout: 1800 })

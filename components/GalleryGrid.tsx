@@ -39,7 +39,7 @@ export default function GalleryGrid() {
       <div className="columns-2 gap-3 sm:columns-2 sm:gap-4 lg:columns-3 [&>*]:mb-3 sm:[&>*]:mb-4">
         {gallery.map((item, i) => (
           <button
-            key={item.src + i}
+            key={item.src.src + i}
             type="button"
             onClick={() => setIndex(i)}
             className="group relative block w-full break-inside-avoid overflow-hidden bg-paper-2 text-left"

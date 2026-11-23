@@ -6,7 +6,6 @@ import {
   motion,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
 } from "framer-motion";
 import { site } from "@/lib/content";
@@ -30,7 +29,6 @@ export default function LocationSection() {
     target: ref,
     offset: ["start 85%", "end 55%"],
   });
-  const draw = useSpring(scrollYProgress, { stiffness: 80, damping: 24 });
   const mapRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [2.5, 0, -1.5]);
   const mapRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-2, 0, 2]);
   const mapScale = useTransform(scrollYProgress, [0, 1], [0.965, 1]);
@@ -155,7 +153,7 @@ export default function LocationSection() {
                   d="M70 430 C 150 395, 165 340, 250 318 S 365 285, 410 230"
                   stroke="#432911"
                   strokeWidth="1.8"
-                  style={{ pathLength: reduce ? 1 : draw }}
+                  style={{ pathLength: reduce ? 1 : scrollYProgress }}
                 />
 
                 <circle

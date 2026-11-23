@@ -14,7 +14,7 @@ import SplitText from "@/components/ui/SplitText";
 import SectionCurve from "@/components/ui/SectionCurve";
 import { photo } from "@/lib/photos";
 
-const suiteImages: Record<string, string[]> = {
+const suiteImages: Record<string, ReturnType<typeof photo>[]> = {
   "premium-balcony-room": [
     photo("suite-king-1"),
     photo("suite-king-2"),
@@ -151,7 +151,7 @@ export default function Suites() {
                 >
                   {images.map((src, i) => (
                     <motion.div
-                      key={`${room.slug}-${src}`}
+                      key={`${room.slug}-${src.src}`}
                       initial={false}
                       animate={{
                         opacity: i === slide ? 1 : 0,
@@ -211,7 +211,7 @@ export default function Suites() {
               <div className="flex gap-2 p-3">
                 {images.map((src, i) => (
                   <button
-                    key={src + i}
+                    key={src.src + i}
                     type="button"
                     onClick={() => setSlide(i)}
                     aria-label={`Show photo ${i + 1}`}

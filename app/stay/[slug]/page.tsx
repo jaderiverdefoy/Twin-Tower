@@ -26,7 +26,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${room.name} — Twin Towers by Defoy`,
       description: room.description,
-      images: [{ url: room.image, width: 1600, height: 900, alt: room.name }],
+      images: [{ url: typeof room.image === "string" ? room.image : room.image.src, width: 1600, height: 900, alt: room.name }],
     },
   };
 }
@@ -185,7 +185,7 @@ export default async function RoomPage({
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {room.gallery.map((src, i) => (
             <div
-              key={src + i}
+              key={typeof src === "string" ? src + i : src.src + i}
               className={`relative overflow-hidden bg-paper-2 ${i === 0 ? "aspect-[4/5]" : "aspect-[4/5]"}`}
               data-reveal="zoom"
               style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}

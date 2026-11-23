@@ -28,7 +28,10 @@ export async function generateMetadata({
   const title = post.seo?.metaTitle || post.title;
   const description = post.seo?.metaDescription || post.excerpt;
   // Social cards still need an image even when the article has no hero.
-  const image = post.seo?.ogImage || post.heroImage || post.image;
+  const image =
+    post.seo?.ogImage ||
+    (typeof post.heroImage === "string" ? post.heroImage : post.heroImage?.src) ||
+    (typeof post.image === "string" ? post.image : post.image.src);
 
   const metadata: Metadata = {
     title,

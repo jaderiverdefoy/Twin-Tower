@@ -4,11 +4,13 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
+import type { StaticImageData } from "next/image";
+
 interface Props {
-  src: string;
+  src: string | StaticImageData;
   alt: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   className?: string;
   sizes?: string;
   speed?: number;
@@ -25,6 +27,9 @@ export default function ParallaxImage({
   speed = 0.12,
   priority = false,
 }: Props) {
+  const resolvedSrc = typeof src === "string" ? src : src;
+  const resolvedWidth = width ?? (typeof src === "string" ? 1600 : src.width);
+  const resolvedHeight = height ?? (typeof src === "string" ? 900 : src.height);
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -43,8 +48,8 @@ export default function ParallaxImage({
         <Image
           src={src}
           alt={alt}
-          width={width}
-          height={height}
+          width={resolvedWidth}
+          height={resolvedHeight}
           sizes={sizes}
           priority={priority}
           className="h-full w-full object-cover"

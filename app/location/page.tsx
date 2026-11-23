@@ -60,7 +60,7 @@ export default function LocationPage() {
             title="Map showing Twin Towers by Defoy in Pahalgam"
             src={`https://www.google.com/maps?q=${site.coords.replace(/\s/g, "")}&z=14&output=embed`}
             className="h-[52svh] min-h-[380px] w-full grayscale-[0.85] contrast-[1.05]"
-            loading="eager"
+            loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
           <div className="pointer-events-none absolute bottom-4 left-4 bg-paper px-4 py-3">

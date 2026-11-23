@@ -153,7 +153,7 @@ export default function BuildingExplorer() {
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 quality={65}
-                loading={base === 0 ? "eager" : "lazy"}
+                loading="lazy"
                 className="reveal-media object-cover"
               />
 
@@ -176,7 +176,7 @@ export default function BuildingExplorer() {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.14, delay: tileDelay(i), ease: "linear" }}
                         style={{
-                          backgroundImage: `url("${views[incoming].image}")`,
+                          backgroundImage: `url("${views[incoming].image.src}")`,
                           backgroundSize: `${COLS * 100}% ${ROWS * 100}%`,
                           backgroundPosition: `${(col / (COLS - 1)) * 100}% ${(row / (ROWS - 1)) * 100}%`,
                         }}

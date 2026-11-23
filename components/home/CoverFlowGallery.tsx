@@ -59,7 +59,7 @@ export default function CoverFlowGallery() {
           <GalleryHeader />
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {gallery.map((g, i) => (
-              <figure key={g.src} className="overflow-hidden rounded-3xl bg-paper">
+              <figure key={g.src.src} className="overflow-hidden rounded-3xl bg-paper">
                 <div className="relative aspect-[3/4]">
                   <Image src={g.src} alt={g.alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
                 </div>
@@ -143,7 +143,7 @@ export default function CoverFlowGallery() {
 
             return (
               <div
-                key={g.src}
+                key={g.src.src}
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
                 style={{
                   width: compact ? "clamp(190px, 62vw, 320px)" : "clamp(210px, 27vw, 400px)",
@@ -207,7 +207,7 @@ export default function CoverFlowGallery() {
         <div className="mt-6 flex items-center justify-center gap-2.5">
           {gallery.map((g, i) => (
             <button
-              key={g.src}
+              key={g.src.src}
               type="button"
               onClick={() => {
                 lastChange.current = performance.now();

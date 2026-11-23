@@ -4,12 +4,10 @@ const nextConfig: NextConfig = {
   // Hide the floating dev badge — it reads as a stray button on the homepage.
   devIndicators: false,
   images: {
-    // Serve the local photo library directly. These are already optimised
-    // WebPs (~90 KB), and the runtime optimizer added a cold transform hit
-    // after every deploy (its cache lives inside .next and is wiped on
-    // rebuild), which made images pop in late. Responsive srcsets are still
-    // produced for any statically imported images via the build pipeline.
-    unoptimized: true,
+    // Responsive delivery: Next emits AVIF/WebP srcsets from each `sizes` hint
+    // so phones download a right-sized image instead of the full 1250px photo.
+    // On Vercel the optimizer cache is global and persistent, so the one-time
+    // cold transform per (url,width) is warmed by the first request and shared.
     remotePatterns: [
       { protocol: "https", hostname: "cdn.sanity.io" },
     ],
