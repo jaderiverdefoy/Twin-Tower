@@ -63,7 +63,6 @@ export default function CoverFlowGallery() {
                 <div className="relative aspect-[3/4]">
                   <Image src={g.src} alt={g.alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
                 </div>
-                <figcaption className="px-5 py-4 text-[0.85rem] font-medium">{g.alt}</figcaption>
               </figure>
             ))}
           </div>
@@ -197,21 +196,7 @@ export default function CoverFlowGallery() {
                       </span>
                     )}
                   </div>
-                  <figcaption
-                    className={`mx-auto mt-4 w-fit max-w-full rounded-xl bg-paper-2 px-4 py-2.5 text-center shadow-[0_10px_30px_-18px_rgba(42,26,14,0.45)] transition-all duration-500 ${
-                      isActive
-                        ? "text-ink opacity-100"
-                        : "pointer-events-none text-ink/80 opacity-0"
-                    }`}
-                    aria-hidden={!isActive}
-                  >
-                    <span className={`block ${isActive ? "text-[0.95rem] font-semibold" : "text-[0.85rem] font-medium"}`}>
-                      {g.alt}
-                    </span>
-                    <span className="mt-1 block text-[0.56rem] font-semibold uppercase tracking-[0.16em] text-stone">
-                      {isActive ? "Twin Towers by Defoy" : "Tap to bring forward"}
-                    </span>
-                  </figcaption>
+                  {/* subtitle/caption intentionally removed */}
                 </button>
               </motion.figure>
               </div>

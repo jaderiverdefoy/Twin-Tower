@@ -65,9 +65,6 @@ export default function GalleryGrid() {
               />
             </div>
             <div className="absolute inset-0 bg-forest/0 transition-colors duration-500 group-hover:bg-forest/20" />
-            <span className="absolute bottom-4 left-4 max-w-[80%] font-mono text-[9px] uppercase leading-relaxed tracking-[0.16em] text-paper opacity-0 transition-opacity duration-500 group-hover:opacity-90">
-              {item.alt}
-            </span>
             <span className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-paper/40 text-paper opacity-0 transition-all duration-500 group-hover:opacity-100">
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.2" />
@@ -126,9 +123,6 @@ export default function GalleryGrid() {
             </div>
 
             <div className="flex items-center justify-between gap-6 border-t border-paper/15 px-5 py-5">
-              <p className="max-w-[50ch] font-mono text-[9px] uppercase leading-relaxed tracking-[0.16em] text-paper/70">
-                {gallery[index].alt}
-              </p>
               <div className="flex gap-2">
                 <button
                   type="button"
