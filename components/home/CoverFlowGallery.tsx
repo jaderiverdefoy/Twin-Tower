@@ -267,10 +267,6 @@ function GalleryHeader() {
         </h2>
       </div>
       <div className="flex items-end gap-6">
-        <p className="hidden max-w-xs text-[0.92rem] leading-relaxed text-ink/70 md:block" data-reveal="fade">
-          The drive, the lawn, the rooms and the light that moves through
-          them — in one reel.
-        </p>
         <Link
           href="/gallery"
           className="link-line text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-crimson"
