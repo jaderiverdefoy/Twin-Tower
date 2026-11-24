@@ -13,6 +13,7 @@ import { useReducedMotion } from "framer-motion";
  * encode, and reduced-motion or Save-Data visitors keep the photograph.
  */
 const POSTER = "/Video/hero-poster.webp";
+const MOBILE_SRC = "/Video/hero-720.mp4";
 const DESKTOP_SRC = "/Video/hero-1080.mp4";
 
 type NetworkInfo = { saveData?: boolean; effectiveType?: string };
@@ -32,11 +33,11 @@ export default function HeroVideo() {
     const connection = (navigator as Navigator & { connection?: NetworkInfo }).connection;
     if (connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType ?? "")) return;
 
-    // Phones keep the photograph: a 2.7 MB autoplay film is the single biggest
-    // LCP cost on mobile, and the poster is already a full-bleed hero image.
-    if (window.matchMedia("(max-width: 820px)").matches) return;
-
-    const chosen = DESKTOP_SRC;
+    // Phones use the lighter 720p encode. The poster remains the first paint
+    // (LCP) and the film crossfades over it once it can actually play.
+    const chosen = window.matchMedia("(max-width: 820px)").matches
+      ? MOBILE_SRC
+      : DESKTOP_SRC;
     const idle: (cb: () => void) => void =
       "requestIdleCallback" in window
         ? (cb) => window.requestIdleCallback(() => cb(), { timeout: 1800 })
@@ -53,6 +54,11 @@ export default function HeroVideo() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // iOS Safari only honours autoplay when muted is set as a property
+          // as well as an attribute, so set both before asking to play.
+          video.muted = true;
+          video.defaultMuted = true;
+          video.playsInline = true;
           video.play().catch(() => {
             /* Autoplay can be blocked; the poster stays in place. */
           });
@@ -89,6 +95,7 @@ export default function HeroVideo() {
             ref={videoRef}
             src={src}
             muted
+            autoPlay
             loop
             playsInline
             preload="auto"

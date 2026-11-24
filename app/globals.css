@@ -657,6 +657,21 @@ html[data-intro="1"] .site-header .site-nav-cta {
   color: var(--color-paper) !important;
 }
 
+/*
+ * On phones the header stays visible above the intro, but the menu control
+ * must not be usable while the intro is on screen: the menu overlay sits at
+ * z-115 and would open on top of the walnut stage. Hide it with the stage and
+ * make the whole header inert until the intro dispatches tt:intro-done.
+ */
+html[data-intro="1"] .site-header {
+  pointer-events: none;
+}
+
+html[data-intro="1"] .site-hamburger {
+  opacity: 0;
+  pointer-events: none;
+}
+
 html[data-intro="1"] .site-header .site-hamburger span {
   background-color: var(--color-paper) !important;
 }
