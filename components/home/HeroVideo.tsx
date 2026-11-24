@@ -68,49 +68,53 @@ export default function HeroVideo() {
   }, [src, reduce]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-deep">
-      <Image
-        src={POSTER}
-        alt=""
-        aria-hidden="true"
-        fill
-        priority
-        fetchPriority="high"
-        quality={75}
-        sizes="100vw"
-        className="object-cover"
-      />
-
-      {src && !reduce && !failed && (
-        <video
-          ref={videoRef}
-          src={src}
-          muted
-          loop
-          playsInline
-          preload="auto"
-          disablePictureInPicture
-          tabIndex={-1}
+    <div className="hero-media absolute inset-0 overflow-hidden bg-deep">
+      {/* Poster + film drift together, so the crossfade never "jumps". */}
+      <div className="hero-drift absolute inset-0">
+        <Image
+          src={POSTER}
+          alt=""
           aria-hidden="true"
-          onPlaying={() => setPlaying(true)}
-          onError={() => setFailed(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${
-            playing ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ filter: "saturate(1.22) contrast(1.08) brightness(1.07)" }}
+          fill
+          priority
+          fetchPriority="high"
+          quality={75}
+          sizes="100vw"
+          className="object-cover"
         />
-      )}
 
-      {/* Legibility wash: dark at the top for the eyebrow and coordinates,
-          darker at the bottom for the headline and the scroll cue. */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#170f08]/65 via-transparent to-transparent"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#170f08]/80 via-[#170f08]/18 to-transparent"
-        aria-hidden="true"
-      />
+        {src && !reduce && !failed && (
+          <video
+            ref={videoRef}
+            src={src}
+            muted
+            loop
+            playsInline
+            preload="auto"
+            disablePictureInPicture
+            tabIndex={-1}
+            aria-hidden="true"
+            onPlaying={() => setPlaying(true)}
+            onError={() => setFailed(true)}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out ${
+              playing ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        )}
+      </div>
+
+      {/* Warm print pass — lifts the highlights without flattening the shadows. */}
+      <div className="hero-grade pointer-events-none absolute inset-0" aria-hidden="true" />
+
+      {/* One legibility scrim: gentle at the top, deeper under the headline. */}
+      <div className="hero-scrim pointer-events-none absolute inset-0" aria-hidden="true" />
+
+      {/* Fine grain — hides compression and gives the film a printed texture. */}
+      <div className="hero-grain pointer-events-none absolute inset-0" aria-hidden="true" />
+
+      {/* The hero ends in the page tone so the sandstone section does not start
+          with a hard cut. */}
+      <div className="hero-spill pointer-events-none absolute inset-x-0 bottom-0" aria-hidden="true" />
     </div>
   );
 }

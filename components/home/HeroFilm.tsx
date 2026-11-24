@@ -28,7 +28,6 @@ export default function HeroFilm() {
     >
       <div className="journey-sticky">
         <HeroVideo />
-        <div className="journey-scrim" aria-hidden="true" />
 
         <div className="absolute inset-x-0 top-[68px] z-10 flex items-start justify-between p-[clamp(1rem,2.4vw,2rem)] md:top-[80px]">
           <span className="hero-fade eyebrow text-paper/85" style={{ ["--hero-delay" as string]: "60ms" }}>
