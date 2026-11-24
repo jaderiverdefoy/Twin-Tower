@@ -18,7 +18,7 @@ export default function FaqAccordion() {
             data-reveal
             style={{ ["--reveal-delay" as string]: `${(i % 4) * 60}ms` }}
           >
-            <h2>
+            <h3>
               <button
                 type="button"
                 onClick={() => setOpen(isOpen ? null : i)}
@@ -50,7 +50,7 @@ export default function FaqAccordion() {
                   <span className="absolute h-4 w-px bg-current" />
                 </span>
               </button>
-            </h2>
+            </h3>
 
             <AnimatePresence initial={false}>
               {isOpen && (

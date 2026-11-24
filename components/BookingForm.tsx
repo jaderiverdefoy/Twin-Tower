@@ -6,10 +6,9 @@ import { rooms, site } from "@/lib/content";
 import { formatPrice } from "@/lib/utils";
 
 /**
- * Room preselection happens via the URL *fragment* —
- * e.g. /contact#room=premium-balcony-room — not only the query string. The
- * stay pages link with ?room= (kept working); fragments are never sent to the
- * server, so no duplicate, crawlable URLs are created either way.
+ * Room preselection happens via the URL *fragment* — e.g.
+ * /contact#room=premium-balcony-room. Fragments are never sent to the server,
+ * so no duplicate, crawlable URLs are created. Old ?room= links still work.
  *
  * Submitting posts to /api/booking, which stores the enquiry in Sanity and
  * forwards it to a Google Apps Script web app; the browser lands on /thank-you.

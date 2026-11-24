@@ -26,7 +26,7 @@ const mobileNav = [
   { label: "Stay", href: "/stay" },
   { label: "Dining", href: "/dining" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Journal", href: "/blog" },
+  { label: "Journal", href: "/post" },
   { label: "Contact", href: "/contact" },
 ];
 

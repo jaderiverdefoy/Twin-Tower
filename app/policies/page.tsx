@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
+import EditorialNote from "@/components/EditorialNote";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { policies, site } from "@/lib/content";
 import { JsonLd, breadcrumb } from "@/lib/schema";
+import { socialMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Reservation & Stay Policies",
   description:
-    "Cancellation, payment, check-in and identification policies for Twin Towers by Defoy, Pahalgam. Full refund 15+ days before arrival, 50% retention 15–10 days, 100% within 10 days.",
+    "Cancellation, payment, check-in and ID policies at Twin Towers by Defoy, Pahalgam. Book direct for the best rate.",
   alternates: { canonical: "/policies" },
+  ...socialMeta({
+    title: "Reservation & Stay Policies — Twin Towers by Defoy",
+    description:
+      "Plain-word cancellation, payment, check-in and ID policies for a direct stay at Twin Towers by Defoy, Pahalgam.",
+    path: "/policies",
+  }),
 };
 
 export default function PoliciesPage() {
@@ -76,6 +84,7 @@ export default function PoliciesPage() {
           <div className="md:col-span-8 md:col-start-5">
             {policies.map((section, i) => {
               const id = section.title.toLowerCase().replace(/[^a-z]+/g, "-");
+              const Heading = i === 0 ? "h2" : "h3";
               return (
                 <section
                   key={section.title}
@@ -85,9 +94,9 @@ export default function PoliciesPage() {
                   style={{ ["--reveal-delay" as string]: `${(i % 3) * 70}ms` }}
                 >
                   <div className="flex items-baseline justify-between gap-6">
-                    <h2 className="text-[clamp(1.9rem,3.4vw,3.2rem)] leading-none">
+                    <Heading className="text-[clamp(1.9rem,3.4vw,3.2rem)] leading-none">
                       {section.title}
-                    </h2>
+                    </Heading>
                     <span className="num text-ink/65">0{i + 1}</span>
                   </div>
                   <ul className="mt-8 space-y-4">
@@ -135,6 +144,16 @@ export default function PoliciesPage() {
           </div>
         </div>
       </section>
+
+      <EditorialNote
+        eyebrow="Good to know"
+        title="How direct booking works here"
+        paragraphs={[
+          "A direct booking is a request sent straight to the resort team, not an instant confirmation from a third-party engine. We reply with availability and the next steps, usually the same day. If your dates are fixed, mention them in your note along with the room you prefer and how many people are coming.",
+          "Payments are settled with the resort as confirmed in your booking reply. We do not ask for card details over chat or email. If you need a GST invoice, write to us with your company details before arrival and we will have it ready at check-out.",
+          "Plans change in the mountains. Weather, road conditions and flights can all move at short notice, so call us rather than cancelling silently if something goes wrong. We will always tell you plainly what we can do.",
+        ]}
+      />
     </>
   );
 }

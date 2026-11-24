@@ -5,12 +5,19 @@ import SectionCurve from "@/components/ui/SectionCurve";
 import RoomShowcase from "@/components/rooms/RoomShowcase";
 import { JsonLd, breadcrumb } from "@/lib/schema";
 import { rooms, site } from "@/lib/content";
+import { socialMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Stay",
+  title: "Rooms & Suites",
   description:
-    "Twenty-five rooms at Twin Towers by Defoy, Pahalgam — 22 Premium Rooms with Balcony and 3 Attic Rooms on the fourth floor. Direct booking only.",
+    "Twenty-five rooms at Twin Towers by Defoy, Pahalgam — 22 Premium Rooms with Balcony and 3 Attic Rooms. Direct booking only.",
   alternates: { canonical: "/stay" },
+  ...socialMeta({
+    title: "Rooms & Suites — Twin Towers by Defoy",
+    description:
+      "22 Premium Rooms with Balcony and 3 Attic Rooms, king beds and the lawn outside. Book direct in Pahalgam.",
+    path: "/stay",
+  }),
 };
 
 export default function StayPage() {

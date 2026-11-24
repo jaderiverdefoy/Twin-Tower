@@ -7,12 +7,19 @@ import CountUp from "@/components/ui/CountUp";
 import { site } from "@/lib/content";
 import { JsonLd, breadcrumb } from "@/lib/schema";
 import { photo } from "@/lib/photos";
+import { socialMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "The Hotel",
   description:
     "Twin Towers by Defoy — a 25-room hotel in Dehwathu, Pahalgam. Architecture, amenities and the story of the house.",
   alternates: { canonical: "/hotel" },
+  ...socialMeta({
+    title: "The Hotel — Twin Towers by Defoy",
+    description:
+      "Two family wings, one roof and twenty-five rooms in Dehwathu, Pahalgam. The story, the numbers and what is included.",
+    path: "/hotel",
+  }),
 };
 
 const amenities = [
@@ -133,13 +140,13 @@ export default function HotelPage() {
                 <span className="block h-px w-10 bg-crimson" />
                 <span className="eyebrow text-crimson">Part of every stay</span>
               </div>
-              <h2
+              <h3
                 id="amenities-heading"
                 className="mt-5 text-[clamp(2rem,3.4vw,3.4rem)] font-bold leading-[1] tracking-[-0.04em]"
                 data-reveal="zoom"
               >
                 Small things, <em className="text-clay">already included.</em>
-              </h2>
+              </h3>
             </div>
             <p className="max-w-xs text-[0.9rem] leading-[1.7] text-ink/65" data-reveal="fade">
               Nothing here is an add-on. It is simply how the house runs.

@@ -67,7 +67,7 @@ export default function ThankYouPage() {
                   <Link href="/gallery" className="link-line text-[0.95rem]">
                     Walk through the gallery →
                   </Link>
-                  <Link href="/blog" className="link-line text-[0.95rem]">
+                  <Link href="/post" className="link-line text-[0.95rem]">
                     Read a note from the valley →
                   </Link>
                 </div>

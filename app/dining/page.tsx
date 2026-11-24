@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import EditorialNote from "@/components/EditorialNote";
 import Link from "next/link";
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
@@ -6,12 +7,19 @@ import SectionCurve from "@/components/ui/SectionCurve";
 import { site } from "@/lib/content";
 import { JsonLd, breadcrumb } from "@/lib/schema";
 import { photo } from "@/lib/photos";
+import { socialMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Dining",
+  title: "Dining at the House",
   description:
-    "The restaurant at Twin Towers by Defoy, Pahalgam — valley-fresh cooking, small dining room, timings and reservations.",
+    "Valley-fresh Kashmiri cooking in a small dining room at Twin Towers by Defoy, Pahalgam. Timings and reservations.",
   alternates: { canonical: "/dining" },
+  ...socialMeta({
+    title: "Dining at Twin Towers by Defoy",
+    description:
+      "A small dining room, valley-fresh Kashmiri cooking and kahwa to finish. See the sittings and reserve directly.",
+    path: "/dining",
+  }),
 };
 
 const timings = [
@@ -135,6 +143,16 @@ export default function DiningPage() {
           </div>
         </div>
       </section>
+
+      <EditorialNote
+        eyebrow="At the table"
+        title="What the valley puts on the plate"
+        paragraphs={[
+          "The kitchen is small enough that the team knows who is eating in the room and who is still out on the road. Breakfast is included with every stay and served between 7:30 and 10:00; ask for parathas or toast, eggs cooked the way you like them, and kahwa if the morning is cold. Lunch and dinner follow the same idea — familiar food, cooked carefully, with whatever is good that week.",
+          "Kashmiri cooking here is gentle rather than fiery. You will find slow-cooked gravies, fresh breads from the tandoor, rice that is never rushed, and vegetables from nearby fields when they are in season. Vegetarian dishes are not an afterthought; they are part of the same menu, and the team can adjust spice, salt and oil for anyone who asks. If you have allergies or a preference, tell us at booking and we will plan around it.",
+          "The dining room stays small on purpose. It is a place to take your time, not to queue. In the evening the lights are low and the conversation carries easily; in the morning the windows are opened onto the lawn. If you would rather eat in your room, room service is available, and if you are heading out early we will pack something for the road.",
+        ]}
+      />
     </>
   );
 }

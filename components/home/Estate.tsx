@@ -211,7 +211,7 @@ export default function Estate() {
 
             <SplitText
               text="Two halves, one roof."
-              as="h2"
+              as="h3"
               id="estate-heading"
               className="mt-6 text-[clamp(2.4rem,4vw,4.4rem)] font-bold leading-[0.98] tracking-[-0.04em] text-ivory"
             />

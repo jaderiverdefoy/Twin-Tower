@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
+import EditorialNote from "@/components/EditorialNote";
 import PageHeader from "@/components/PageHeader";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewText from "@/components/ReviewText";
 import { getDisplayReviews } from "@/lib/googleReviews";
 import { JsonLd, breadcrumb, reviewListSchema } from "@/lib/schema";
+import { socialMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Guest Reviews",
   description:
-    "Notes left by guests of Twin Towers by Defoy, Pahalgam — on the balcony rooms, the mountain light, the bonfire evenings, and the quiet.",
+    "Notes left by guests of Twin Towers by Defoy, Pahalgam — on the balcony rooms, mountain light and bonfire evenings.",
   alternates: { canonical: "/reviews" },
+  ...socialMeta({
+    title: "Guest Notes — Twin Towers by Defoy",
+    description:
+      "What guests say about the balcony rooms, mountain light, bonfire evenings and the quiet at Twin Towers by Defoy.",
+    path: "/reviews",
+  }),
 };
 
 export default async function ReviewsPage() {
@@ -122,9 +130,9 @@ export default async function ReviewsPage() {
                     </span>
                   </div>
                   {review.title ? (
-                    <h2 className="mt-5 font-display text-[clamp(1.5rem,2.2vw,2.1rem)] leading-[1.05] tracking-[-0.03em] transition-colors duration-500 group-hover:text-clay">
+                    <h3 className="mt-5 font-display text-[clamp(1.5rem,2.2vw,2.1rem)] leading-[1.05] tracking-[-0.03em] transition-colors duration-500 group-hover:text-clay">
                       {review.title}
-                    </h2>
+                    </h3>
                   ) : null}
                 </div>
                 <div>
@@ -168,6 +176,17 @@ export default async function ReviewsPage() {
           </div>
         </div>
       </section>
+
+      <EditorialNote
+        eyebrow="In their words"
+        title="What guests tend to mention"
+        paragraphs={[
+          "Guest notes usually begin with the quiet. People write about waking to the stream, about coffee on the balcony before the valley wakes up, and about how little there is to do when nothing is scheduled. That is the point of the place, and it is reassuring to see it in other people's words.",
+          "The rooms come up often — the king beds, the private balconies, and the attic rooms under the roof for anyone who likes a steeper ceiling. Guests mention the family running the house by name more than once, which tells us that the service here is personal rather than procedural.",
+          "The bonfire evenings and the food are recurring themes. So is the location: close enough to Pahalgam for the markets and the drives to Aru and Betaab, far enough from the road that you can hear yourself think. If you stayed with us and something could have been better, we would like to hear that too.",
+          "Every note on this page comes from a guest who stayed at Twin Towers by Defoy. We publish them as they are written, with only names shortened where requested. A sentence about the room or the morning tea is more useful than a paragraph of adjectives.",
+        ]}
+      />
     </>
   );
 }

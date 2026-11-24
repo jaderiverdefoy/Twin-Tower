@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
+import EditorialNote from "@/components/EditorialNote";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import SectionCurve from "@/components/ui/SectionCurve";
 import { site } from "@/lib/content";
 import { mapsHref } from "@/lib/utils";
 import { JsonLd, breadcrumb } from "@/lib/schema";
+import { socialMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Location & Directions",
-  description: `Twin Towers by Defoy is in Pahalgam, Jammu & Kashmir, at ${site.coords} and 2,130 metres. Srinagar Airport is 96 km away, roughly 1.5 to 2 hours by road.`,
+  description:
+    "Twin Towers by Defoy sits in Dehwathu, Pahalgam, near Aru Valley — 96 km from Srinagar Airport. Get directions.",
   alternates: { canonical: "/location" },
+  ...socialMeta({
+    title: "Finding Twin Towers by Defoy",
+    description:
+      "Dehwathu, Pahalgam — 96 km from Srinagar Airport. Directions, coordinates and the drives to Aru and Betaab Valley.",
+    path: "/location",
+  }),
 };
 
 const nearby = [
@@ -160,6 +169,17 @@ export default function LocationPage() {
           </div>
         </div>
       </section>
+
+      <EditorialNote
+        eyebrow="The road in"
+        title="Where the valley opens up"
+        paragraphs={[
+          "Twin Towers by Defoy sits in Dehwathu, on the road toward Pahalgam, at roughly 2,130 metres. The property is set back from the road behind a lawn, with pine forest rising behind it and a stream running along the front. It is close enough to the village for an evening walk and far enough from the main drag that the mornings stay quiet.",
+          "Most guests fly into Srinagar and drive south. The road is good for most of the way and gets narrower as you approach Pahalgam; the last few kilometres are the ones people remember. If you do not want to drive after a flight, ask us to arrange a pickup. We can also help with onward plans to Aru Valley, Betaab Valley or Chandanwari.",
+          "The coordinates on this page are exact, and the map button opens the location in Google Maps. If you are arriving by taxi, show the driver the property name and Dehwathu rather than just Pahalgam — the town is spread out and the two are not the same stop.",
+          "Weather changes quickly at this altitude. Summers are mild and green; winters are cold and quiet, with snow on the peaks above the valley. Bring a layer for the evening whatever the season, and leave room in the day for simply sitting outside.",
+        ]}
+      />
     </>
   );
 }

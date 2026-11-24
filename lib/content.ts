@@ -29,7 +29,7 @@ export const nav = [
   { label: "Gallery", href: "/gallery" },
   { label: "Location", href: "/location" },
   { label: "FAQ", href: "/faq" },
-  { label: "Journal", href: "/blog" },
+  { label: "Journal", href: "/post" },
   { label: "Contact", href: "/contact" },
 ];
 

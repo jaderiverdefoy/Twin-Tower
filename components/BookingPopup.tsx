@@ -175,9 +175,9 @@ export default function BookingPopup() {
 
         <div className="px-5 pb-6 pt-6 sm:px-7">
           <p className="eyebrow text-ink/65">Book direct</p>
-          <h2 className="mt-1 font-display text-[clamp(1.3rem,2.2vw,1.6rem)] font-bold leading-[1.05] tracking-[-0.03em]">
+          <h3 className="mt-1 font-display text-[clamp(1.3rem,2.2vw,1.6rem)] font-bold leading-[1.05] tracking-[-0.03em]">
             Book your stay.
-          </h2>
+          </h3>
 
           <form className="mt-5 grid gap-4" onSubmit={submit} noValidate>
             <Field label={<>01 — Name <span className="text-clay">*</span></>} htmlFor="popup-name" error={errors.name}>

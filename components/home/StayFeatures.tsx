@@ -39,7 +39,7 @@ export default function StayFeatures() {
             </div>
             <SplitText
               text="Six small things, done properly."
-              as="h2"
+              as="h3"
               id="features-heading"
               className="mt-6 text-[clamp(2.1rem,3.5vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.04em]"
             />

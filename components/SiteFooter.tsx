@@ -4,7 +4,7 @@ import { site } from "@/lib/content";
 const explore = [
   { label: "Stay", href: "/stay" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Blog", href: "/blog" },
+  { label: "Blog", href: "/post" },
   { label: "Reviews", href: "/reviews" },
 ];
 

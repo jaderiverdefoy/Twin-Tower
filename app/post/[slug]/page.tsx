@@ -37,11 +37,11 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: post.seo?.canonicalUrl || `/blog/${post.slug}`,
+      canonical: post.seo?.canonicalUrl || `/post/${post.slug}`,
     },
     openGraph: {
       type: "article",
-      url: post.seo?.canonicalUrl || `/blog/${post.slug}`,
+      url: post.seo?.canonicalUrl || `/post/${post.slug}`,
       siteName: "Twin Towers by Defoy",
       title,
       description,
@@ -82,8 +82,8 @@ export default async function PostPage({
         data={[
           breadcrumb([
             { name: "Home", path: "/", },
-            { name: "Blog", path: "/blog" },
-            { name: post.title, path: `/blog/${post.slug}` },
+            { name: "Blog", path: "/post" },
+            { name: post.title, path: `/post/${post.slug}` },
           ]),
           {
             "@context": "https://schema.org",
@@ -98,7 +98,7 @@ export default async function PostPage({
               name: post.author || "Twin Towers by Defoy",
             },
             publisher: { "@type": "Organization", name: site.name },
-            mainEntityOfPage: `${site.url}/blog/${post.slug}`,
+            mainEntityOfPage: `${site.url}/post/${post.slug}`,
           },
         ]}
       />
@@ -128,7 +128,7 @@ export default async function PostPage({
           <div className="shell relative flex min-h-[clamp(19rem,46svh,34rem)] flex-col justify-between gap-12 py-8 md:py-10">
             <div className="flex items-center">
               <Link
-                href="/blog"
+                href="/post"
                 className="eyebrow text-paper/75 transition-colors hover:text-paper"
               >
                 Blog
@@ -209,7 +209,7 @@ export default async function PostPage({
             <div className="shell">
               <p className="eyebrow text-ink/65">Next note</p>
               <Link
-                href={`/blog/${next.slug}`}
+                href={`/post/${next.slug}`}
                 className="group mt-4 flex items-end justify-between gap-6"
               >
                 <p className="max-w-[18ch] font-display text-[clamp(1.6rem,3.3vw,3.2rem)] leading-[0.98] transition-colors duration-500 group-hover:text-clay">

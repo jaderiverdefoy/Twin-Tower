@@ -38,13 +38,13 @@ export default function GuestNotes({
               <span className="block h-px w-10 bg-crimson" />
               <span className="eyebrow text-crimson">09 — Guest notes</span>
             </div>
-            <h2
+            <h3
               id="reviews-heading"
               className="mt-5 text-[clamp(2.2rem,3.4vw,3.4rem)] font-bold leading-[0.96] tracking-[-0.04em]"
               data-reveal
             >
               What our guests say.
-            </h2>
+            </h3>
           </div>
           <p
             className="max-w-sm text-[0.95rem] leading-[1.65] text-ink/70 md:col-span-4 md:col-start-9"

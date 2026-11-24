@@ -88,7 +88,7 @@ export default function BalconyView() {
             </div>
             <SplitText
               text="The balcony, hour by hour."
-              as="h2"
+              as="h3"
               id="balcony-heading"
               className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.97] tracking-[-0.04em]"
             />

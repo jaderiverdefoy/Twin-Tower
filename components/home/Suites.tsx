@@ -84,7 +84,7 @@ export default function Suites() {
             <SplitText
               text="Two ways to stay."
               highlight="stay."
-              as="h2"
+              as="h3"
               id="suites-heading"
               className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.98] tracking-[-0.04em]"
             />

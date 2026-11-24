@@ -17,16 +17,16 @@ export default async function BlogTeaser() {
               <span className="block h-px w-10 bg-crimson" />
               <span className="eyebrow text-crimson">10 — Journal</span>
             </div>
-            <h2
+            <h3
               id="blog-heading"
               className="mt-6 max-w-[18ch] text-[clamp(2.1rem,3.9vw,3.9rem)] font-bold leading-[0.95] tracking-[-0.04em]"
               data-reveal="zoom"
             >
               Notes from <em className="mark-sage">the valley.</em>
-            </h2>
+            </h3>
           </div>
           <Link
-            href="/blog"
+            href="/post"
             className="link-line self-start text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-crimson md:self-end"
             data-reveal="fade"
           >
@@ -43,7 +43,7 @@ export default async function BlogTeaser() {
                 className={i === 0 ? "md:col-span-6" : "md:col-span-3"}
               >
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/post/${post.slug}`}
                   className="group block"
                   data-reveal="left"
                   style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}

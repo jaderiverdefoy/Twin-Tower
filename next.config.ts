@@ -89,8 +89,8 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // The stay and journal sections moved from /rooms and /post. Keep the old
-  // URLs working so existing links, bookmarks and search results don't 404.
+  // The journal moved from /blog to /post. Keep the old URLs alive with 301s
+  // so bookmarks and search results never land on a 404.
   async redirects() {
     return [
       // The guest-stories video section was removed; keep old links working.
@@ -99,8 +99,8 @@ const nextConfig: NextConfig = {
       { source: "/experiences", destination: "/stay", permanent: true },
       { source: "/rooms", destination: "/stay", permanent: true },
       { source: "/rooms/:slug", destination: "/stay/:slug", permanent: true },
-      { source: "/post", destination: "/blog", permanent: true },
-      { source: "/post/:slug", destination: "/blog/:slug", permanent: true },
+      { source: "/blog", destination: "/post", permanent: true },
+      { source: "/blog/:slug", destination: "/post/:slug", permanent: true },
     ];
   },
 };

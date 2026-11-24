@@ -66,7 +66,7 @@ export default function Restaurant() {
             </div>
             <SplitText
               text="A small dining room that feels like a house."
-              as="h2"
+              as="h3"
               id="restaurant-heading"
               className="mt-6 text-[clamp(2.1rem,3.5vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.04em]"
             />

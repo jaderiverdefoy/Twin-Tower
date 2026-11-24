@@ -245,13 +245,13 @@ function GalleryHeader() {
           <span className="block h-px w-10 bg-crimson" />
           <span className="eyebrow text-crimson">06 — The grounds</span>
         </div>
-        <h2
+        <h3
           id="gallery-heading"
           className="mt-5 max-w-[18ch] text-[clamp(2.1rem,3.9vw,3.9rem)] font-bold leading-[0.96] tracking-[-0.04em]"
           data-reveal="zoom"
         >
           A walk through <em className="mark-sage">the house.</em>
-        </h2>
+        </h3>
       </div>
       <div className="flex items-end gap-6">
         <Link

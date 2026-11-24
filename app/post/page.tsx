@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import EditorialNote from "@/components/EditorialNote";
 import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { getAllPosts } from "@/lib/posts";
 import { JsonLd, breadcrumb } from "@/lib/schema";
+import { socialMeta } from "@/lib/seo";
 
 // Regenerate at least once a minute. The Sanity webhook revalidates the
 // "post" tag instantly, but a published post still needs to show up when the
@@ -11,10 +13,16 @@ import { JsonLd, breadcrumb } from "@/lib/schema";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "The Journal",
   description:
-    "Notes from Twin Towers by Defoy: the sound of the valley at dawn, a slow guide to Aru Valley, and the case for doing less.",
-  alternates: { canonical: "/blog" },
+    "Field notes from Twin Towers by Defoy, Pahalgam — the valley at dawn, a slow guide to Aru Valley, and doing less.",
+  alternates: { canonical: "/post" },
+  ...socialMeta({
+    title: "The Journal — Twin Towers by Defoy",
+    description:
+      "Field notes written at the property: the valley at dawn, Aru Valley, and the case for a slower stay in Pahalgam.",
+    path: "/post",
+  }),
 };
 
 export default async function BlogPage() {
@@ -25,7 +33,7 @@ export default async function BlogPage() {
       <JsonLd
         data={breadcrumb([
           { name: "Home", path: "/", },
-          { name: "Blog", path: "/blog" },
+          { name: "Blog", path: "/post" },
         ])}
       />
       <PageHeader
@@ -74,7 +82,7 @@ export default async function BlogPage() {
             {posts.map((post, i) => (
               <Link
                 key={post.slug}
-                href={`/blog/${post.slug}`}
+                href={`/post/${post.slug}`}
                 className="group flex h-full flex-col border-t border-line pt-6"
                 data-reveal="zoom"
                 style={{ ["--reveal-delay" as string]: `${i * 90}ms` }}
@@ -116,6 +124,17 @@ export default async function BlogPage() {
           </div>
         )}
       </section>
+
+      <EditorialNote
+        eyebrow="The journal"
+        title="Notes from the property"
+        paragraphs={[
+          "This is where we write the things that do not fit on a room page: what the valley looks like before the traffic starts, why we kept the property to twenty-five rooms, and which short drives are worth taking when you have a free afternoon. The notes are written at the property, between cups of tea, by people who work here.",
+          "Some entries are practical — a slow guide to Aru Valley, the road from Srinagar, what to carry in winter. Others are smaller observations about light, pine forest and the case for doing less on a holiday. None of them are written to rank for anything; they are here because guests ask us the same questions every week.",
+          "New notes appear when there is something worth saying, not on a schedule. If you want to know what the valley is doing this week, write to us and we will tell you plainly. If you would like to see a subject covered here, mention it when you book and we will take notes.",
+          "The journal is also a small archive of the house. A year from now these entries will read as a record of a particular season in Pahalgam — which is, in the end, what a stay here is.",
+        ]}
+      />
     </>
   );
 }

@@ -91,7 +91,7 @@ export default function BuildingExplorer() {
 
             <SplitText
               text="Set back from the road."
-              as="h2"
+              as="h3"
               id="building-heading"
               className="mt-5 text-[clamp(2.1rem,3.9vw,3.6rem)] font-bold leading-[0.97] tracking-[-0.04em]"
             />

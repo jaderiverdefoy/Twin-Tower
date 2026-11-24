@@ -45,13 +45,13 @@ export default function LocationSection() {
               <span className="block h-px w-10 bg-crimson" />
               <span className="eyebrow text-crimson">08 — Location</span>
             </div>
-            <h2
+            <h3
               id="location-heading"
               className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.96] tracking-[-0.04em]"
               data-reveal
             >
               The road ends. <em className="mark-sage">The mountains begin.</em>
-            </h2>
+            </h3>
 
             <p className="body-copy mt-8 max-w-md" data-reveal>
               Srinagar Airport is 95 km away — about 1.5 to 2 hours by road.

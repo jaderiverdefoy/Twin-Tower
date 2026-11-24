@@ -21,7 +21,7 @@ export default function ClosingCTA() {
 
             <SplitText
               text="Ready to arrive?"
-              as="h2"
+              as="h3"
               id="cta-heading"
               split="chars"
               className="mt-6 text-[clamp(2.9rem,7vw,6.6rem)] font-bold leading-[0.86] tracking-[-0.055em]"

@@ -27,7 +27,7 @@ export const PreviewDraftAction: DocumentActionComponent = (props) => {
         id: props.id,
         type: props.type,
         mode: "presentation",
-        preview: slug ? `/blog/${slug}` : "/blog",
+        preview: slug ? `/post/${slug}` : "/post",
       });
       props.onComplete();
     },

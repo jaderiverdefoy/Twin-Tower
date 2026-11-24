@@ -23,13 +23,13 @@ export async function POST(request: NextRequest) {
 
     revalidateTag("post");
     revalidatePath("/");
-    revalidatePath("/blog");
+    revalidatePath("/post");
     revalidatePath("/sitemap.xml");
     // Cover new and removed slugs even when the webhook payload has no slug.
-    revalidatePath("/blog/[slug]", "page");
+    revalidatePath("/post/[slug]", "page");
 
     if (body?.slug?.current) {
-      revalidatePath(`/blog/${body.slug.current}`);
+      revalidatePath(`/post/${body.slug.current}`);
     }
 
     // Guest reviews: approving a review in the Studio should update the site

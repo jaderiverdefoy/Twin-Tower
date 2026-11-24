@@ -64,9 +64,15 @@ export default function RoomShowcase() {
                       {room.bestFor}
                     </span>
                   </div>
-                  <h2 className="mt-4 text-[clamp(2rem,3.8vw,3.6rem)] leading-[0.96]">
-                    {room.name}
-                  </h2>
+                  {i === 0 ? (
+                    <h2 className="mt-4 text-[clamp(2rem,3.8vw,3.6rem)] leading-[0.96]">
+                      {room.name}
+                    </h2>
+                  ) : (
+                    <h3 className="mt-4 text-[clamp(2rem,3.8vw,3.6rem)] leading-[0.96]">
+                      {room.name}
+                    </h3>
+                  )}
                   <p className="body-copy mt-5">{room.long}</p>
 
                   <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-2.5 border-t border-line pt-6">

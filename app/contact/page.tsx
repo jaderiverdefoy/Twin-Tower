@@ -4,23 +4,19 @@ import PageHeader from "@/components/PageHeader";
 import BookingForm from "@/components/BookingForm";
 import { site } from "@/lib/content";
 import { JsonLd, breadcrumb } from "@/lib/schema";
+import { socialMeta } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact & Direct Booking",
   description:
     "Reserve directly with Twin Towers by Defoy. Choose a room and send the request.",
   alternates: { canonical: "/contact" },
-  openGraph: {
-    url: "/contact",
-    images: [
-      {
-        url: "/Twin-Tower/poster-1.webp",
-        width: 1600,
-        height: 900,
-        alt: "Twin Towers by Defoy against the pines",
-      },
-    ],
-  },
+  ...socialMeta({
+    title: "Contact & Direct Booking — Twin Towers by Defoy",
+    description:
+      "Reserve directly with Twin Towers by Defoy in Pahalgam. Choose a room, send the request and hear back from the resort team.",
+    path: "/contact",
+  }),
 };
 
 export default function ContactPage() {
