@@ -623,6 +623,93 @@ button:hover .arrow-static,
   }
 }
 
+/* ---------- signature intro ---------- */
+.intro-stage {
+  display: none;
+}
+
+html[data-intro="1"] .intro-stage {
+  display: block;
+}
+
+/*
+ * The signature intro sits above the page but below the navbar, so the
+ * navigation is readable from the very first paint (before hydration).
+ * These rules keep the navbar in its "over dark imagery" state while the
+ * intro is on screen, even on routes that do not have a hero.
+ */
+html[data-intro="1"] .site-header {
+  background-color: color-mix(in srgb, var(--color-forest) 55%, transparent) !important;
+  border-color: transparent !important;
+  color: var(--color-paper) !important;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+html[data-intro="1"] .site-header .site-nav-link,
+html[data-intro="1"] .site-header .eyebrow {
+  color: var(--color-paper) !important;
+}
+
+html[data-intro="1"] .site-header .site-nav-cta {
+  border-color: color-mix(in srgb, var(--color-paper) 70%, transparent) !important;
+  color: var(--color-paper) !important;
+}
+
+html[data-intro="1"] .site-header .site-hamburger span {
+  background-color: var(--color-paper) !important;
+}
+
+/* intro entrance runs from first paint, before hydration */
+.intro-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: intro-draw 0.8s cubic-bezier(0.65, 0, 0.35, 1) 0.05s forwards;
+}
+
+.intro-line-2 {
+  animation-delay: 0.1s;
+  animation-duration: 0.85s;
+}
+
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.intro-title {
+  transform: translate3d(0, 112%, 0);
+  animation: intro-title 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.12s forwards;
+}
+
+@keyframes intro-title {
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.intro-fade {
+  opacity: 0;
+  animation: intro-fade 0.6s ease 0.36s forwards;
+}
+
+@keyframes intro-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+html.intro-lock,
+html.intro-lock body,
+html.menu-lock,
+html.menu-lock body,
+html.ri-lock,
+html.ri-lock body {
+  overflow: hidden;
+}
+
 /* Hero scroll cue */
 .hero-scroll-cue {
   animation: hero-cue 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;

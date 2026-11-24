@@ -106,6 +106,8 @@ const jsonLd = {
   checkoutTime: "12:00",
 };
 
+const introScript = `(function(){try{var seen=sessionStorage.getItem('tt-intro');var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(!seen&&!reduce){document.documentElement.setAttribute('data-intro','1');}}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -122,6 +124,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
         <a
           href="#main"
           className="fixed left-4 top-4 z-[120] -translate-y-24 bg-crimson px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-ivory transition-transform focus:translate-y-0"
@@ -130,7 +133,7 @@ export default function RootLayout({
         </a>
 
         <noscript>
-          <style>{`[data-reveal]{opacity:1!important;transform:none!important;clip-path:none!important}[data-reveal] .reveal-media{clip-path:none!important;transform:none!important}`}</style>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important;clip-path:none!important}[data-reveal] .reveal-media{clip-path:none!important;transform:none!important}.intro-stage{display:none!important}`}</style>
         </noscript>
 
         <SiteChrome>{children}</SiteChrome>

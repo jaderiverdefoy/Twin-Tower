@@ -36,7 +36,7 @@ function resolveSiteUrl(): string {
   const deployment = process.env.VERCEL_URL?.trim();
   if (deployment) return deployment.replace(/\/+$/, "");
 
-  return "https://twintower.defoy.in";
+  return "https://twintowers.defoy.in";
 }
 
 export const SITE_URL = resolveSiteUrl();

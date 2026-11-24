@@ -16,8 +16,17 @@ export default function HeroFilm() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const t = window.setTimeout(() => setReady(true), 120);
-    return () => window.clearTimeout(t);
+    if (!document.documentElement.hasAttribute("data-intro")) {
+      const t = window.setTimeout(() => setReady(true), 80);
+      return () => window.clearTimeout(t);
+    }
+    const done = () => setReady(true);
+    window.addEventListener("tt:intro-done", done);
+    const fallback = window.setTimeout(done, 2000);
+    return () => {
+      window.removeEventListener("tt:intro-done", done);
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   return (

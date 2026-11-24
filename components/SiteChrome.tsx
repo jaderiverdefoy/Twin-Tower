@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import BackToHome from "@/components/BackToHome";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import SignatureIntro from "@/components/SignatureIntro";
 
 import SiteFooter from "@/components/SiteFooter";
 import SiteNav from "@/components/SiteNav";
@@ -20,6 +21,9 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
   const isStudio = pathname?.startsWith("/studio") ?? false;
   const isHome = pathname === "/" || pathname === null;
+  // The QR review page is opened from a phone at the table. Skip the cinematic
+  // intro so the form is usable immediately.
+  const isQuickReview = pathname === "/review";
   const [pastFold, setPastFold] = useState(false);
 
   useEffect(() => {
@@ -59,6 +63,8 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       <SmoothScroll />
       <ScrollProgress />
       <RevealObserver />
+
+      {!isQuickReview && <SignatureIntro />}
 
       <SiteNav />
       <main id="main">{children}</main>
