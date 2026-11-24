@@ -639,7 +639,7 @@ html[data-intro="1"] .intro-stage {
  * intro is on screen, even on routes that do not have a hero.
  */
 html[data-intro="1"] .site-header {
-  background-color: color-mix(in srgb, var(--color-forest) 55%, transparent) !important;
+  background-color: color-mix(in srgb, var(--color-walnut) 55%, transparent) !important;
   border-color: transparent !important;
   color: var(--color-paper) !important;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
