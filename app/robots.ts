@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
 const aiBots = [
   "GPTBot",
@@ -18,7 +19,6 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "*", allow: "/", disallow: ["/studio", "/api/"] },
       ...aiBots.map((bot) => ({ userAgent: bot, allow: "/" })),
     ],
-    sitemap:
-      "https://defoyhotelsandresorts.com/twin-towers/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

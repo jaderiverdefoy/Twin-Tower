@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Dining",
   description:
     "The restaurant at Twin Towers by Defoy, Pahalgam — valley-fresh cooking, small dining room, timings and reservations.",
-  alternates: { canonical: "/twin-towers/dining" },
+  alternates: { canonical: "/dining" },
 };
 
 const timings = [
@@ -25,8 +25,8 @@ export default function DiningPage() {
     <>
       <JsonLd
         data={breadcrumb([
-          { name: "Home", path: "/twin-towers" },
-          { name: "Dining", path: "/twin-towers/dining" },
+          { name: "Home", path: "/", },
+          { name: "Dining", path: "/dining" },
         ])}
       />
       <PageHeader
@@ -124,9 +124,11 @@ export default function DiningPage() {
                 <Image
                   src={photo(name as Parameters<typeof photo>[0])}
                   alt={`The ${name} at Twin Towers by Defoy`}
-                  fill
+                  title={`The ${name} at Twin Towers by Defoy`}
+                  width={1600}
+                  height={900}
                   sizes="(min-width: 768px) 33vw, 100vw"
-                  className="reveal-media object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] hover:scale-[1.04]"
+                  className="absolute inset-0 h-full w-full reveal-media object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] hover:scale-[1.04]"
                 />
               </figure>
             ))}

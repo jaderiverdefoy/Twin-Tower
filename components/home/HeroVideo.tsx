@@ -73,14 +73,15 @@ export default function HeroVideo() {
       <div className="hero-drift absolute inset-0">
         <Image
           src={POSTER}
-          alt=""
-          aria-hidden="true"
-          fill
+          alt="Twin Towers by Defoy at dusk, framed by the pine forest"
+          title="Twin Towers by Defoy at dusk, framed by the pine forest"
+          width={1600}
+          height={900}
           priority
           fetchPriority="high"
-          quality={75}
+          quality={60}
           sizes="100vw"
-          className="object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
         />
 
         {src && !reduce && !failed && (

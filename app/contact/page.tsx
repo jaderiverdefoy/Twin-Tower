@@ -9,22 +9,28 @@ export const metadata: Metadata = {
   title: "Contact & Direct Booking",
   description:
     "Reserve directly with Twin Towers by Defoy. Choose a room and send the request.",
-  alternates: { canonical: "/twin-towers/contact" },
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    url: "/contact",
+    images: [
+      {
+        url: "/Twin-Tower/poster-1.webp",
+        width: 1600,
+        height: 900,
+        alt: "Twin Towers by Defoy against the pines",
+      },
+    ],
+  },
 };
 
-export default async function ContactPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ room?: string }>;
-}) {
-  const { room } = await searchParams;
+export default function ContactPage() {
 
   return (
     <>
       <JsonLd
         data={breadcrumb([
-          { name: "Home", path: "/twin-towers" },
-          { name: "Contact", path: "/twin-towers/contact" },
+          { name: "Home", path: "/", },
+          { name: "Contact", path: "/contact" },
         ])}
       />
       <PageHeader
@@ -56,7 +62,10 @@ export default async function ContactPage({
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-7" data-reveal="zoom">
             <div className="border border-line bg-paper-2/40 p-6 shadow-[0_18px_50px_-30px_rgba(42,26,14,0.35)] sm:p-8 md:p-10">
-              <BookingForm initialRoom={room} />
+              <h2 className="font-display text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.02] tracking-[-0.02em]">
+                Reserve your stay <em className="mark-sage">on request.</em>
+              </h2>
+              <BookingForm initialRoom={undefined} />
             </div>
           </div>
 

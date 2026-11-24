@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Reservation & Stay Policies",
   description:
     "Cancellation, payment, check-in and identification policies for Twin Towers by Defoy, Pahalgam. Full refund 15+ days before arrival, 50% retention 15–10 days, 100% within 10 days.",
-  alternates: { canonical: "/twin-towers/policies" },
+  alternates: { canonical: "/policies" },
 };
 
 export default function PoliciesPage() {
@@ -16,8 +16,8 @@ export default function PoliciesPage() {
     <>
       <JsonLd
         data={breadcrumb([
-          { name: "Home", path: "/twin-towers" },
-          { name: "Policies", path: "/twin-towers/policies" },
+          { name: "Home", path: "/", },
+          { name: "Policies", path: "/policies" },
         ])}
       />
       <PageHeader

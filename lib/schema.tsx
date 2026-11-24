@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/lib/site";
+
 export function breadcrumb(items: { name: string; path: string }[]) {
   return {
     "@context": "https://schema.org",
@@ -6,7 +8,7 @@ export function breadcrumb(items: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      item: `https://defoyhotelsandresorts.com${item.path}`,
+      item: `${SITE_URL}${item.path}`.replace(/\/+$/, "") || `${SITE_URL}/`,
     })),
   };
 }

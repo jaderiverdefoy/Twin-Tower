@@ -10,6 +10,7 @@ export default function PageHeader({
   aside,
   children,
   image,
+  imageAlt,
   fullViewport = false,
 }: {
   eyebrow: string;
@@ -19,6 +20,8 @@ export default function PageHeader({
   children?: ReactNode;
   /** Optional photograph used as the header background. */
   image?: string | StaticImageData;
+  /** Accessible description for the header photograph. */
+  imageAlt?: string;
 
   /** Stretch the image header to the full viewport (Dining). */
   fullViewport?: boolean;
@@ -33,12 +36,13 @@ export default function PageHeader({
       >
         <Image
           src={image}
-          alt=""
-          aria-hidden="true"
-          fill
+          alt={imageAlt ?? "Twin Towers by Defoy"}
+          title={imageAlt ?? "Twin Towers by Defoy"}
+          width={1600}
+          height={900}
           priority
           sizes="100vw"
-          className="object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
         />
         <div
           className="absolute inset-0 bg-gradient-to-b from-[#1d1208]/75 via-[#2a1a0e]/35 to-[#2a1a0e]/80"

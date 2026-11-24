@@ -59,9 +59,11 @@ export default function GalleryGrid() {
               <Image
                 src={item.src}
                 alt={item.alt}
-                fill
+                title={item.alt}
+                width={1600}
+                height={2400}
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="reveal-media object-cover transition-transform duration-[1300ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.05]"
+                className="absolute inset-0 h-full w-full reveal-media object-cover transition-transform duration-[1300ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.05]"
               />
             </div>
             <div className="absolute inset-0 bg-forest/0 transition-colors duration-500 group-hover:bg-forest/20" />
@@ -114,9 +116,11 @@ export default function GalleryGrid() {
                 <Image
                   src={gallery[index].src}
                   alt={gallery[index].alt}
-                  fill
+                  title={gallery[index].alt}
+                  width={1600}
+                  height={900}
                   sizes="100vw"
-                  className="object-contain"
+                  className="absolute inset-0 h-full w-full object-contain"
                   priority
                 />
               </motion.div>

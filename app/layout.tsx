@@ -3,6 +3,7 @@ import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import PreviewBridge from "@/components/PreviewBridge";
 import SiteChrome from "@/components/SiteChrome";
+import { SITE_URL, absoluteUrl } from "@/lib/site";
 import { site } from "@/lib/content";
 
 /* Xogul type system: Manrope carries the experience, Inter carries the
@@ -22,7 +23,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://defoyhotelsandresorts.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Twin Towers by Defoy — A quieter kind of escape in Kashmir",
     template: "%s — Twin Towers by Defoy",
@@ -39,19 +40,19 @@ export const metadata: Metadata = {
     "Jammu and Kashmir stay",
     "Defoy Hotels",
   ],
-  alternates: { canonical: "/twin-towers" },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "/twin-towers",
+    url: "/",
     siteName: "Twin Towers by Defoy",
     title: "Twin Towers by Defoy — A quieter kind of escape in Kashmir",
     description: site.description,
     images: [
       {
-        url: "https://defoyhotelsandresorts.com/Twin-Tower/poster-1.webp",
-        width: 1672,
-        height: 941,
+        url: "/Twin-Tower/poster-1.webp",
+        width: 1600,
+        height: 900,
         alt: "Twin Towers by Defoy against the pines",
       },
     ],
@@ -78,7 +79,7 @@ const jsonLd = {
   "@type": "LodgingBusiness",
   name: "Twin Towers by Defoy",
   description: site.description,
-  url: "https://defoyhotelsandresorts.com/twin-towers",
+  url: absoluteUrl("/"),
   telephone: "+919541898817",
   email: "twintowers@defoy.in",
   priceRange: "₹5,000 – ₹5,000",

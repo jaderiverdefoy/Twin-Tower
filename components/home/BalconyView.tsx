@@ -170,11 +170,13 @@ export default function BalconyView() {
                         <Image
                           src={s.image}
                           alt={`${s.label} from the balcony at Twin Towers by Defoy`}
-                          fill
+                          title={`${s.label} from the balcony at Twin Towers by Defoy`}
+                          width={1600}
+                          height={1200}
                           sizes="(min-width: 768px) 60vw, 100vw"
                           quality={65}
                           loading="lazy"
-                          className="object-cover"
+                          className="absolute inset-0 h-full w-full object-cover"
                         />
                         <div
                           className={`absolute inset-0 bg-gradient-to-t ${s.wash}`}

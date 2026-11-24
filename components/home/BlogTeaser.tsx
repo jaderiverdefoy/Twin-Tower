@@ -52,13 +52,15 @@ export default async function BlogTeaser() {
                     <Image
                       src={post.image}
                       alt={post.imageAlt}
-                      fill
+                      title={post.imageAlt}
+                      width={1600}
+                      height={1200}
                       sizes={
                         i === 0
                           ? "(min-width: 768px) 48vw, 100vw"
                           : "(min-width: 768px) 24vw, 100vw"
                       }
-                      className="reveal-media object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
+                      className="absolute inset-0 h-full w-full reveal-media object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
                     />
                     <span className="absolute left-4 top-4 bg-crimson px-2.5 py-1.5 text-[0.56rem] font-semibold uppercase tracking-[0.14em] text-ivory">
                       {post.category}

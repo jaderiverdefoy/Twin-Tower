@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "Blog",
   description:
     "Notes from Twin Towers by Defoy: the sound of the valley at dawn, a slow guide to Aru Valley, and the case for doing less.",
-  alternates: { canonical: "/twin-towers/blog" },
+  alternates: { canonical: "/blog" },
 };
 
 export default async function BlogPage() {
@@ -24,8 +24,8 @@ export default async function BlogPage() {
     <>
       <JsonLd
         data={breadcrumb([
-          { name: "Home", path: "/twin-towers" },
-          { name: "Blog", path: "/twin-towers/blog" },
+          { name: "Home", path: "/", },
+          { name: "Blog", path: "/blog" },
         ])}
       />
       <PageHeader

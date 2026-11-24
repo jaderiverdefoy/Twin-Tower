@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Stay",
   description:
     "Twenty-five rooms at Twin Towers by Defoy, Pahalgam — 22 Premium Rooms with Balcony and 3 Attic Rooms on the fourth floor. Direct booking only.",
-  alternates: { canonical: "/twin-towers/stay" },
+  alternates: { canonical: "/stay" },
 };
 
 export default function StayPage() {
@@ -18,8 +18,8 @@ export default function StayPage() {
     <>
       <JsonLd
         data={breadcrumb([
-          { name: "Home", path: "/twin-towers" },
-          { name: "Stay", path: "/twin-towers/stay" },
+          { name: "Home", path: "/", },
+          { name: "Stay", path: "/stay" },
         ])}
       />
       <PageHeader

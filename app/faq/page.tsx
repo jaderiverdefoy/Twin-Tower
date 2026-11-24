@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Frequently Asked Questions",
   description:
     "Where is Twin Towers by Defoy, how many rooms, rates, direct booking, cancellation, check-in times, IDs, airport distance and nearby places — answered plainly.",
-  alternates: { canonical: "/twin-towers/faq" },
+  alternates: { canonical: "/faq" },
 };
 
 export default function FaqPage() {
@@ -18,8 +18,8 @@ export default function FaqPage() {
       <JsonLd
         data={[
           breadcrumb([
-            { name: "Home", path: "/twin-towers" },
-            { name: "FAQ", path: "/twin-towers/faq" },
+            { name: "Home", path: "/", },
+            { name: "FAQ", path: "/faq" },
           ]),
           {
             "@context": "https://schema.org",

@@ -96,6 +96,7 @@ export default function SiteNav() {
             <Image
               src="/images/logo-defoy.webp"
               alt="Defoy"
+              title="Defoy"
               width={96}
               height={86}
               priority
@@ -184,6 +185,7 @@ export default function SiteNav() {
               <Image
                 src="/images/logo-defoy.webp"
                 alt="Defoy"
+                title="Defoy"
                 width={96}
                 height={86}
                 className="h-10 w-auto md:h-12"

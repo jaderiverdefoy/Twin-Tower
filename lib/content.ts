@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/lib/site";
+
 export const site = {
   name: "Twin Towers by Defoy",
   group: "Defoy Hotels & Resorts",
@@ -17,7 +19,7 @@ export const site = {
   lngDisplay: "75.2731° E",
   elevation: "2,200 m",
   roomsTotal: 25,
-  url: "https://defoyhotelsandresorts.com/twin-towers",
+  url: SITE_URL,
 };
 
 export const nav = [

@@ -164,11 +164,13 @@ function FanCard({
           <Image
             src={card.src}
             alt={card.alt}
-            fill
+            title={card.alt}
+            width={1600}
+            height={1200}
             sizes="(min-width: 768px) 22vw, 60vw"
             quality={65}
             loading="lazy"
-            className="reveal-media object-cover"
+            className="absolute inset-0 h-full w-full reveal-media object-cover"
           />
           <span className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-ivory/10" />
           <span className="pointer-events-none absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deep/85 via-deep/30 to-transparent p-4 pt-14">
@@ -258,10 +260,12 @@ export default function Estate() {
                     <Image
                       src={c.src}
                       alt={c.alt}
-                      fill
+                      title={c.alt}
+                      width={1600}
+                      height={1200}
                       sizes="30vw"
                       quality={65}
-                      className="object-cover"
+                      className="absolute inset-0 h-full w-full object-cover"
                     />
                   </figure>
                 ))}
@@ -292,11 +296,13 @@ export default function Estate() {
               <Image
                 src={c.src}
                 alt={c.alt}
-                fill
+                title={c.alt}
+                width={1600}
+                height={2133}
                 sizes="82vw"
                 quality={65}
                 loading="lazy"
-                className="object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
               <span
                 className="pointer-events-none absolute inset-0 bg-gradient-to-t from-deep/90 via-deep/25 to-transparent"

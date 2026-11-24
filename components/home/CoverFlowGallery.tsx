@@ -61,7 +61,7 @@ export default function CoverFlowGallery() {
             {gallery.map((g, i) => (
               <figure key={g.src.src} className="overflow-hidden rounded-3xl bg-paper">
                 <div className="relative aspect-[3/4]">
-                  <Image src={g.src} alt={g.alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+                  <Image src={g.src} alt={g.alt} title={g.alt} width={1600} height={2133} sizes="(min-width: 768px) 33vw, 100vw" className="absolute inset-0 h-full w-full object-cover" />
                 </div>
               </figure>
             ))}
@@ -175,11 +175,13 @@ export default function CoverFlowGallery() {
                     <Image
                       src={g.src}
                       alt={g.alt}
-                      fill
+                      title={g.alt}
+                      width={1600}
+                      height={1200}
                       sizes={compact ? "62vw" : "(min-width: 768px) 27vw, 62vw"}
                       quality={65}
                       loading="lazy"
-                      className="object-cover"
+                      className="absolute inset-0 h-full w-full object-cover"
                     />
                     {/* Depth wash — the side cards stay photographic but
                         recede toward paper instead of losing their colour. */}

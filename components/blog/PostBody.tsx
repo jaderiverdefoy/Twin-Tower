@@ -100,7 +100,8 @@ const components: PortableTextComponents = {
         <figure className="my-10 overflow-hidden" data-reveal="zoom">
           <Image
             src={src}
-            alt={value?.alt || ""}
+            alt={value?.alt || "Journal photograph from the Twin Towers by Defoy"}
+            title={value?.alt || "Journal photograph from the Twin Towers by Defoy"}
             width={1600}
             height={1000}
             sizes="(min-width: 768px) 68ch, 100vw"

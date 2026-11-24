@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Gallery",
   description:
     "Photographs of Twin Towers by Defoy and the valley: wooden architecture, pine forest, the lawn, and the light at different hours.",
-  alternates: { canonical: "/twin-towers/gallery" },
+  alternates: { canonical: "/gallery" },
 };
 
 export default function GalleryPage() {
@@ -17,8 +17,8 @@ export default function GalleryPage() {
     <>
       <JsonLd
         data={breadcrumb([
-          { name: "Home", path: "/twin-towers" },
-          { name: "Gallery", path: "/twin-towers/gallery" },
+          { name: "Home", path: "/", },
+          { name: "Gallery", path: "/gallery" },
         ])}
       />
       <PageHeader

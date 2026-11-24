@@ -9,7 +9,7 @@ import { JsonLd, breadcrumb } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Location & Directions",
   description: `Twin Towers by Defoy is in Pahalgam, Jammu & Kashmir, at ${site.coords} and 2,130 metres. Srinagar Airport is 96 km away, roughly 1.5 to 2 hours by road.`,
-  alternates: { canonical: "/twin-towers/location" },
+  alternates: { canonical: "/location" },
 };
 
 const nearby = [
@@ -23,8 +23,8 @@ export default function LocationPage() {
     <>
       <JsonLd
         data={breadcrumb([
-          { name: "Home", path: "/twin-towers" },
-          { name: "Location", path: "/twin-towers/location" },
+          { name: "Home", path: "/", },
+          { name: "Location", path: "/location" },
         ])}
       />
       <PageHeader

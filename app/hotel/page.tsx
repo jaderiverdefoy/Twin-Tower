@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "The Hotel",
   description:
     "Twin Towers by Defoy — a 25-room hotel in Dehwathu, Pahalgam. Architecture, amenities and the story of the house.",
-  alternates: { canonical: "/twin-towers/hotel" },
+  alternates: { canonical: "/hotel" },
 };
 
 const amenities = [
@@ -39,8 +39,8 @@ export default function HotelPage() {
     <>
       <JsonLd
         data={breadcrumb([
-          { name: "Home", path: "/twin-towers" },
-          { name: "The Hotel", path: "/twin-towers/hotel" },
+          { name: "Home", path: "/", },
+          { name: "The Hotel", path: "/hotel" },
         ])}
       />
       <PageHeader
@@ -175,9 +175,11 @@ export default function HotelPage() {
                 <Image
                   src={photo(name as Parameters<typeof photo>[0])}
                   alt={`Twin Towers by Defoy — ${name}`}
-                  fill
+                  title={`Twin Towers by Defoy — ${name}`}
+                  width={1600}
+                  height={900}
                   sizes="(min-width: 768px) 33vw, 100vw"
-                  className="reveal-media object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] hover:scale-[1.04]"
+                  className="absolute inset-0 h-full w-full reveal-media object-cover transition-transform duration-[900ms] ease-[var(--ease-out-expo)] hover:scale-[1.04]"
                 />
                 <figcaption className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-deep/70 to-transparent p-4 text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-ivory/90">
                   {name === "exterior" ? "The two towers" : name === "facade" ? "The shared roof" : "The lawn"}

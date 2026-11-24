@@ -30,9 +30,11 @@ export default function RoomShowcase() {
                     <Image
                       src={room.image}
                       alt={`${room.name} at Twin Towers by Defoy`}
-                      fill
+                      title={`${room.name} at Twin Towers by Defoy`}
+                      width={1600}
+                      height={1200}
                       sizes="(min-width: 768px) 58vw, 100vw"
-                      className="reveal-media object-cover transition-transform duration-[1200ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
+                      className="absolute inset-0 h-full w-full reveal-media object-cover transition-transform duration-[1200ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]"
                     />
                     <div className="absolute inset-0 flex items-end justify-between p-5">
                       <span className="bg-paper px-3 py-2 font-mono text-[9px] uppercase tracking-[0.18em]">

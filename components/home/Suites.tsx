@@ -164,6 +164,7 @@ export default function Suites() {
                       <Image
                         src={src}
                         alt={`${room.name} at Twin Towers by Defoy`}
+                        title={`${room.name} at Twin Towers by Defoy`}
                         width={1600}
                         height={900}
                         sizes="(min-width: 768px) 700px, 100vw"
@@ -222,7 +223,15 @@ export default function Suites() {
                         : "opacity-45 hover:opacity-80"
                     }`}
                   >
-                    <Image src={src} alt="" fill sizes="140px" className="object-cover" />
+                    <Image
+                      src={src}
+                      alt={`${room.name} — photo ${i + 1}`}
+                      title={`${room.name} — photo ${i + 1}`}
+                      width={1600}
+                      height={900}
+                      sizes="140px"
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
                   </button>
                 ))}
               </div>

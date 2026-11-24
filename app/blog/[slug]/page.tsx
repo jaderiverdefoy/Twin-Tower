@@ -37,11 +37,11 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: post.seo?.canonicalUrl || `/twin-towers/blog/${post.slug}`,
+      canonical: post.seo?.canonicalUrl || `/blog/${post.slug}`,
     },
     openGraph: {
       type: "article",
-      url: post.seo?.canonicalUrl || `/twin-towers/blog/${post.slug}`,
+      url: post.seo?.canonicalUrl || `/blog/${post.slug}`,
       siteName: "Twin Towers by Defoy",
       title,
       description,
@@ -81,9 +81,9 @@ export default async function PostPage({
       <JsonLd
         data={[
           breadcrumb([
-            { name: "Home", path: "/twin-towers" },
-            { name: "Blog", path: "/twin-towers/blog" },
-            { name: post.title, path: `/twin-towers/blog/${post.slug}` },
+            { name: "Home", path: "/", },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
           ]),
           {
             "@context": "https://schema.org",
@@ -111,10 +111,11 @@ export default async function PostPage({
                 src={post.heroImage}
                 alt={post.heroImageAlt}
                 title={post.heroImageAlt}
-                fill
+                width={1600}
+                height={900}
                 priority
                 sizes="100vw"
-                className="object-cover object-center"
+                className="absolute inset-0 h-full w-full object-cover object-center"
               />
               {/* Keeps the title legible over any photo. */}
               <div

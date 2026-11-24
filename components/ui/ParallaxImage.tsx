@@ -48,6 +48,7 @@ export default function ParallaxImage({
         <Image
           src={src}
           alt={alt}
+          title={alt}
           width={resolvedWidth}
           height={resolvedHeight}
           sizes={sizes}

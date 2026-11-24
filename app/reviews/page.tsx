@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Guest Reviews",
   description:
     "Notes left by guests of Twin Towers by Defoy, Pahalgam — on the balcony rooms, the mountain light, the bonfire evenings, and the quiet.",
-  alternates: { canonical: "/twin-towers/reviews" },
+  alternates: { canonical: "/reviews" },
 };
 
 export default async function ReviewsPage() {
@@ -30,8 +30,8 @@ export default async function ReviewsPage() {
     <>
       <JsonLd
         data={breadcrumb([
-          { name: "Home", path: "/twin-towers" },
-          { name: "Reviews", path: "/twin-towers/reviews" },
+          { name: "Home", path: "/", },
+          { name: "Reviews", path: "/reviews" },
         ])}
       />
       {averageRating && reviews.length > 0 ? (

@@ -22,10 +22,12 @@ export default function RoomHero({ room }: { room: Room }) {
           <Image
             src={room.image}
             alt={`${room.name} at Twin Towers by Defoy`}
-            fill
+            title={`${room.name} at Twin Towers by Defoy`}
+            width={1600}
+            height={900}
             priority
             sizes="100vw"
-            className="object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
           />
         </motion.div>
         <div className="absolute inset-0 bg-forest/30" aria-hidden="true" />

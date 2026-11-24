@@ -150,11 +150,13 @@ export default function BuildingExplorer() {
                 key={base}
                 src={views[base].image}
                 alt={views[base].alt}
-                fill
+                title={views[base].alt}
+                width={1600}
+                height={1200}
                 sizes="(min-width: 768px) 50vw, 100vw"
                 quality={65}
                 loading="lazy"
-                className="reveal-media object-cover"
+                className="absolute inset-0 h-full w-full reveal-media object-cover"
               />
 
               {incoming !== null ? (

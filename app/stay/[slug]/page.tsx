@@ -22,7 +22,7 @@ export async function generateMetadata({
   return {
     title: room.name,
     description: `${room.description} From ${formatPrice(room.price)} per night at Twin Towers by Defoy, Pahalgam. Direct booking only.`,
-    alternates: { canonical: `/twin-towers/stay/${room.slug}` },
+    alternates: { canonical: `/stay/${room.slug}` },
     openGraph: {
       title: `${room.name} — Twin Towers by Defoy`,
       description: room.description,
@@ -50,9 +50,9 @@ export default async function RoomPage({
       <JsonLd
         data={[
           breadcrumb([
-            { name: "Home", path: "/twin-towers" },
-            { name: "Stay", path: "/twin-towers/stay" },
-            { name: room.name, path: `/twin-towers/stay/${room.slug}` },
+            { name: "Home", path: "/", },
+            { name: "Stay", path: "/stay" },
+            { name: room.name, path: `/stay/${room.slug}` },
           ]),
           {
             "@context": "https://schema.org",
@@ -193,9 +193,11 @@ export default async function RoomPage({
               <Image
                 src={src}
                 alt={`${room.name} — view ${i + 1}`}
-                fill
+                title={`${room.name} — view ${i + 1}`}
+                width={1600}
+                height={2000}
                 sizes="(min-width: 768px) 33vw, 100vw"
-                className="reveal-media object-cover"
+                className="absolute inset-0 h-full w-full reveal-media object-cover"
               />
             </div>
           ))}
@@ -220,9 +222,11 @@ export default async function RoomPage({
                   <Image
                     src={other.image}
                     alt={other.name}
-                    fill
+                    title={other.name}
+                    width={1600}
+                    height={900}
                     sizes="96px"
-                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
                 </div>
                 <div className="flex-1">
