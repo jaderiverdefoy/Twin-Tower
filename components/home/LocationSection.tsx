@@ -173,39 +173,14 @@ export default function LocationSection() {
                   style={{ pathLength: reduce ? 1 : routeProgress }}
                 />
 
-                <circle
-                  cx="410"
-                  cy="230"
-                  r="54"
-                  stroke="#211C1C"
-                  strokeOpacity="0.22"
-                  strokeDasharray="2 6"
-                />
-                <path
-                  d="M410 230 L438 206"
-                  stroke="#432911"
-                  strokeWidth="1.4"
-                  strokeDasharray="2 4"
-                />
-
                 <circle cx="70" cy="430" r="4" fill="#211C1C" />
-                <circle cx="70" cy="430" r="11" stroke="#211C1C" strokeOpacity="0.2" />
+                <circle cx="70" cy="430" r="9" stroke="#211C1C" strokeOpacity="0.18" />
 
                 <circle cx="410" cy="230" r="4" fill="#211C1C" />
-                <circle cx="410" cy="230" r="11" stroke="#211C1C" strokeOpacity="0.2" />
 
-                <circle cx="438" cy="206" r="5" fill="#432911" />
-                <motion.circle
-                  cx="438"
-                  cy="206"
-                  r="10"
-                  stroke="#432911"
-                  strokeOpacity="0.5"
-                  initial={false}
-                  animate={reduce ? {} : { r: [10, 24], opacity: [0.6, 0] }}
-                  transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
-                />
-                {/* The pulse lives at the final destination, Twin Towers. */}
+                {/* Twin Towers: one small ring around a single point. */}
+                <circle cx="438" cy="206" r="9" stroke="#432911" strokeOpacity="0.35" />
+                <circle cx="438" cy="206" r="4.5" fill="#432911" />
 
                 <text x="58" y="468" fill="#211C1C" fillOpacity="0.65" fontSize="11" fontFamily="Inter, sans-serif" fontWeight="600" letterSpacing="2">
                   SRINAGAR AIRPORT

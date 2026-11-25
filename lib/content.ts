@@ -114,7 +114,7 @@ export const rooms: Room[] = [
       twin("attic-room1"),
       twin("attic-room2"),
       twin("attic-room3"),
-      twin("balcony-breakfast"),
+      twin("room-detail"),
       twin("bathroom-2"),
     ],
     amenities: [
