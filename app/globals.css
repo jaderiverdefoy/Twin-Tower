@@ -336,9 +336,8 @@
   }
 
   /*
-   * Selective keyword highlight: a light-walnut wash built from the brand's
-   * secondary sand tone, slightly wider than the words and tilted a degree or
-   * two. Keep the text itself charcoal.
+   * Selective keyword highlight: a soft, light-brown wash warmed from the
+   * brand's walnut, slightly wider than the words and tilted a degree or two.
    * Keep the text itself charcoal. Used sparingly — never on image/video.
    */
   .mark-sage {
@@ -358,8 +357,8 @@
     inset: 0.04em -0.14em 0.02em -0.14em;
     background: linear-gradient(
       100deg,
-      color-mix(in srgb, var(--color-walnut) 22%, var(--color-sand)) 0%,
-      color-mix(in srgb, var(--color-walnut) 10%, var(--color-paper)) 100%
+      color-mix(in srgb, var(--color-walnut) 32%, #f0dcc0) 0%,
+      color-mix(in srgb, var(--color-walnut) 14%, #f6e7d0) 100%
     );
     transform: rotate(-1.4deg);
     transform-origin: center;
