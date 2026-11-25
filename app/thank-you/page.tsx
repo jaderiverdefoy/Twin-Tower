@@ -55,7 +55,7 @@ export default function ThankYouPage() {
               <div>
                 <p className="eyebrow text-ink/65">Next</p>
                 <p className="mt-4 text-[0.92rem] leading-relaxed text-ink/70">
-                  We&apos;ll confirm your dates and rate by email or WhatsApp.
+                  We&apos;ll confirm your dates and details by email or WhatsApp.
                 </p>
               </div>
               <div className="border-t border-line pt-5">

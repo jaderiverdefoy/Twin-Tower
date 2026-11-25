@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { gallery } from "@/lib/content";
 import SectionCurve from "@/components/ui/SectionCurve";
+import useReducedMotionSafe from "@/lib/useReducedMotionSafe";
 
 /**
  * 3D curved cover-flow.
@@ -16,7 +17,7 @@ import SectionCurve from "@/components/ui/SectionCurve";
  * automatically, and can be driven by click, drag, swipe or the arrow keys.
  */
 export default function CoverFlowGallery() {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const [active, setActive] = useState(0);
   const [compact, setCompact] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -125,6 +126,27 @@ export default function CoverFlowGallery() {
           setPaused(false);
         }}
       >
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Previous photograph"
+          className="absolute left-1 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-ivory/50 bg-deep/85 text-ivory shadow-[0_10px_30px_-8px_rgba(20,10,4,0.6)] backdrop-blur transition-colors hover:bg-deep md:left-4"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M10 3 5 8l5 5" stroke="currentColor" strokeWidth="1.4" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Next photograph"
+          className="absolute right-1 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-ivory/50 bg-deep/85 text-ivory shadow-[0_10px_30px_-8px_rgba(20,10,4,0.6)] backdrop-blur transition-colors hover:bg-deep md:right-4"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="m6 3 5 5-5 5" stroke="currentColor" strokeWidth="1.4" />
+          </svg>
+        </button>
+
         <div
           className="relative mx-auto flex items-center justify-center"
           style={{
@@ -247,7 +269,7 @@ function GalleryHeader() {
         </div>
         <h3
           id="gallery-heading"
-          className="mt-5 max-w-[18ch] text-[clamp(2.1rem,3.9vw,3.9rem)] font-bold leading-[0.96] tracking-[-0.04em]"
+          className="mt-5 max-w-[18ch] text-[clamp(2.1rem,3.9vw,3.9rem)] font-bold leading-[1] tracking-[-0.03em]"
           data-reveal="zoom"
         >
           A walk through <em className="mark-sage">the house.</em>

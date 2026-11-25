@@ -1,6 +1,5 @@
 import type { NextRequest } from "next/server";
 import { rooms, site } from "@/lib/content";
-import { formatPrice } from "@/lib/utils";
 import { getSanityWriteClient } from "@/sanity/lib/client";
 
 export const runtime = "nodejs";
@@ -167,17 +166,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Room naming for the lead email: the contact form uses the room name +
-  // price; the homepage popup passes a plain category label instead.
+  // Room naming for the lead email: the contact form sends the room name;
+  // the homepage popup passes a plain category label instead.
   let roomName: string;
   let roomSlugForPayload: string;
-  let nightlyRate = "";
   let guests: string;
 
   if (isPopup) {
     roomName = roomCategory || "General enquiry";
     roomSlugForPayload = "";
-    nightlyRate = "";
     guests = "2";
   } else {
     const room = rooms.find((item) => item.slug === roomSlug);
@@ -189,7 +186,6 @@ export async function POST(request: NextRequest) {
     }
     roomName = room.name;
     roomSlugForPayload = room.slug;
-    nightlyRate = formatPrice(room.price);
     guests = text(input.guests, 40) || "2";
   }
 
@@ -208,7 +204,7 @@ export async function POST(request: NextRequest) {
     email,
     phone,
     room: roomName,
-    rate: nightlyRate,
+    rate: "",
     mealPlan: mealPlan || undefined,
     adults: isPopup ? adults : undefined,
     children: isPopup ? children : undefined,
@@ -257,7 +253,7 @@ export async function POST(request: NextRequest) {
           phone,
           room: roomName,
           roomSlug: roomSlugForPayload,
-          nightlyRate,
+          nightlyRate: "",
           mealPlan: mealPlan || undefined,
           adults: isPopup ? adults : undefined,
           children: isPopup ? children : undefined,

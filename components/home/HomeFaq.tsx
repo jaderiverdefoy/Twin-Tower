@@ -29,7 +29,7 @@ export default function HomeFaq() {
               text="Everything, plainly."
               as="h3"
               id="home-faq-heading"
-              className="mt-6 text-[clamp(2.1rem,3.5vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.04em]"
+              className="mt-7 text-[clamp(2.1rem,3.5vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.03em]"
             />
             <p className="body-copy mt-8 max-w-sm" data-reveal>
               The same answers we give on the phone.
@@ -86,6 +86,19 @@ export default function HomeFaq() {
                         >
                           <p className="max-w-[60ch] pb-6 pl-12 pr-6 text-[0.93rem] leading-[1.7] text-ink/70">
                             {f.a}
+                            {f.link ? (
+                              <>
+                                {" "}
+                                <a
+                                  href={f.link.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="link-line font-semibold text-walnut"
+                                >
+                                  {f.link.label} →
+                                </a>
+                              </>
+                            ) : null}
                           </p>
                         </motion.div>
                       )}

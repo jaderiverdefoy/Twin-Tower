@@ -93,7 +93,7 @@ export default function BuildingExplorer() {
               text="Set back from the road."
               as="h3"
               id="building-heading"
-              className="mt-5 text-[clamp(2.1rem,3.9vw,3.6rem)] font-bold leading-[0.97] tracking-[-0.04em]"
+              className="mt-5 text-[clamp(2.2rem,4vw,4.2rem)] font-semibold leading-[1] tracking-[-0.04em]"
             />
             <p className="body-copy mt-5 max-w-md" data-reveal="fade">
               A turn off the Dehwathu road, and the pines give way to a stone
@@ -122,7 +122,7 @@ export default function BuildingExplorer() {
                       0{i + 1}
                     </span>
                     <span
-                      className={`text-[0.95rem] font-medium transition-colors ${
+                      className={`text-[0.95rem] font-medium leading-none transition-colors ${
                         isActive ? "text-ink" : "text-ink/75 group-hover:text-ink"
                       }`}
                     >

@@ -65,10 +65,10 @@ export default function Restaurant() {
               <span className="eyebrow text-crimson">05 — Dining</span>
             </div>
             <SplitText
-              text="A small dining room that feels like a house."
+              text="A cozy dining room that feels like a house."
               as="h3"
               id="restaurant-heading"
-              className="mt-6 text-[clamp(2.1rem,3.5vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.04em]"
+              className="mt-6 text-[clamp(2.1rem,3.5vw,3.5rem)] font-semibold leading-[1.02] tracking-[-0.03em]"
             />
             <p className="body-copy mt-8 max-w-md" data-reveal>
               Ask what&rsquo;s fresh from the valley. The kitchen cooks for the house.

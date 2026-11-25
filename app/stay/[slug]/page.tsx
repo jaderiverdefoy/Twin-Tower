@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { rooms, site } from "@/lib/content";
-import { formatPrice } from "@/lib/utils";
 import { JsonLd, breadcrumb } from "@/lib/schema";
 import RoomHero from "@/components/rooms/RoomHero";
 import { socialMeta } from "@/lib/seo";
@@ -55,7 +54,7 @@ export default async function RoomPage({
 
   const others = rooms.filter((r) => r.slug !== room.slug);
   const waText = encodeURIComponent(
-    `Hello Twin Towers by Defoy, I would like to enquire about the ${room.name} (${formatPrice(room.price)} per night).`,
+    `Hello Twin Towers by Defoy, I would like to enquire about the ${room.name}.`,
   );
 
   return (
@@ -84,13 +83,6 @@ export default async function RoomPage({
               "@type": "LodgingBusiness",
               name: site.name,
               address: site.address,
-            },
-            offers: {
-              "@type": "Offer",
-              price: room.price,
-              priceCurrency: "INR",
-              availability: "https://schema.org/InStock",
-              url: `${site.url}/stay/${room.slug}`,
             },
           },
         ]}
@@ -157,9 +149,9 @@ export default async function RoomPage({
               style={{ ["--reveal-delay" as string]: "120ms" }}
             >
               <p className="eyebrow text-ink/65">Reserve directly</p>
-              <p className="mt-4 font-display text-[2.4rem] leading-none">{formatPrice(room.price)}</p>
+              <p className="mt-4 font-display text-[1.5rem] leading-tight">Check dates with us.</p>
               <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/65">
-                per night · inclusive of taxes as confirmed
+                Availability confirmed on enquiry
               </p>
 
               <Link
@@ -248,7 +240,7 @@ export default async function RoomPage({
                     {other.name}
                   </h3>
                   <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-ink/65">
-                    From {formatPrice(other.price)} / night
+                    {other.count} · Direct booking
                   </p>
                 </div>
                 <span className="text-2xl">→</span>
@@ -265,7 +257,7 @@ export default async function RoomPage({
           paragraphs={[
             "The Attic Room sits on the fourth floor, nearest the steep roof. It is the smallest group in the house — just three rooms — and the one guests ask for when they want the ceiling close and the view wide. Warm timber, a private balcony and the mountain outside are the whole idea.",
             "The room has a king bed, breakfast included, Wi-Fi, heating and hot water. The balcony is a good place to read in the afternoon; the roof keeps the room cool when the sun is high. An extra bed can be arranged on request, though the attic is at its best for two people travelling light.",
-            "Check-in is from 2:00 PM and check-out by 12:00 noon. A 50% advance confirms the reservation, and full cancellation terms are on the policies page. Rates start at ₹5,000 per night and booking is direct only, so your enquiry reaches the resort team without an intermediary.",
+            "Check-in is from 2:00 PM and check-out by 12:00 noon. A 50% advance confirms the reservation, and full cancellation terms are on the policies page. Booking is direct only, so your enquiry reaches the resort team without an intermediary.",
             "If you are unsure between an attic and a premium room, tell us who is coming and how long you are staying. We will place you according to the view, the light and how much space you want — not according to which room happens to be free. The attic fills quickly in autumn, when the light is at its longest.",
           ]}
         />
@@ -277,7 +269,7 @@ export default async function RoomPage({
           paragraphs={[
             "The Premium Room with Balcony is the most common way to stay here, and for good reason. Each one has a king bed, a private balcony and enough floor space to unpack properly rather than living out of a suitcase. The balcony faces the lawn and the pines beyond it; in the morning it is the first place you will want to sit.",
             "Breakfast is included and can be served in the room if you would rather not dress for the dining room. Wi-Fi, central heating, hot water and room service are part of the stay, not extras. An extra bed is available on request for families, and the team can help with ironing, laundry or a late checkout when the house allows it.",
-            "Check-in is from 2:00 PM and check-out by 12:00 noon. A 50% advance confirms the booking, and the cancellation policy is written in plain words on the policies page. Rates start at ₹5,000 per night and every enquiry goes straight to the resort — there is no booking engine taking a commission in between.",
+            "Check-in is from 2:00 PM and check-out by 12:00 noon. A 50% advance confirms the booking, and the cancellation policy is written in plain words on the policies page. Every enquiry goes straight to the resort — there is no booking engine taking a commission in between.",
             "Guests often tell us that the room is quieter than they expected. The walls are solid, the windows face the lawn, and the evenings end early at this altitude. Bring a layer for the balcony and leave the curtains open; the light at seven in the morning is the best part of the room.",
           ]}
         />

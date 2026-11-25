@@ -58,7 +58,7 @@ export default function ContactPage() {
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-7" data-reveal="zoom">
             <div className="border border-line bg-paper-2/40 p-6 shadow-[0_18px_50px_-30px_rgba(42,26,14,0.35)] sm:p-8 md:p-10">
-              <h2 className="font-display text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.02] tracking-[-0.02em]">
+              <h2 className="mb-8 font-display text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.02] tracking-[-0.02em]">
                 Reserve your stay <em className="mark-sage">on request.</em>
               </h2>
               <BookingForm initialRoom={undefined} />

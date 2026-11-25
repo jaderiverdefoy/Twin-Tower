@@ -119,10 +119,6 @@ export default function HeroVideo() {
 
       {/* Fine grain — hides compression and gives the film a printed texture. */}
       <div className="hero-grain pointer-events-none absolute inset-0" aria-hidden="true" />
-
-      {/* The hero ends in the page tone so the sandstone section does not start
-          with a hard cut. */}
-      <div className="hero-spill pointer-events-none absolute inset-x-0 bottom-0" aria-hidden="true" />
     </div>
   );
 }

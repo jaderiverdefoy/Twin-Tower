@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { site } from "@/lib/content";
+import { normalizeIndianPhone, toIndianPhone } from "@/lib/utils";
 import { OPEN_BOOKING_EVENT } from "@/lib/events";
 
 /**
@@ -87,9 +88,9 @@ export default function BookingPopup() {
   const validate = () => {
     const next: Errors = {};
     if (name.trim().length < 2) next.name = "Please add your name.";
-    const digits = phone.replace(/\D/g, "");
-    if (!digits) next.phone = "Please add a phone number.";
-    else if (digits.length < 8 || digits.length > 15) next.phone = "Please add a valid phone number.";
+    if (normalizeIndianPhone(phone).length !== 10) {
+      next.phone = "Please add a 10-digit mobile number.";
+    }
     if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
       next.email = "Please add a valid email address.";
     }
@@ -103,7 +104,7 @@ export default function BookingPopup() {
   const waLines = [
     "Hello Twin Towers by Defoy, I would like to book a stay.",
     name ? `Name: ${name}` : null,
-    phone ? `Phone: ${phone}` : null,
+    phone ? `Phone: ${toIndianPhone(phone)}` : null,
     email ? `Email: ${email}` : null,
     travelDate ? `Travel date: ${travelDate}` : null,
   ].filter(Boolean);
@@ -123,7 +124,7 @@ export default function BookingPopup() {
         body: JSON.stringify({
           form: "popup",
           name,
-          phone,
+          phone: toIndianPhone(phone),
           email,
           travelDate,
           company,
@@ -139,7 +140,7 @@ export default function BookingPopup() {
       try {
         sessionStorage.setItem(
           "tt-booking",
-          JSON.stringify({ name, phone, email, checkin: travelDate }),
+          JSON.stringify({ name, phone: toIndianPhone(phone), email, checkin: travelDate }),
         );
       } catch {
         /* storage blocked — thank-you page has a generic fallback */
@@ -180,7 +181,7 @@ export default function BookingPopup() {
           </h3>
 
           <form className="mt-5 grid gap-4" onSubmit={submit} noValidate>
-            <Field label={<>01 — Name <span className="text-clay">*</span></>} htmlFor="popup-name" error={errors.name}>
+            <Field label="Full name" htmlFor="popup-name" error={errors.name}>
               <input
                 ref={nameRef}
                 id="popup-name"
@@ -191,26 +192,27 @@ export default function BookingPopup() {
                 maxLength={80}
                 aria-invalid={Boolean(errors.name)}
                 required
-                className="w-full bg-transparent py-2 text-[0.95rem] outline-none placeholder:text-ink/65"
+                className="w-full bg-transparent py-2 text-[0.95rem] outline-none placeholder:text-ink/50"
               />
             </Field>
 
-            <Field label={<>02 — Phone <span className="text-clay">*</span></>} htmlFor="popup-phone" error={errors.phone}>
+            <Field label="Phone" htmlFor="popup-phone" error={errors.phone} prefix="+91">
               <input
                 id="popup-phone"
                 type="tel"
+                inputMode="numeric"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="+91 …"
-                autoComplete="tel"
-                maxLength={40}
+                placeholder="98765 43210"
+                autoComplete="tel-national"
+                maxLength={14}
                 aria-invalid={Boolean(errors.phone)}
                 required
-                className="w-full bg-transparent py-2 text-[0.95rem] outline-none placeholder:text-ink/65"
+                className="w-full bg-transparent py-2 text-[0.95rem] outline-none placeholder:text-ink/50"
               />
             </Field>
 
-            <Field label="03 — Email" htmlFor="popup-email" error={errors.email}>
+            <Field label="Email" htmlFor="popup-email" error={errors.email}>
               <input
                 id="popup-email"
                 type="email"
@@ -220,11 +222,11 @@ export default function BookingPopup() {
                 autoComplete="email"
                 maxLength={160}
                 aria-invalid={Boolean(errors.email)}
-                className="w-full bg-transparent py-2 text-[0.95rem] outline-none placeholder:text-ink/65"
+                className="w-full bg-transparent py-2 text-[0.95rem] outline-none placeholder:text-ink/50"
               />
             </Field>
 
-            <Field label="04 — Travel date" htmlFor="popup-date" error={errors.travelDate}>
+            <Field label="Travel date" htmlFor="popup-date" error={errors.travelDate}>
               <input
                 id="popup-date"
                 type="date"
@@ -273,16 +275,25 @@ function Field({
   htmlFor,
   children,
   error,
+  prefix,
 }: {
-  label: React.ReactNode;
+  label: string;
   htmlFor: string;
   children: React.ReactNode;
   error?: string;
+  prefix?: string;
 }) {
   return (
-    <div className={`group border-b pb-1 ${error ? "border-clay" : "border-line focus-within:border-clay"}`}>
-      <label htmlFor={htmlFor} className="eyebrow block text-ink/65">{label}</label>
-      {children}
+    <div className={`border-b pb-1 ${error ? "border-clay" : "border-line focus-within:border-clay"}`}>
+      <label htmlFor={htmlFor} className="sr-only">{label}</label>
+      <div className="flex items-center gap-2">
+        {prefix ? (
+          <span aria-hidden="true" className="select-none text-[0.95rem] text-ink/60">
+            {prefix}
+          </span>
+        ) : null}
+        {children}
+      </div>
       {error ? <span role="alert" className="block text-[0.7rem] text-clay">{error}</span> : null}
     </div>
   );

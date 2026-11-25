@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { rooms, site } from "@/lib/content";
-import { formatPrice } from "@/lib/utils";
+import { normalizeIndianPhone, toIndianPhone } from "@/lib/utils";
 
 /**
  * Room preselection happens via the URL *fragment* — e.g.
@@ -59,8 +59,9 @@ export default function BookingForm({
     const lines = [
       `Hello Twin Towers by Defoy, I would like to enquire about a stay.`,
       ``,
-      `Room: ${selected.name} (${formatPrice(selected.price)} / night)`,
+      `Room: ${selected.name}`,
       name ? `Name: ${name}` : null,
+      phone ? `Phone: ${toIndianPhone(phone)}` : null,
       checkin ? `Check-in: ${checkin}` : null,
       checkout ? `Check-out: ${checkout}` : null,
       notes ? `Notes: ${notes}` : null,
@@ -68,7 +69,7 @@ export default function BookingForm({
       `Please confirm availability and the next steps.`,
     ].filter(Boolean);
     return lines.join("\n");
-  }, [selected, name, checkin, checkout, notes]);
+  }, [selected, name, phone, checkin, checkout, notes]);
 
   const href = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
 
@@ -85,9 +86,8 @@ export default function BookingForm({
       if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
         next.email = "That email address does not look right.";
       }
-      const digits = phone.replace(/\D/g, "");
-      if (phone.trim() && (digits.length < 8 || digits.length > 15)) {
-        next.phone = "Please add a valid phone number.";
+      if (phone.trim() && normalizeIndianPhone(phone).length !== 10) {
+        next.phone = "Please add a 10-digit mobile number.";
       }
     }
 
@@ -120,7 +120,7 @@ export default function BookingForm({
         body: JSON.stringify({
           name,
           email,
-          phone,
+          phone: toIndianPhone(phone),
           room: selected.slug,
           checkin,
           checkout,
@@ -180,61 +180,56 @@ export default function BookingForm({
   }
 
   return (
-    <form className="grid gap-8" onSubmit={submit} noValidate>
-      <fieldset className="grid gap-3">
-        <legend className="eyebrow mb-1 text-ink/65">01 — Choose a room <span className="text-clay">*</span></legend>
-        <div className="grid gap-2">
-          {roomOptions.map((r) => (
-            <label
-              key={r.slug}
-              className={`group flex cursor-pointer items-center justify-between gap-4 border px-4 py-4 transition-colors duration-300 ${
-                room === r.slug
-                  ? "border-ink bg-forest text-paper"
-                  : "border-line hover:border-ink/40"
-              }`}
-            >
-              <span className="flex items-center gap-4">
-                <input
-                  type="radio"
-                  name="room"
-                  value={r.slug}
-                  checked={room === r.slug}
-                  onChange={() => setRoom(r.slug)}
-                  className="sr-only"
-                />
+    <form className="grid gap-7" onSubmit={submit} noValidate>
+      <fieldset className="grid gap-2.5">
+        <legend className="eyebrow mb-1 text-ink/65">Choose a room</legend>
+        {roomOptions.map((r) => (
+          <label
+            key={r.slug}
+            className={`group flex cursor-pointer items-center justify-between gap-4 border px-4 py-3.5 transition-colors duration-300 ${
+              room === r.slug
+                ? "border-ink bg-forest text-paper"
+                : "border-line hover:border-ink/40"
+            }`}
+          >
+            <span className="flex items-center gap-4">
+              <input
+                type="radio"
+                name="room"
+                value={r.slug}
+                checked={room === r.slug}
+                onChange={() => setRoom(r.slug)}
+                className="sr-only"
+              />
+              <span
+                className={`flex h-3.5 w-3.5 items-center justify-center rounded-full border ${
+                  room === r.slug ? "border-paper" : "border-ink/30"
+                }`}
+              >
                 <span
-                  className={`flex h-3.5 w-3.5 items-center justify-center rounded-full border ${
-                    room === r.slug ? "border-paper" : "border-ink/30"
+                  className={`h-1.5 w-1.5 rounded-full transition-transform ${
+                    room === r.slug ? "scale-100 bg-copper" : "scale-0"
+                  }`}
+                />
+              </span>
+              <span>
+                <span className="block font-display text-[1.1rem] leading-tight">{r.name}</span>
+                <span
+                  className={`mt-0.5 block font-mono text-[9px] uppercase tracking-[0.14em] ${
+                    room === r.slug ? "text-paper/65" : "text-ink/65"
                   }`}
                 >
-                  <span
-                    className={`h-1.5 w-1.5 rounded-full transition-transform ${
-                      room === r.slug ? "scale-100 bg-copper" : "scale-0"
-                    }`}
-                  />
-                </span>
-                <span>
-                  <span className="block font-display text-[1.1rem] leading-tight">{r.name}</span>
-                  <span
-                    className={`mt-0.5 block font-mono text-[9px] uppercase tracking-[0.14em] ${
-                      room === r.slug ? "text-paper/65" : "text-ink/65"
-                    }`}
-                  >
-                    {r.count} · {r.bestFor}
-                  </span>
+                  {r.count} · {r.bestFor}
                 </span>
               </span>
-              <span className="whitespace-nowrap font-mono text-[10px] tracking-[0.08em]">
-                {formatPrice(r.price)}
-              </span>
-            </label>
-          ))}
-        </div>
+            </span>
+          </label>
+        ))}
         {errors.room ? <FieldError message={errors.room} /> : null}
       </fieldset>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <Field label="02 — Your name" htmlFor="name" error={errors.name}>
+      <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+        <Field label="Full name" htmlFor="name" error={errors.name}>
           <input
             id="name"
             value={name}
@@ -244,10 +239,24 @@ export default function BookingForm({
             maxLength={80}
             aria-invalid={Boolean(errors.name)}
             required
-            className="w-full bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/65"
+            className="w-full bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/50"
           />
         </Field>
-        <Field label="03 — Email" htmlFor="email" error={errors.email}>
+        <Field label="Phone or WhatsApp" htmlFor="phone" error={errors.phone} prefix="+91">
+          <input
+            id="phone"
+            type="tel"
+            inputMode="numeric"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="98765 43210"
+            autoComplete="tel-national"
+            maxLength={14}
+            aria-invalid={Boolean(errors.phone)}
+            className="w-full bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/50"
+          />
+        </Field>
+        <Field label="Email" htmlFor="email" error={errors.email} className="sm:col-span-2">
           <input
             id="email"
             type="email"
@@ -257,23 +266,10 @@ export default function BookingForm({
             autoComplete="email"
             maxLength={160}
             aria-invalid={Boolean(errors.email)}
-            className="w-full bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/65"
+            className="w-full bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/50"
           />
         </Field>
-        <Field label="04 — Phone or WhatsApp" htmlFor="phone" error={errors.phone}>
-          <input
-            id="phone"
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="+91 …"
-            autoComplete="tel"
-            maxLength={40}
-            aria-invalid={Boolean(errors.phone)}
-            className="w-full bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/65"
-          />
-        </Field>
-        <Field label="05 — Check-in (optional)" htmlFor="checkin" error={errors.checkin}>
+        <Field label="Check-in" htmlFor="checkin" error={errors.checkin}>
           <input
             id="checkin"
             type="date"
@@ -283,7 +279,7 @@ export default function BookingForm({
             className="w-full bg-transparent py-3 text-[1rem] outline-none"
           />
         </Field>
-        <Field label="06 — Check-out (optional)" htmlFor="checkout" error={errors.checkout}>
+        <Field label="Check-out" htmlFor="checkout" error={errors.checkout}>
           <input
             id="checkout"
             type="date"
@@ -294,19 +290,18 @@ export default function BookingForm({
             className="w-full bg-transparent py-3 text-[1rem] outline-none"
           />
         </Field>
+        <Field label="Anything we should know" htmlFor="notes" className="sm:col-span-2">
+          <textarea
+            id="notes"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            rows={2}
+            maxLength={1500}
+            placeholder="Anniversary, children's ages, a pickup from Srinagar…"
+            className="w-full resize-none bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/50"
+          />
+        </Field>
       </div>
-
-      <Field label="07 — Anything we should know" htmlFor="notes">
-        <textarea
-          id="notes"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          rows={3}
-          maxLength={1500}
-          placeholder="Anniversary, children's ages, a pickup from Srinagar…"
-          className="w-full resize-none bg-transparent py-3 text-[1rem] outline-none placeholder:text-ink/65"
-        />
-      </Field>
 
       {/* Hidden from people, irresistible to bots. */}
       <div className="hidden" aria-hidden="true">
@@ -319,13 +314,6 @@ export default function BookingForm({
           value={company}
           onChange={(e) => setCompany(e.target.value)}
         />
-      </div>
-
-      <div className="border-t border-line pt-6">
-        <p className="eyebrow text-ink/65">Your request</p>
-        <pre className="mt-3 whitespace-pre-wrap font-mono text-[11px] leading-[1.8] text-ink/70">
-          {message}
-        </pre>
       </div>
 
       {error ? (
@@ -376,18 +364,33 @@ function Field({
   htmlFor,
   children,
   error,
+  prefix,
+  className,
 }: {
   label: string;
   htmlFor: string;
   children: React.ReactNode;
   error?: string;
+  prefix?: string;
+  className?: string;
 }) {
   return (
-    <div className={`group border-b pb-1 ${error ? "border-clay" : "border-line focus-within:border-clay"}`}>
-      <label htmlFor={htmlFor} className="eyebrow block text-ink/65">
+    <div
+      className={`border-b pb-1 ${
+        error ? "border-clay" : "border-line focus-within:border-clay"
+      } ${className ?? ""}`}
+    >
+      <label htmlFor={htmlFor} className="sr-only">
         {label}
       </label>
-      {children}
+      <div className="flex items-center gap-2">
+        {prefix ? (
+          <span aria-hidden="true" className="select-none text-[1rem] text-ink/60">
+            {prefix}
+          </span>
+        ) : null}
+        {children}
+      </div>
       {error ? <FieldError message={error} /> : null}
     </div>
   );

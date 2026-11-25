@@ -90,7 +90,7 @@ export default function BalconyView() {
               text="The balcony, hour by hour."
               as="h3"
               id="balcony-heading"
-              className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.97] tracking-[-0.04em]"
+              className="mt-7 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.96] tracking-[-0.045em]"
             />
             <p className="body-copy mt-8 max-w-md" data-reveal="fade">
               Each room has one. Watch it change from first light to after dark.

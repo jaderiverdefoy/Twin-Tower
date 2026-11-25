@@ -86,7 +86,7 @@ export default function Suites() {
               highlight="stay."
               as="h3"
               id="suites-heading"
-              className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.98] tracking-[-0.04em]"
+              className="mt-5 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.98] tracking-[-0.035em]"
             />
           </div>
           <p className="body-copy md:col-span-4 md:col-start-9" data-reveal="fade">
@@ -263,14 +263,9 @@ export default function Suites() {
                 ))}
               </ul>
 
-              <div className="mt-7 flex items-end justify-between border-t border-line pt-6">
-                <div>
-                  <p className="eyebrow text-stone">From</p>
-                  <p className="tabular mt-1 font-display text-[2rem] font-bold leading-none text-crimson">
-                    ₹{room.price.toLocaleString("en-IN")}
-                  </p>
-                </div>
-                <p className="text-[0.72rem] font-medium text-stone">per night</p>
+              <div className="mt-7 flex items-center justify-between border-t border-line pt-6">
+                <p className="eyebrow text-stone">Direct booking only</p>
+                <p className="text-[0.72rem] font-medium text-stone">No OTA fees</p>
               </div>
 
               <Link href={`/stay/${room.slug}`} className="btn mt-6 w-full justify-between">

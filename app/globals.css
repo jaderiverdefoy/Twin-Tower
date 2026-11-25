@@ -66,6 +66,8 @@
     color: var(--color-charcoal);
     font-family: var(--font-sans);
     font-feature-settings: "cv11" 1, "ss01" 1;
+    /* Horizontal safety net. Vertical overflow stays visible so the pinned
+       "Part of every stay" section can use position: sticky. */
     overflow-x: clip;
   }
 
@@ -334,8 +336,9 @@
   }
 
   /*
-   * Selective keyword highlight: a muted sage rectangle, slightly wider than
-   * the words and tilted a degree or two. Keep the text itself charcoal.
+   * Selective keyword highlight: a light-walnut wash built from the brand's
+   * secondary sand tone, slightly wider than the words and tilted a degree or
+   * two. Keep the text itself charcoal.
    * Keep the text itself charcoal. Used sparingly — never on image/video.
    */
   .mark-sage {
@@ -353,7 +356,11 @@
     position: absolute;
     z-index: -1;
     inset: 0.04em -0.14em 0.02em -0.14em;
-    background: #c8d5a5;
+    background: linear-gradient(
+      100deg,
+      color-mix(in srgb, var(--color-walnut) 22%, var(--color-sand)) 0%,
+      color-mix(in srgb, var(--color-walnut) 10%, var(--color-paper)) 100%
+    );
     transform: rotate(-1.4deg);
     transform-origin: center;
   }
@@ -880,22 +887,8 @@ html.ri-lock body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* The hero settles into the sandstone tone, so the next section begins on the
-   same colour instead of a hard dark-to-light cut. */
-.hero-spill {
-  height: clamp(4rem, 11%, 7.5rem);
-  background: linear-gradient(
-    to top,
-    var(--color-paper) 0%,
-    rgba(233, 225, 213, 0.55) 6%,
-    rgba(233, 225, 213, 0.22) 22%,
-    rgba(233, 225, 213, 0.07) 48%,
-    rgba(233, 225, 213, 0) 100%
-  );
-}
-
-/* A soft cast shadow keeps the headline readable where the spill meets a
-   bright film frame. */
+/* A soft cast shadow keeps the headline readable where the film meets the
+   bright section below. */
 .journey h1 {
   text-shadow:
     0 1px 30px rgba(20, 12, 6, 0.45),

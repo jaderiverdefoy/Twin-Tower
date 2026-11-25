@@ -42,8 +42,8 @@ export default function StayPage() {
         aside={
           <div className="flex items-end justify-between border-t border-line pt-5">
             <div>
-              <p className="eyebrow text-ink/65">From</p>
-              <p className="mt-1 font-display text-[1.9rem] leading-none">₹5,000</p>
+              <p className="eyebrow text-ink/65">Rooms</p>
+              <p className="mt-1 font-display text-[1.15rem] leading-tight">22 premium · 3 attic</p>
             </div>
             <Link href="/contact" className="link-line font-mono text-[10px] uppercase tracking-[0.2em]">
               Check dates →

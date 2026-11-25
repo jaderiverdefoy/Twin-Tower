@@ -62,7 +62,6 @@ export type Room = {
   name: string;
   short: string;
   count: string;
-  price: number;
   description: string;
   long: string;
   image: StaticImageData;
@@ -77,7 +76,6 @@ export const rooms: Room[] = [
     name: "Premium Room with Balcony",
     short: "Premium",
     count: "22 rooms",
-    price: 5000,
     description:
       "A calm, warm room with a king bed, a private balcony and enough space to unpack properly. Breakfast included, extra bed available on request.",
     long:
@@ -106,7 +104,6 @@ export const rooms: Room[] = [
     name: "Attic Room",
     short: "Attic",
     count: "3 attic rooms",
-    price: 5000,
     description:
       "Fourth floor, closest to the roof. Warm timber, private balcony, and the mountain outside.",
     long:
@@ -215,22 +212,32 @@ export const reviews: {
   date: string;
 }[] = [];
 
-export const faqs = [
+export type Faq = {
+  q: string;
+  a: string;
+  link?: { label: string; href: string };
+};
+
+/** Exact pin, opened as a place rather than raw coordinates in the copy. */
+const mapsLocation = `https://www.google.com/maps/search/?api=1&query=${site.lat},${site.lng}`;
+
+export const faqs: Faq[] = [
   {
     q: "Where is Twin Towers by Defoy located?",
-    a: "Twin Towers by Defoy is in Dehwathu, on the road to Pahalgam, Jammu and Kashmir, India. Address: W7CF+W2P, Dehwathu, Pahalgam, Jammu and Kashmir 192401. Coordinates: 33.92305759663491, 75.27313041534288.",
+    a: "Twin Towers by Defoy is in Dehwathu, on the road to Pahalgam, Jammu and Kashmir, India. Address: W7CF+W2P, Dehwathu, Pahalgam, Jammu and Kashmir 192401.",
+    link: { label: "Open the location in Google Maps", href: mapsLocation },
   },
   {
     q: "How many rooms does Twin Towers by Defoy have?",
     a: "25 rooms in total — 22 Premium Rooms with Balcony and 3 Attic Rooms on the fourth floor, closest to the roof. Every room has a king bed.",
   },
   {
-    q: "What are the room rates?",
-    a: "Rooms start at INR 5,000 per night for a Premium Room with Balcony. Rates are confirmed at the time of booking.",
+    q: "What is included in a stay?",
+    a: "Breakfast, Wi-Fi, on-site parking, room service, central heating and the lawn are part of every stay. An extra bed is available on request.",
   },
   {
     q: "How do I book a stay?",
-    a: "Bookings are by WhatsApp enquiry. Message +91 95418 98817 or use the reservation form on the website. The team confirms availability and the current rate.",
+    a: "Bookings are by WhatsApp enquiry. Message +91 95418 98817 or use the reservation form on the website. The team confirms availability and the details.",
   },
   {
     q: "What are the check-in and check-out times?",
@@ -254,7 +261,7 @@ export const policies = [
   {
     title: "Payment",
     items: [
-      "Rates are confirmed at the time of booking.",
+      "The stay is confirmed at the time of booking.",
       "Advance payment is required to confirm a reservation.",
       "The balance is payable at the property.",
     ],

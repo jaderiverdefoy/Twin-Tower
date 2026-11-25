@@ -4,13 +4,13 @@ import { useRef } from "react";
 import Image from "next/image";
 import {
   motion,
-  useReducedMotion,
   useScroll,
   useTransform,
   type MotionValue,
 } from "framer-motion";
 import SplitText from "@/components/ui/SplitText";
 import SectionCurve from "@/components/ui/SectionCurve";
+import useReducedMotionSafe from "@/lib/useReducedMotionSafe";
 import { site } from "@/lib/content";
 import { imagePool } from "@/lib/imagePool";
 
@@ -188,7 +188,7 @@ function FanCard({
 }
 
 export default function Estate() {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const fanRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: fanRef,

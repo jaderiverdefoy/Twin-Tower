@@ -8,7 +8,7 @@ import { site } from "@/lib/content";
 const facts = [
   { k: "Rooms", v: "25 rooms in two wings" },
   { k: "Towers", v: "Two, under one roof" },
-  { k: "From", v: "₹5,000 / night" },
+  { k: "Views", v: "Lawn, pines and valley" },
   { k: "Altitude", v: "2,200 m" },
 ];
 
@@ -35,7 +35,7 @@ function CountUp({ to }: { to: number }) {
 
   return (
     <span ref={ref} aria-label={`${to}`}>
-      {reduce ? to : value}
+      {value}
     </span>
   );
 }
@@ -111,7 +111,7 @@ export default function Statement() {
 
           <div className="md:col-span-4 md:col-start-9">
             <p className="body-copy" data-reveal>
-              A family-run property on the road to Pahalgam.
+              A Professional-run property on the road to Pahalgam.
             </p>
 
             <dl className="mt-8 grid grid-cols-2 gap-x-5 gap-y-6 border-t border-line pt-6">

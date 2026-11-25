@@ -12,7 +12,14 @@ import { site } from "@/lib/content";
 import { mapsHref } from "@/lib/utils";
 import Magnetic from "@/components/ui/Magnetic";
 
-const attractions = ["Aru Valley", "Betaab Valley", "Chandanwari"];
+const attractions = [
+  { name: "Aru Valley", note: "35 min · meadows" },
+  { name: "Betaab Valley", note: "25 min · riverside" },
+  { name: "Chandanwari", note: "40 min · snow point" },
+  { name: "Baisaran", note: "20 min · pine meadow" },
+  { name: "Lidderwat", note: "2 hr · trek start" },
+  { name: "Pahalgam Market", note: "10 min · town" },
+];
 
 const facts = [
   { k: "Airport", v: "Srinagar · 95 km" },
@@ -27,7 +34,7 @@ export default function LocationSection() {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 85%", "end 55%"],
+    offset: ["start 78%", "end 45%"],
   });
   const mapRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [2.5, 0, -1.5]);
   const mapRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-2, 0, 2]);
@@ -47,7 +54,7 @@ export default function LocationSection() {
             </div>
             <h3
               id="location-heading"
-              className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.96] tracking-[-0.04em]"
+              className="mt-7 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.95] tracking-[-0.045em]"
               data-reveal
             >
               The road ends. <em className="mark-sage">The mountains begin.</em>
@@ -142,7 +149,7 @@ export default function LocationSection() {
                 />
 
                 <path
-                  d="M70 430 C 150 395, 165 340, 250 318 S 365 285, 410 230"
+                  d="M70 430 C 150 395, 165 340, 250 318 S 365 285, 410 230 S 428 214, 438 206"
                   stroke="#211C1C"
                   strokeOpacity="0.18"
                   strokeWidth="1"
@@ -150,7 +157,7 @@ export default function LocationSection() {
                 />
 
                 <motion.path
-                  d="M70 430 C 150 395, 165 340, 250 318 S 365 285, 410 230"
+                  d="M70 430 C 150 395, 165 340, 250 318 S 365 285, 410 230 S 428 214, 438 206"
                   stroke="#432911"
                   strokeWidth="1.8"
                   style={{ pathLength: reduce ? 1 : scrollYProgress }}
@@ -227,7 +234,7 @@ export default function LocationSection() {
             <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-1">
               {attractions.map((a, i) => (
                 <div
-                  key={a}
+                  key={a.name}
                   className="flex items-baseline gap-3 border-b border-line py-3"
                   data-reveal="fade"
                   style={{ ["--reveal-delay" as string]: `${i * 60}ms` }}
@@ -235,7 +242,12 @@ export default function LocationSection() {
                   <span className="tabular text-[0.62rem] font-semibold text-crimson">
                     0{i + 1}
                   </span>
-                  <span className="text-[0.9rem] font-medium">{a}</span>
+                  <span className="flex flex-col gap-0.5">
+                    <span className="text-[0.9rem] font-medium">{a.name}</span>
+                    <span className="text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-stone">
+                      {a.note}
+                    </span>
+                  </span>
                 </div>
               ))}
             </div>

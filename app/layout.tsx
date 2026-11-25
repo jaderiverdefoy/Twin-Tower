@@ -82,7 +82,6 @@ const jsonLd = {
   url: absoluteUrl("/"),
   telephone: "+919541898817",
   email: "twintowers@defoy.in",
-  priceRange: "₹5,000 – ₹5,000",
   numberOfRooms: 25,
   parentOrganization: { "@type": "Organization", name: "Defoy Hotels & Resorts" },
   address: {

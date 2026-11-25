@@ -58,7 +58,7 @@ export default function HotelPage() {
             Two towers. One roof. <em>twenty-five rooms.</em>
           </>
         }
-        intro="A family-run property on the road to Pahalgam — built for slow mornings, long views and the kind of hospitality that remembers your name."
+        intro="A Professional-run property on the road to Pahalgam — built for slow mornings, long views and the kind of hospitality that remembers your name."
       />
 
       <section className="relative overflow-hidden bg-paper py-16 md:py-24" aria-labelledby="story-heading">
@@ -89,19 +89,6 @@ export default function HotelPage() {
               >
                 Twenty-five rooms. 22 Premium and 3 Attic. Every one has a king bed.
               </p>
-
-              <div
-                className="mt-10 border-l-2 border-crimson pl-6"
-                data-reveal="left"
-                style={{ ["--reveal-delay" as string]: "180ms" }}
-              >
-                <p className="font-display text-[clamp(1.3rem,2vw,1.7rem)] font-medium leading-[1.35] tracking-[-0.02em]">
-                  “The mountain does not change. That&apos;s the point.”
-                </p>
-                <p className="mt-4 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-stone">
-                  The Defoy family
-                </p>
-              </div>
             </div>
           </div>
         </div>

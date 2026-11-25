@@ -12,7 +12,6 @@ Core brand line: "Stay closer to what matters. A quieter kind of escape in Kashm
 - Coordinates: 33.92305759663491, 75.27313041534288
 - Elevation: 2,200 metres
 - Total rooms: 25 (one category: Premium Room with Balcony)
-- Starting rate: INR 5,000 per night
 - Check-in: 2:00 PM. Check-out: 12:00 noon.
 - Phone / WhatsApp: +91 95418 98817
 - Email: info@defoy.in
@@ -20,7 +19,7 @@ Core brand line: "Stay closer to what matters. A quieter kind of escape in Kashm
 
 ## Rooms
 
-1. Premium Room with Balcony — 25 rooms — from INR 5,000 per night. King bed, sleeps 2, extra bed available, private balcony, breakfast included, Wi-Fi, room service.
+1. Premium Room with Balcony — 25 rooms. King bed, sleeps 2, extra bed available, private balcony, breakfast included, Wi-Fi, room service.
 2. Attic Room — fourth floor, closest to the roof. King bed, warm timber panelling, private balcony, breakfast included.
 
 ## Experiences
@@ -36,7 +35,7 @@ Core brand line: "Stay closer to what matters. A quieter kind of escape in Kashm
 
 - Check-in: 2:00 PM. Check-out: 12:00 noon.
 - Early check-in and late check-out subject to availability.
-- Rates confirmed at time of booking.
+- Availability confirmed at time of booking.
 - A valid government photo ID required at check-in. Foreign nationals need passport and visa.
 - Policy queries, GST and invoices: info@defoy.in.
 
@@ -47,7 +46,7 @@ Srinagar Airport is approximately 95 km away, about 2.5 to 3 hours by road.
 ## Key pages
 
 - [Home](https://defoyhotelsandresorts.com/twin-towers): Overview of Twin Towers by Defoy, Pahalgam.
-- [Rooms](https://defoyhotelsandresorts.com/twin-towers/rooms): Room types, rates and amenities.
+- [Rooms](https://defoyhotelsandresorts.com/twin-towers/rooms): Room types and amenities.
 - [Experiences](https://defoyhotelsandresorts.com/twin-towers/experiences): Bonfires, valley walks and Pahalgam sightseeing.
 - [Gallery](https://defoyhotelsandresorts.com/twin-towers/gallery): Property and room photography.
 - [Location](https://defoyhotelsandresorts.com/twin-towers/location): Directions, map and distance from Srinagar Airport.
@@ -59,5 +58,5 @@ Srinagar Airport is approximately 95 km away, about 2.5 to 3 hours by road.
 
 ## Room pages
 
-- [Premium Room with Balcony](https://defoyhotelsandresorts.com/twin-towers/rooms/premium-balcony-room): 25 rooms, from INR 5,000 per night.
-- [Attic Room](https://defoyhotelsandresorts.com/twin-towers/rooms/attic-room): Fourth floor, from INR 5,000 per night.
+- [Premium Room with Balcony](https://defoyhotelsandresorts.com/twin-towers/rooms/premium-balcony-room): 25 rooms, king bed, private balcony.
+- [Attic Room](https://defoyhotelsandresorts.com/twin-towers/rooms/attic-room): Fourth floor, king bed, private balcony.

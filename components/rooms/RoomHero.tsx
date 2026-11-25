@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import type { Room } from "@/lib/content";
-import { formatPrice } from "@/lib/utils";
 
 export default function RoomHero({ room }: { room: Room }) {
   const ref = useRef<HTMLElement>(null);
@@ -56,12 +55,9 @@ export default function RoomHero({ room }: { room: Room }) {
             transition={{ duration: 0.9, delay: 0.4 }}
             className="shrink-0 bg-paper px-6 py-4 text-ink"
           >
-            <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink/65">From</p>
-            <p className="mt-1 font-display text-[1.7rem] leading-none">
-              {formatPrice(room.price)}
-              <span className="ml-1 font-mono text-[9px] uppercase tracking-[0.1em] text-ink/65">
-                / night
-              </span>
+            <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-ink/65">Direct booking</p>
+            <p className="mt-1 font-display text-[1.4rem] leading-none">
+              {room.count}
             </p>
           </motion.div>
         </div>

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { rooms } from "@/lib/content";
-import { formatPrice } from "@/lib/utils";
 import TiltCard from "@/components/ui/TiltCard";
 
 export default function RoomShowcase() {
@@ -89,12 +88,9 @@ export default function RoomShowcase() {
                 </div>
 
                 <div className="mt-10 flex items-end justify-between border-t border-line pt-5">
-                  <div>
-                    <p className="font-display text-[1.6rem] leading-none">{formatPrice(room.price)}</p>
-                    <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-ink/65">
-                      per night
-                    </p>
-                  </div>
+                  <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-ink/65">
+                    {room.count} · Direct booking
+                  </p>
                   <Link
                     href={`/stay/${room.slug}`}
                     className="link-line font-mono text-[10px] uppercase tracking-[0.2em]"

@@ -64,6 +64,19 @@ export default function FaqAccordion() {
                 >
                   <p className="max-w-[70ch] pb-8 pl-[2.1rem] text-[0.98rem] leading-[1.8] text-ink/65 md:pl-[3.4rem]">
                     {faq.a}
+                    {faq.link ? (
+                      <>
+                        {" "}
+                        <a
+                          href={faq.link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link-line font-semibold text-walnut"
+                        >
+                          {faq.link.label} →
+                        </a>
+                      </>
+                    ) : null}
                   </p>
                 </motion.div>
               )}

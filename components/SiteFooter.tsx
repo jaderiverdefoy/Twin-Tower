@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { site } from "@/lib/content";
 
 const explore = [
@@ -22,7 +23,18 @@ export default function SiteFooter() {
       <div className="shell pt-20 pb-8 md:pt-28">
         <div className="grid gap-12 md:grid-cols-2 md:gap-x-10 lg:grid-cols-12 lg:gap-14">
           <div className="md:col-span-2 lg:col-span-5" data-reveal>
-            <span className="eyebrow text-sand">Twin Towers</span>
+            <div className="flex items-start gap-3">
+              <span className="eyebrow text-sand">Twin Towers</span>
+              <span className="eyebrow text-ivory/50">by</span>
+              <Image
+                src="/images/logo-defoy.webp"
+                alt="Defoy"
+                title="Defoy"
+                width={96}
+                height={86}
+                className="h-8 w-auto md:h-9"
+              />
+            </div>
             <p className="mt-6 max-w-[20ch] font-display text-[clamp(2.1rem,3.5vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.04em]">
               Life, slowed by the <span className="text-sand">valley.</span>
             </p>

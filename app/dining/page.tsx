@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   ...socialMeta({
     title: "Dining at Twin Towers by Defoy",
     description:
-      "A small dining room, valley-fresh Kashmiri cooking and kahwa to finish. See the sittings and reserve directly.",
+      "A cozy dining room, valley-fresh Kashmiri cooking and kahwa to finish. See the sittings and reserve directly.",
     path: "/dining",
   }),
 };
@@ -43,7 +43,7 @@ export default function DiningPage() {
         eyebrow="Dining · The house kitchen"
         title={
           <>
-            A small dining room that feels like <em>home.</em>
+            A cozy dining room that feels like <em>home.</em>
           </>
         }
         intro="Ask the team what is fresh from the valley. The kitchen cooks for the house, not for a crowd — and it shows."

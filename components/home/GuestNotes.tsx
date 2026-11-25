@@ -40,7 +40,7 @@ export default function GuestNotes({
             </div>
             <h3
               id="reviews-heading"
-              className="mt-5 text-[clamp(2.2rem,3.4vw,3.4rem)] font-bold leading-[0.96] tracking-[-0.04em]"
+              className="mt-6 text-[clamp(2.2rem,3.4vw,3.4rem)] font-bold leading-[0.95] tracking-[-0.045em]"
               data-reveal
             >
               What our guests say.
