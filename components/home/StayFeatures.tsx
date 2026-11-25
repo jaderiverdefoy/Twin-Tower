@@ -20,8 +20,8 @@ const features = [
  *
  * All six cards are on screen at once — no pinning and no per-card scrolling.
  * The first time the section comes into view the whole set drops from above
- * together, swinging on a spring like signs hung from a wire, and settles in
- * under a second.
+ * together, swinging gently on a soft spring like signs hung from a wire, and
+ * settles slowly and smoothly.
  */
 export default function StayFeatures() {
   const reduce = useReducedMotionSafe();
@@ -73,11 +73,30 @@ export default function StayFeatures() {
                     reduce
                       ? { duration: 0 }
                       : {
-                          type: "spring",
-                          stiffness: 150,
-                          damping: 11,
-                          mass: 0.85,
-                          delay: i * 0.045,
+                          // Long eased descent: smooth and unhurried, with a
+                          // gentle spring on the tilt so it still hangs a little.
+                          y: {
+                            duration: 1.45,
+                            delay: i * 0.08,
+                            ease: [0.16, 1, 0.3, 1],
+                          },
+                          scale: {
+                            duration: 1.45,
+                            delay: i * 0.08,
+                            ease: [0.16, 1, 0.3, 1],
+                          },
+                          opacity: {
+                            duration: 0.6,
+                            delay: i * 0.08,
+                            ease: "easeOut",
+                          },
+                          rotate: {
+                            type: "spring",
+                            stiffness: 44,
+                            damping: 10,
+                            mass: 1,
+                            delay: i * 0.08,
+                          },
                         }
                   }
                 >
