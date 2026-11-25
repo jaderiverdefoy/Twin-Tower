@@ -76,26 +76,26 @@ export default function StayFeatures() {
                           // Long eased descent: smooth and unhurried, with a
                           // gentle spring on the tilt so it still hangs a little.
                           y: {
-                            duration: 1.45,
-                            delay: i * 0.08,
-                            ease: [0.16, 1, 0.3, 1],
+                            duration: 2.1,
+                            delay: i * 0.1,
+                            ease: [0.33, 0, 0.2, 1],
                           },
                           scale: {
-                            duration: 1.45,
-                            delay: i * 0.08,
-                            ease: [0.16, 1, 0.3, 1],
+                            duration: 2.1,
+                            delay: i * 0.1,
+                            ease: [0.33, 0, 0.2, 1],
                           },
                           opacity: {
-                            duration: 0.6,
-                            delay: i * 0.08,
-                            ease: "easeOut",
+                            duration: 0.9,
+                            delay: i * 0.1,
+                            ease: "easeInOut",
                           },
                           rotate: {
                             type: "spring",
-                            stiffness: 44,
-                            damping: 10,
-                            mass: 1,
-                            delay: i * 0.08,
+                            stiffness: 34,
+                            damping: 12,
+                            mass: 1.1,
+                            delay: i * 0.1,
                           },
                         }
                   }

@@ -176,8 +176,6 @@ export default function LocationSection() {
                 <circle cx="70" cy="430" r="4" fill="#211C1C" />
                 <circle cx="70" cy="430" r="9" stroke="#211C1C" strokeOpacity="0.18" />
 
-                <circle cx="410" cy="230" r="4" fill="#211C1C" />
-
                 {/* Twin Towers: one small ring around a single point. */}
                 <circle cx="438" cy="206" r="9" stroke="#432911" strokeOpacity="0.35" />
                 <circle cx="438" cy="206" r="4.5" fill="#432911" />
