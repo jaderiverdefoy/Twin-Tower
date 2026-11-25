@@ -142,14 +142,14 @@ export default function StayFeatures() {
                       <motion.div
                         key={i === active ? `${f.title}-front` : f.title}
                         className="absolute inset-x-0 top-0 mx-auto w-[min(92%,420px)] origin-top rounded-3xl border border-line bg-paper p-6 shadow-[0_18px_50px_-20px_rgba(42,26,14,0.28)] will-change-transform [backface-visibility:hidden] md:p-7"
-                        initial={i === active ? { opacity: 0, y: 26, scale: 0.95 } : false}
+                        initial={i === active ? { opacity: 0, y: 40, scale: 0.92 } : false}
                         animate={{
                           opacity: hidden ? 0 : 1 - offset * 0.28,
                           y: offset * 22,
                           scale: 1 - offset * 0.07,
                           zIndex: hidden ? 0 : features.length - offset,
                         }}
-                        transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       >
                         <div className="flex items-start justify-between">
                           <span className="index-figure block text-[2.2rem] opacity-60">
