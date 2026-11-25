@@ -53,7 +53,7 @@ export const img = {
   stars: twin("lounge"),
   roomWarm: twin("suite-king-1"),
   roomBed: twin("suite-king-2"),
-  roomSuite: twin("suite-attic-1"),
+  roomSuite: twin("attic-room"),
   roomLight: twin("suite-king-5"),
 };
 
@@ -108,11 +108,12 @@ export const rooms: Room[] = [
       "Fourth floor, closest to the roof. Warm timber, private balcony, and the mountain outside.",
     long:
       "The attic rooms sit on the fourth floor, closest to the roof, where the light arrives early and leaves late. King bed, warm panelling, private balcony, and a view that holds the valley.",
-    image: twin("suite-attic-1"),
+    image: twin("attic-room"),
     gallery: [
-      twin("suite-attic-1"),
-      twin("suite-attic-2"),
-      twin("suite-attic-3"),
+      twin("attic-room"),
+      twin("attic-room1"),
+      twin("attic-room2"),
+      twin("attic-room3"),
       twin("balcony-breakfast"),
       twin("bathroom-2"),
     ],
@@ -143,7 +144,7 @@ export const gallery = [
   { src: twin("lawn-night"), alt: "A fire on the lawn after dark", span: "std" },
   { src: twin("restaurant"), alt: "The restaurant, with the valley in the window", span: "wide" },
   { src: twin("suite-king-2"), alt: "A Premium Room in daylight", span: "std" },
-  { src: twin("suite-attic-1"), alt: "An attic room under the roof", span: "std" },
+  { src: twin("attic-room"), alt: "An attic room under the roof", span: "std" },
   { src: twin("balcony-breakfast"), alt: "Breakfast on the balcony", span: "wide" },
 ];
 

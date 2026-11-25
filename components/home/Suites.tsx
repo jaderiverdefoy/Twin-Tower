@@ -24,9 +24,10 @@ const suiteImages: Record<string, ReturnType<typeof photo>[]> = {
     photo("bathroom"),
   ],
   "attic-room": [
-    photo("suite-attic-1"),
-    photo("suite-attic-2"),
-    photo("suite-attic-3"),
+    photo("attic-room"),
+    photo("attic-room1"),
+    photo("attic-room2"),
+    photo("attic-room3"),
     photo("balcony-breakfast"),
     photo("bathroom-2"),
   ],

@@ -36,7 +36,8 @@ export const imagePool: PoolImage[] = [
   { src: photo("suite-king-5"), alt: "Premium Room, tufted headboard" },
   { src: photo("suite-king-6"), alt: "Premium Room from the doorway" },
   { src: photo("suite-king-7"), alt: "Premium Room under warm downlights" },
-  { src: photo("suite-attic-1"), alt: "Attic Room under the roof" },
-  { src: photo("suite-attic-2"), alt: "Attic Room with a window to the valley" },
-  { src: photo("suite-attic-3"), alt: "Attic Room, timber panelling" },
+  { src: photo("attic-room"), alt: "Attic Room under the roof" },
+  { src: photo("attic-room1"), alt: "Attic Room, seating by the window" },
+  { src: photo("attic-room2"), alt: "Attic Room with a skylight" },
+  { src: photo("attic-room3"), alt: "Attic Room, timber panelling and king bed" },
 ];

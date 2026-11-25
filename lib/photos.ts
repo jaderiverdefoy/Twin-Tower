@@ -7,6 +7,10 @@
  * updates the whole site.
  */
 import approach from "@/public/Twin-Tower/approach.webp";
+import atticRoom from "@/public/Twin-Tower/attic-room.webp";
+import atticRoom1 from "@/public/Twin-Tower/attic-room1.webp";
+import atticRoom2 from "@/public/Twin-Tower/attic-room2.webp";
+import atticRoom3 from "@/public/Twin-Tower/attic-room3.webp";
 import balcony from "@/public/Twin-Tower/balcony.webp";
 import balconyBreakfast from "@/public/Twin-Tower/poster-4.webp";
 import bathroom from "@/public/Twin-Tower/bathroom.webp";
@@ -25,9 +29,6 @@ import reception from "@/public/Twin-Tower/reception.webp";
 import restaurant from "@/public/Twin-Tower/restaurant.webp";
 import restaurant2 from "@/public/Twin-Tower/restaurant-2.webp";
 import roomDetail from "@/public/Twin-Tower/room-detail.webp";
-import suiteAttic1 from "@/public/Twin-Tower/suite-attic-1.webp";
-import suiteAttic2 from "@/public/Twin-Tower/suite-attic-2.webp";
-import suiteAttic3 from "@/public/Twin-Tower/suite-attic-3.webp";
 import suiteKing1 from "@/public/Twin-Tower/suite-king-1.webp";
 import suiteKing2 from "@/public/Twin-Tower/suite-king-2.webp";
 import suiteKing3 from "@/public/Twin-Tower/suite-king-3.webp";
@@ -38,6 +39,11 @@ import suiteKing7 from "@/public/Twin-Tower/suite-king-7.webp";
 
 const FILES = {
   exterior,
+  attic: atticRoom,
+  "attic-room": atticRoom,
+  "attic-room1": atticRoom1,
+  "attic-room2": atticRoom2,
+  "attic-room3": atticRoom3,
   facade,
   entrance,
   approach,
@@ -66,9 +72,6 @@ const FILES = {
   "suite-king-5": suiteKing5,
   "suite-king-6": suiteKing6,
   "suite-king-7": suiteKing7,
-  "suite-attic-1": suiteAttic1,
-  "suite-attic-2": suiteAttic2,
-  "suite-attic-3": suiteAttic3,
 };
 
 export function photo(name: keyof typeof FILES) {
