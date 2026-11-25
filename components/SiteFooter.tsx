@@ -32,7 +32,7 @@ export default function SiteFooter() {
                 title="Defoy"
                 width={96}
                 height={86}
-                className="h-8 w-auto md:h-9"
+                className="h-8 w-auto md:h-9 -translate-y-1"
               />
             </div>
             <p className="mt-6 max-w-[20ch] font-display text-[clamp(2.1rem,3.5vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.04em]">

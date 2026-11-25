@@ -50,7 +50,7 @@ export default function StayFeatures() {
     <>
       <div className="flex items-center gap-3" data-reveal="fade">
         <span className="block h-px w-10 bg-crimson" />
-        <span className="eyebrow text-crimson" style={{ fontWeight: 700, letterSpacing: "0.16em" }}>04 — Part of every stay</span>
+        <span className="eyebrow text-crimson" style={{ fontSize: "clamp(2.1rem,3.5vw,3.5rem)", fontWeight: 700 }}>Part of every stay</span>
       </div>
       <SplitText
         text="Six small things, done properly."

@@ -265,7 +265,7 @@ function GalleryHeader() {
       <div>
         <div className="flex items-center gap-3" data-reveal="fade">
           <span className="block h-px w-10 bg-crimson" />
-          <span className="eyebrow text-crimson" style={{ fontWeight: 700, letterSpacing: "0.18em" }}>06 — The grounds</span>
+          <span className="eyebrow text-crimson" style={{ fontSize: "clamp(2.1rem,3.9vw,3.9rem)", fontWeight: 700 }}>The grounds</span>
         </div>
         <h3
           id="gallery-heading"

@@ -79,7 +79,7 @@ export default function Suites() {
           <div className="md:col-span-7">
             <div className="flex items-center gap-3" data-reveal="fade">
               <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson" style={{ fontWeight: 700, letterSpacing: "0.2em" }}>03 — Stay</span>
+              <span className="eyebrow text-crimson" style={{ fontSize: "clamp(2.1rem,3.7vw,3.7rem)", fontWeight: 700 }}>Stay</span>
             </div>
             <SplitText
               text="Two ways to stay."

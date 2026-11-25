@@ -41,7 +41,7 @@ export default function LocationSection() {
   // (Twin Towers) well before the section finishes scrolling past.
   const { scrollYProgress: routeProgress } = useScroll({
     target: ref,
-    offset: ["start 70%", "end 38%"],
+    offset: ["start 80%", "end 50%"],
   });
   const mapRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [2.5, 0, -1.5]);
   const mapRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-2, 0, 2]);
@@ -57,7 +57,7 @@ export default function LocationSection() {
           <div className="md:col-span-5">
             <div className="flex items-center gap-3" data-reveal="fade">
               <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson" style={{ fontWeight: 700, letterSpacing: "0.2em" }}>08 — Location</span>
+              <span className="eyebrow text-crimson" style={{ fontSize: "clamp(2.1rem,3.7vw,3.7rem)", fontWeight: 700 }}>Location</span>
             </div>
             <h3
               id="location-heading"

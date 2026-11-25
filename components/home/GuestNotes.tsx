@@ -36,7 +36,7 @@ export default function GuestNotes({
           <div className="md:col-span-7">
             <div className="flex items-center gap-3" data-reveal="fade">
               <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson" style={{ fontWeight: 600, letterSpacing: "0.16em" }}>09 — Guest notes</span>
+              <span className="eyebrow text-crimson" style={{ fontSize: "clamp(2.2rem,3.4vw,3.4rem)", fontWeight: 700 }}>Guest notes</span>
             </div>
             <h3
               id="reviews-heading"
