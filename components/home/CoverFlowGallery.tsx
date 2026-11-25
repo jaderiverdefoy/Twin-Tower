@@ -265,11 +265,11 @@ function GalleryHeader() {
       <div>
         <div className="flex items-center gap-3" data-reveal="fade">
           <span className="block h-px w-10 bg-crimson" />
-          <span className="eyebrow text-crimson">06 — The grounds</span>
+          <span className="eyebrow text-crimson" style={{ fontWeight: 700, letterSpacing: "0.18em" }}>06 — The grounds</span>
         </div>
         <h3
           id="gallery-heading"
-          className="mt-5 max-w-[18ch] text-[clamp(2.1rem,3.9vw,3.9rem)] font-bold leading-[1] tracking-[-0.03em]"
+          className="mt-5 max-w-[18ch] text-[clamp(2.1rem,3.9vw,3.9rem)] font-bold leading-[0.96] tracking-[-0.04em]"
           data-reveal="zoom"
         >
           A walk through <em className="mark-sage">the house.</em>

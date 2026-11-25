@@ -79,14 +79,14 @@ export default function Suites() {
           <div className="md:col-span-7">
             <div className="flex items-center gap-3" data-reveal="fade">
               <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson">03 — Stay</span>
+              <span className="eyebrow text-crimson" style={{ fontWeight: 700, letterSpacing: "0.2em" }}>03 — Stay</span>
             </div>
             <SplitText
               text="Two ways to stay."
               highlight="stay."
               as="h3"
               id="suites-heading"
-              className="mt-5 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.98] tracking-[-0.035em]"
+              className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.98] tracking-[-0.04em]"
             />
           </div>
           <p className="body-copy md:col-span-4 md:col-start-9" data-reveal="fade">

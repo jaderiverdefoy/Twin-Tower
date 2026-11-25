@@ -84,13 +84,13 @@ export default function BalconyView() {
           <div className="md:col-span-5">
             <div className="flex items-center gap-3" data-reveal="fade">
               <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson">07 — The balcony</span>
+              <span className="eyebrow text-crimson" style={{ fontWeight: 600, letterSpacing: "0.14em" }}>07 — The balcony</span>
             </div>
             <SplitText
               text="The balcony, hour by hour."
               as="h3"
               id="balcony-heading"
-              className="mt-7 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.96] tracking-[-0.045em]"
+              className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.97] tracking-[-0.04em]"
             />
             <p className="body-copy mt-8 max-w-md" data-reveal="fade">
               Each room has one. Watch it change from first light to after dark.

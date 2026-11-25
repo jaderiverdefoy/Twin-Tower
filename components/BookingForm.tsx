@@ -376,7 +376,7 @@ function Field({
 }) {
   return (
     <div
-      className={`border-b pb-1 ${
+      className={`border px-3 pb-2 pt-2 ${
         error ? "border-clay" : "border-line focus-within:border-clay"
       } ${className ?? ""}`}
     >

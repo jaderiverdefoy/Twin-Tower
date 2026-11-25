@@ -86,14 +86,14 @@ export default function BuildingExplorer() {
           <div className="md:col-span-5">
             <div className="flex items-center gap-3" data-reveal="fade">
               <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson">01 — The building</span>
+              <span className="eyebrow text-crimson" style={{ fontWeight: 700, letterSpacing: "0.24em" }}>01 — The building</span>
             </div>
 
             <SplitText
               text="Set back from the road."
               as="h3"
               id="building-heading"
-              className="mt-5 text-[clamp(2.2rem,4vw,4.2rem)] font-semibold leading-[1] tracking-[-0.04em]"
+              className="mt-5 text-[clamp(2.1rem,3.9vw,3.6rem)] font-bold leading-[0.97] tracking-[-0.04em]"
             />
             <p className="body-copy mt-5 max-w-md" data-reveal="fade">
               A turn off the Dehwathu road, and the pines give way to a stone

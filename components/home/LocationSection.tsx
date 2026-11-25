@@ -36,6 +36,13 @@ export default function LocationSection() {
     target: ref,
     offset: ["start 78%", "end 45%"],
   });
+  // The route line itself only needs a short scroll window to complete,
+  // so it uses its own, tighter scroll range and reaches the final point
+  // (Twin Towers) well before the section finishes scrolling past.
+  const { scrollYProgress: routeProgress } = useScroll({
+    target: ref,
+    offset: ["start 70%", "end 38%"],
+  });
   const mapRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [2.5, 0, -1.5]);
   const mapRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-2, 0, 2]);
   const mapScale = useTransform(scrollYProgress, [0, 1], [0.965, 1]);
@@ -50,11 +57,11 @@ export default function LocationSection() {
           <div className="md:col-span-5">
             <div className="flex items-center gap-3" data-reveal="fade">
               <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson">08 — Location</span>
+              <span className="eyebrow text-crimson" style={{ fontWeight: 700, letterSpacing: "0.2em" }}>08 — Location</span>
             </div>
             <h3
               id="location-heading"
-              className="mt-7 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.95] tracking-[-0.045em]"
+              className="mt-6 text-[clamp(2.1rem,3.7vw,3.7rem)] font-bold leading-[0.96] tracking-[-0.04em]"
               data-reveal
             >
               The road ends. <em className="mark-sage">The mountains begin.</em>
@@ -160,7 +167,7 @@ export default function LocationSection() {
                   d="M70 430 C 150 395, 165 340, 250 318 S 365 285, 410 230 S 428 214, 438 206"
                   stroke="#432911"
                   strokeWidth="1.8"
-                  style={{ pathLength: reduce ? 1 : scrollYProgress }}
+                  style={{ pathLength: reduce ? 1 : routeProgress }}
                 />
 
                 <circle
@@ -195,6 +202,7 @@ export default function LocationSection() {
                   animate={reduce ? {} : { r: [10, 24], opacity: [0.6, 0] }}
                   transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
                 />
+                {/* The pulse lives at the final destination, Twin Towers. */}
 
                 <text x="58" y="468" fill="#211C1C" fillOpacity="0.65" fontSize="11" fontFamily="Inter, sans-serif" fontWeight="600" letterSpacing="2">
                   SRINAGAR AIRPORT

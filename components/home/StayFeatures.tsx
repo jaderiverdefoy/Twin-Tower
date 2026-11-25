@@ -50,13 +50,13 @@ export default function StayFeatures() {
     <>
       <div className="flex items-center gap-3" data-reveal="fade">
         <span className="block h-px w-10 bg-crimson" />
-        <span className="eyebrow text-crimson">04 — Part of every stay</span>
+        <span className="eyebrow text-crimson" style={{ fontWeight: 700, letterSpacing: "0.16em" }}>04 — Part of every stay</span>
       </div>
       <SplitText
         text="Six small things, done properly."
         as="h3"
         id="features-heading"
-        className="mt-7 text-[clamp(2.1rem,3.5vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.03em]"
+        className="mt-6 text-[clamp(2.1rem,3.5vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.04em]"
       />
       <p className="body-copy mt-8 max-w-md" data-reveal="fade">
         The details you stop noticing after a day — because they simply work.
@@ -140,8 +140,9 @@ export default function StayFeatures() {
                     const hidden = offset > 3;
                     return (
                       <motion.div
-                        key={f.title}
+                        key={i === active ? `${f.title}-front` : f.title}
                         className="absolute inset-x-0 top-0 mx-auto w-[min(92%,420px)] origin-top rounded-3xl border border-line bg-paper p-6 shadow-[0_18px_50px_-20px_rgba(42,26,14,0.28)] will-change-transform [backface-visibility:hidden] md:p-7"
+                        initial={i === active ? { opacity: 0, y: 26, scale: 0.95 } : false}
                         animate={{
                           opacity: hidden ? 0 : 1 - offset * 0.28,
                           y: offset * 22,

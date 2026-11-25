@@ -23,7 +23,7 @@ export default function SiteFooter() {
       <div className="shell pt-20 pb-8 md:pt-28">
         <div className="grid gap-12 md:grid-cols-2 md:gap-x-10 lg:grid-cols-12 lg:gap-14">
           <div className="md:col-span-2 lg:col-span-5" data-reveal>
-            <div className="flex items-start gap-3">
+            <div className="flex items-center gap-3">
               <span className="eyebrow text-sand">Twin Towers</span>
               <span className="eyebrow text-ivory/50">by</span>
               <Image

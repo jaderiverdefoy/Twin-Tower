@@ -284,7 +284,7 @@ function Field({
   prefix?: string;
 }) {
   return (
-    <div className={`border-b pb-1 ${error ? "border-clay" : "border-line focus-within:border-clay"}`}>
+    <div className={`border px-3 pb-2 pt-2 ${error ? "border-clay" : "border-line focus-within:border-clay"}`}>
       <label htmlFor={htmlFor} className="sr-only">{label}</label>
       <div className="flex items-center gap-2">
         {prefix ? (
