@@ -83,8 +83,8 @@ export default function BalconyView() {
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5">
             <div className="flex items-center gap-3" data-reveal="fade">
-              <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson" style={{ fontWeight: 750, letterSpacing: "0.14em" }}>07 — The balcony</span>
+              <span className="block h-[2px] w-8 bg-crimson" />
+              <span className="eyebrow text-crimson" style={{ fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.14em" }}>The balcony</span>
             </div>
             <SplitText
               text="The balcony, hour by hour."

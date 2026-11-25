@@ -61,8 +61,8 @@ export default function Restaurant() {
 
           <div className="md:col-span-5 md:col-start-8">
             <div className="flex items-center gap-3" data-reveal="fade">
-              <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson" style={{ fontWeight: 750, letterSpacing: "0.24em" }}>05 — Dining</span>
+              <span className="block h-[2px] w-8 bg-crimson" />
+              <span className="eyebrow text-crimson" style={{ fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.14em" }}>Dining</span>
             </div>
             <SplitText
               text="A cozy dining room that feels like a house."

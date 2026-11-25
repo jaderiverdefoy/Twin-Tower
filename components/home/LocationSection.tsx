@@ -30,18 +30,20 @@ const facts = [
 
 export default function LocationSection() {
   const ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 78%", "end 45%"],
   });
-  // The route line itself only needs a short scroll window to complete,
-  // so it uses its own, tighter scroll range and reaches the final point
-  // (Twin Towers) well before the section finishes scrolling past.
+  // The route line tracks the whole section rather than just the map panel:
+  // it starts drawing as the section comes into view and is fully drawn by the
+  // time the section's centre passes the middle of the viewport — halfway
+  // through the section — so the line always reaches Twin Towers in time.
   const { scrollYProgress: routeProgress } = useScroll({
-    target: ref,
-    offset: ["start 80%", "end 50%"],
+    target: sectionRef,
+    offset: ["start 90%", "center 55%"],
   });
   const mapRotateX = useTransform(scrollYProgress, [0, 0.5, 1], [2.5, 0, -1.5]);
   const mapRotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-2, 0, 2]);
@@ -49,6 +51,7 @@ export default function LocationSection() {
 
   return (
     <section
+      ref={sectionRef}
       className="relative overflow-x-clip surface-warm py-20 md:py-32"
       aria-labelledby="location-heading"
     >
@@ -56,8 +59,8 @@ export default function LocationSection() {
         <div className="grid gap-12 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-5">
             <div className="flex items-center gap-3" data-reveal="fade">
-              <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson" style={{ fontWeight: 750, letterSpacing: "0.2em" }}>08 — Location</span>
+              <span className="block h-[2px] w-8 bg-crimson" />
+              <span className="eyebrow text-crimson" style={{ fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.14em" }}>Location</span>
             </div>
             <h3
               id="location-heading"

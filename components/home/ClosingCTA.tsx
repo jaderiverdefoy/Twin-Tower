@@ -15,8 +15,8 @@ export default function ClosingCTA() {
         <div className="grid gap-12 md:grid-cols-12 md:items-end">
           <div className="relative md:col-span-7">
             <div className="flex items-center gap-3" data-reveal="fade">
-              <span className="block h-px w-10 bg-crimson/40" />
-              <span className="eyebrow text-stone" style={{ fontWeight: 750, letterSpacing: "0.22em" }}>12 — Ready to arrive?</span>
+              <span className="block h-[2px] w-8 bg-crimson/40" />
+              <span className="eyebrow text-stone" style={{ fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.14em" }}>Plan your stay</span>
             </div>
 
             <SplitText

@@ -205,8 +205,8 @@ export default function Estate() {
         <div className="grid gap-12 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5">
             <div className="flex items-center gap-3" data-reveal="fade">
-              <span className="block h-px w-10 bg-sand" />
-              <span className="eyebrow text-sand" style={{ fontWeight: 650, letterSpacing: "0.12em" }}>02 — The house</span>
+              <span className="block h-[2px] w-8 bg-sand" />
+              <span className="eyebrow text-sand" style={{ fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.14em" }}>The house</span>
             </div>
 
             <SplitText

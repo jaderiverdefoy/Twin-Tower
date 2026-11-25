@@ -85,8 +85,8 @@ export default function BuildingExplorer() {
         <div className="grid items-center gap-10 md:grid-cols-12 md:gap-14">
           <div className="md:col-span-5">
             <div className="flex items-center gap-3" data-reveal="fade">
-              <span className="block h-px w-10 bg-crimson" />
-              <span className="eyebrow text-crimson" style={{ fontWeight: 750, letterSpacing: "0.24em" }}>01 — The building</span>
+              <span className="block h-[2px] w-8 bg-crimson" />
+              <span className="eyebrow text-crimson" style={{ fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.14em" }}>The building</span>
             </div>
 
             <SplitText

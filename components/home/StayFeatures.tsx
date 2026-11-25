@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import {
   motion,
+  useInView,
   useMotionValueEvent,
   useScroll,
   useTransform,
@@ -30,6 +31,10 @@ const features = [
 export default function StayFeatures() {
   const reduce = useReducedMotionSafe();
   const trackRef = useRef<HTMLDivElement>(null);
+  const deckRef = useRef<HTMLDivElement>(null);
+  // The whole deck drops in together the first time the section is in view:
+  // every card falls from above with a swinging, springy landing.
+  const started = useInView(deckRef, { once: true, amount: 0.3 });
   const { scrollYProgress } = useScroll({
     target: trackRef,
     offset: ["start start", "end end"],
@@ -49,8 +54,8 @@ export default function StayFeatures() {
   const heading = (
     <>
       <div className="flex items-center gap-3" data-reveal="fade">
-        <span className="block h-px w-10 bg-crimson" />
-        <span className="eyebrow text-crimson" style={{ fontWeight: 750, letterSpacing: "0.16em" }}>04 — Part of every stay</span>
+        <span className="block h-[2px] w-8 bg-crimson" />
+        <span className="eyebrow text-crimson" style={{ fontSize: "0.95rem", fontWeight: 800, letterSpacing: "0.14em" }}>Part of every stay</span>
       </div>
       <SplitText
         text="Six small things, done properly."
@@ -134,22 +139,41 @@ export default function StayFeatures() {
               </div>
 
               <div className="md:col-span-6 md:col-start-7">
-                <div className="relative h-[clamp(240px,29svh,400px)] w-full md:h-[clamp(280px,34svh,400px)]">
+                <div
+                  ref={deckRef}
+                  className="relative h-[clamp(240px,29svh,400px)] w-full md:h-[clamp(280px,34svh,400px)]"
+                >
                   {features.map((f, i) => {
                     const offset = (i - active + features.length) % features.length;
                     const hidden = offset > 3;
                     return (
                       <motion.div
-                        key={i === active ? `${f.title}-front` : f.title}
+                        key={f.title}
                         className="absolute inset-x-0 top-0 mx-auto w-[min(92%,420px)] origin-top rounded-3xl border border-line bg-paper p-6 shadow-[0_18px_50px_-20px_rgba(42,26,14,0.28)] will-change-transform [backface-visibility:hidden] md:p-7"
-                        initial={i === active ? { opacity: 0, y: 40, scale: 0.92 } : false}
-                        animate={{
-                          opacity: hidden ? 0 : 1 - offset * 0.28,
-                          y: offset * 22,
-                          scale: 1 - offset * 0.07,
-                          zIndex: hidden ? 0 : features.length - offset,
+                        initial={false}
+                        animate={
+                          started
+                            ? {
+                                opacity: hidden ? 0 : 1 - offset * 0.26,
+                                y: offset * 22,
+                                rotate: 0,
+                                scale: 1 - offset * 0.07,
+                                zIndex: hidden ? 0 : features.length - offset,
+                              }
+                            : {
+                                opacity: 0,
+                                y: -220,
+                                rotate: i % 2 ? 8 : -8,
+                                scale: 0.92,
+                              }
+                        }
+                        transition={{
+                          type: "spring",
+                          stiffness: 165,
+                          damping: 11,
+                          mass: 0.9,
+                          delay: started ? i * 0.055 : 0,
                         }}
-                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       >
                         <div className="flex items-start justify-between">
                           <span className="index-figure block text-[2.2rem] opacity-60">
