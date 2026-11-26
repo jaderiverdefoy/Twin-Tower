@@ -189,7 +189,7 @@ export default function BookingForm({
             className={`group flex cursor-pointer items-center justify-between gap-4 border px-4 py-3.5 transition-colors duration-300 ${
               room === r.slug
                 ? "border-ink bg-forest text-paper"
-                : "border-line hover:border-ink/40"
+                : "border-ink/35 hover:border-ink/60"
             }`}
           >
             <span className="flex items-center gap-4">
@@ -270,25 +270,39 @@ export default function BookingForm({
           />
         </Field>
         <Field label="Check-in" htmlFor="checkin" error={errors.checkin}>
-          <input
-            id="checkin"
-            type="date"
-            value={checkin}
-            onChange={(e) => setCheckin(e.target.value)}
-            aria-invalid={Boolean(errors.checkin)}
-            className="w-full bg-transparent py-3 text-[1rem] outline-none"
-          />
+          <div className="relative w-full">
+            <input
+              id="checkin"
+              type="date"
+              value={checkin}
+              onChange={(e) => setCheckin(e.target.value)}
+              aria-invalid={Boolean(errors.checkin)}
+              className={`w-full bg-transparent py-3 text-[1rem] outline-none ${checkin ? "" : "date-empty"}`}
+            />
+            {!checkin && (
+              <span aria-hidden="true" className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-[1rem] text-ink/50 md:hidden">
+                Add check-in date
+              </span>
+            )}
+          </div>
         </Field>
         <Field label="Check-out" htmlFor="checkout" error={errors.checkout}>
-          <input
-            id="checkout"
-            type="date"
-            value={checkout}
-            min={checkin || undefined}
-            onChange={(e) => setCheckout(e.target.value)}
-            aria-invalid={Boolean(errors.checkout)}
-            className="w-full bg-transparent py-3 text-[1rem] outline-none"
-          />
+          <div className="relative w-full">
+            <input
+              id="checkout"
+              type="date"
+              value={checkout}
+              min={checkin || undefined}
+              onChange={(e) => setCheckout(e.target.value)}
+              aria-invalid={Boolean(errors.checkout)}
+              className={`w-full bg-transparent py-3 text-[1rem] outline-none ${checkout ? "" : "date-empty"}`}
+            />
+            {!checkout && (
+              <span aria-hidden="true" className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-[1rem] text-ink/50 md:hidden">
+                Add check-out date
+              </span>
+            )}
+          </div>
         </Field>
         <Field label="Anything we should know" htmlFor="notes" className="sm:col-span-2">
           <textarea
@@ -344,7 +358,7 @@ export default function BookingForm({
       </div>
 
       <p className="max-w-lg font-mono text-[9px] uppercase leading-[1.9] tracking-[0.16em] text-ink/65">
-        Direct booking only. A 50% advance confirms the stay. Check-in 2:00 PM,
+        Direct booking. A 50% advance confirms the stay. Check-in 2:00 PM,
         check-out 12:00 noon. We reply from {site.email}.
       </p>
     </form>
@@ -377,7 +391,7 @@ function Field({
   return (
     <div
       className={`border px-3 pb-2 pt-2 ${
-        error ? "border-clay" : "border-line focus-within:border-clay"
+        error ? "border-clay" : "border-ink/45 focus-within:border-crimson"
       } ${className ?? ""}`}
     >
       <label htmlFor={htmlFor} className="sr-only">

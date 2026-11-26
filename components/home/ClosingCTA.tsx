@@ -79,7 +79,7 @@ export default function ClosingCTA() {
 
       <div className="shell flex flex-col gap-3 border-t border-line py-5 text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-stone sm:flex-row sm:items-center sm:justify-between">
         <span>{site.address}</span>
-        <span>Direct bookings only — no OTAs</span>
+        <span>Direct booking</span>
         <a href={`https://wa.me/${site.whatsapp}`} className="link-line hover:text-ink">
           WhatsApp us
         </a>

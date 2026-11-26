@@ -10,7 +10,7 @@ import { socialMeta } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Rooms & Suites",
   description:
-    "Twenty-five rooms at Twin Towers by Defoy, Pahalgam — 22 Premium Rooms with Balcony and 3 Attic Rooms. Direct booking only.",
+    "Twenty-five rooms at Twin Towers by Defoy, Pahalgam — 22 Premium Rooms with Balcony and 3 Attic Rooms. Direct booking.",
   alternates: { canonical: "/stay" },
   ...socialMeta({
     title: "Rooms & Suites — Twin Towers by Defoy",

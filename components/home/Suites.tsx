@@ -264,9 +264,8 @@ export default function Suites() {
                 ))}
               </ul>
 
-              <div className="mt-7 flex items-center justify-between border-t border-line pt-6">
-                <p className="eyebrow text-stone">Direct booking only</p>
-                <p className="text-[0.72rem] font-medium text-stone">No OTA fees</p>
+              <div className="mt-7 border-t border-line pt-6">
+                <p className="eyebrow text-stone">Direct booking</p>
               </div>
 
               <Link href={`/stay/${room.slug}`} className="btn mt-6 w-full justify-between">

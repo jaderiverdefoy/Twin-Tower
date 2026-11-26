@@ -172,8 +172,7 @@ export default async function RoomPage({
               </a>
 
               <p className="mt-6 border-t border-line pt-4 text-[0.85rem] leading-relaxed text-ink/70">
-                No booking engines, no OTA commission. Your enquiry goes straight to
-                the resort team.
+                Direct booking. Your enquiry goes straight to the resort team.
               </p>
               <a href={site.phoneHref} className="link-line mt-4 inline-block font-mono text-[10px] uppercase tracking-[0.18em]">
                 {site.phone}

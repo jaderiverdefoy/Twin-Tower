@@ -252,7 +252,7 @@ export default function SiteNav() {
                     {site.phone}
                   </a>
                   <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-paper/65">
-                    Direct bookings only
+                    Direct booking
                   </p>
                 </div>
               </motion.div>

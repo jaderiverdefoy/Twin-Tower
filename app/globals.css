@@ -958,3 +958,15 @@ html.lenis body {
     clip-path: none !important;
   }
 }
+
+/* On phones, an empty native date shows only a faint format or nothing at all.
+   Hide it and let the field's own hint sit in its place until a date is picked. */
+@media (max-width: 767px) {
+  input[type="date"].date-empty::-webkit-datetime-edit,
+  input[type="date"].date-empty::-webkit-datetime-edit-text,
+  input[type="date"].date-empty::-webkit-datetime-edit-month-field,
+  input[type="date"].date-empty::-webkit-datetime-edit-day-field,
+  input[type="date"].date-empty::-webkit-datetime-edit-year-field {
+    color: transparent;
+  }
+}

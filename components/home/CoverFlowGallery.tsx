@@ -130,7 +130,7 @@ export default function CoverFlowGallery() {
           type="button"
           onClick={() => go(-1)}
           aria-label="Previous photograph"
-          className="absolute left-1 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-ivory/50 bg-deep/85 text-ivory shadow-[0_10px_30px_-8px_rgba(20,10,4,0.6)] backdrop-blur transition-colors hover:bg-deep md:left-4"
+          className="absolute left-1 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-ivory/50 bg-deep/85 text-ivory shadow-[0_10px_30px_-8px_rgba(20,10,4,0.6)] backdrop-blur transition-colors hover:bg-deep md:left-4 md:grid"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M10 3 5 8l5 5" stroke="currentColor" strokeWidth="1.4" />
@@ -140,7 +140,7 @@ export default function CoverFlowGallery() {
           type="button"
           onClick={() => go(1)}
           aria-label="Next photograph"
-          className="absolute right-1 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-ivory/50 bg-deep/85 text-ivory shadow-[0_10px_30px_-8px_rgba(20,10,4,0.6)] backdrop-blur transition-colors hover:bg-deep md:right-4"
+          className="absolute right-1 top-1/2 z-30 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-ivory/50 bg-deep/85 text-ivory shadow-[0_10px_30px_-8px_rgba(20,10,4,0.6)] backdrop-blur transition-colors hover:bg-deep md:right-4 md:grid"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="m6 3 5 5-5 5" stroke="currentColor" strokeWidth="1.4" />
@@ -250,10 +250,6 @@ export default function CoverFlowGallery() {
             </button>
           ))}
         </div>
-
-        <p className="mt-5 text-center text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-stone">
-          Drag, swipe or use ← →
-        </p>
       </div>
     </section>
   );

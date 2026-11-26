@@ -168,7 +168,7 @@ export default function BookingPopup() {
 
       <div className="relative max-h-[calc(100svh-2rem)] w-full max-w-[24rem] overflow-y-auto rounded-md border border-walnut/40 bg-paper shadow-[0_30px_80px_rgba(20,24,21,0.5)]">
         <button type="button" onClick={() => setOpen(false)} aria-label="Close"
-          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center border border-line text-ink/65 transition-colors hover:border-ink hover:text-ink">
+          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center border border-ink/45 text-ink/65 transition-colors hover:border-ink hover:text-ink">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M2 2 12 12M12 2 2 12" stroke="currentColor" strokeWidth="1.4" />
           </svg>
@@ -227,14 +227,21 @@ export default function BookingPopup() {
             </Field>
 
             <Field label="Travel date" htmlFor="popup-date" error={errors.travelDate}>
-              <input
-                id="popup-date"
-                type="date"
-                value={travelDate}
-                onChange={(e) => setTravelDate(e.target.value)}
-                aria-invalid={Boolean(errors.travelDate)}
-                className="w-full bg-transparent py-2 text-[0.95rem] outline-none"
-              />
+              <div className="relative w-full">
+                <input
+                  id="popup-date"
+                  type="date"
+                  value={travelDate}
+                  onChange={(e) => setTravelDate(e.target.value)}
+                  aria-invalid={Boolean(errors.travelDate)}
+                  className={`w-full bg-transparent py-2 text-[0.95rem] outline-none ${travelDate ? "" : "date-empty"}`}
+                />
+                {!travelDate && (
+                  <span aria-hidden="true" className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 text-[0.95rem] text-ink/50 md:hidden">
+                    Add a date
+                  </span>
+                )}
+              </div>
             </Field>
 
             {/* Honeypot */}
@@ -284,7 +291,7 @@ function Field({
   prefix?: string;
 }) {
   return (
-    <div className={`border px-3 pb-2 pt-2 ${error ? "border-clay" : "border-line focus-within:border-clay"}`}>
+    <div className={`border px-3 pb-2 pt-2 ${error ? "border-clay" : "border-ink/45 focus-within:border-crimson"}`}>
       <label htmlFor={htmlFor} className="sr-only">{label}</label>
       <div className="flex items-center gap-2">
         {prefix ? (

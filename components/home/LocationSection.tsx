@@ -125,15 +125,6 @@ export default function LocationSection() {
                     }
               }
             >
-              <div className="flex items-center justify-between pb-4">
-                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-ink/75">
-                  Route sketch
-                </span>
-                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-ink/75">
-                  Not to scale
-                </span>
-              </div>
-
               <svg
                 viewBox="0 0 560 520"
                 className="w-full"
